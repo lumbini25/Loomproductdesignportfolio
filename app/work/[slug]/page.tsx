@@ -313,7 +313,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
             </div>
 
             {study.facts.length > 0 && (
-              <dl className="grid grid-cols-1 gap-x-8 gap-y-5 rounded-card bg-surface-subtle p-6 tablet:grid-cols-2 desktop:grid-cols-4">
+              <dl className="fit-4 grid grid-cols-4 gap-x-8 gap-y-5 rounded-card bg-surface-subtle p-6">
                 {study.facts.map((f) => (
                   <div key={f.label} className="flex flex-col gap-1">
                     <dt className="font-serif text-caption-m font-medium uppercase text-accent">{f.label}</dt>

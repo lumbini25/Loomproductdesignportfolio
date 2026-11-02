@@ -19,6 +19,47 @@ from there.
   (Oct entry below). It is an unlicensed preview. The fix is the licensed download, under the same
   file name, or a different image. TODO: replace before launch.
 
+### 2026-11-02 — Key decision screens follow the updated 286:368
+**Decided by:** Lumbini, who updated the frame after the first build. Both option screens are now whole
+phones, 450 wide with a 48 gap, left-aligned, instead of cropped and spread to the edges.
+
+### 2026-11-02 — Card radius: 16 large, 12 small, 8 nested
+**Decided by:** Lumbini, sizes by Claude ("for large cards make it 16px and for small cards make it 8px
+and 12px, judgement is yours"). Set in the tokens: `radius-card` and `radius-featured` 16,
+`radius-media` and `radius-featured-media` 12, new `radius-card-sm` 8 for cards nested in a card. The
+Knowunity option cards and task flow board are large; findings are small; flow cards and lane
+steps are nested. In scaled rows below 834 they step down to 12 and 8. Buttons, tags, pills, phone
+bezels and the About portrait are not cards and do not change. TODO: Figma's radius/card is still 24.
+
+### 2026-11-02 — Rows keep their columns at every width; Knowunity usability test and key decision
+**Decided by:** Lumbini ("apply the same principle across the portfolio"; Figma 287:213 and 286:368).
+- **Reversal of** stacking on phones in the case studies. Rows of like items (cards, stats, images,
+  steps, lanes, panels) keep their column count at every width. `.fit-N` scales type, spacing and
+  radius with the screen. Text there goes below the 14px phone rule: 10px in three columns, 8px in four,
+  7px in five, at 390.
+- Not changed: text beside a visual stacks on phones, because it is one reading order. Home, About
+  and Fun keep the phone layouts Lumbini drew in 336:1768 and 408:2363.
+- Knowunity order follows the Figma page: Exploration, Usability test, Key decision, Final designs.
+  Both are rebuilt from Figma, and all eight findings show without a toggle. The red "TO CONFIRM" line
+  in 287:213 is a dev-only note, not page copy.
+- Figma: section colours in both frames are bound to Semantic variables. New
+  `Greyscale/border/subtle` (#dcd8d4) for card outlines. App screens are left as they are, because
+  those are Knowunity's colours.
+
+### 2026-11-02 — Task flow board is four columns at every width; summary cards removed
+**Decided by:** Lumbini ("you should have 4 column layout for all screen sizes, for smaller screen
+sizes scale that down appropriately"; "remove the 4 white boxes below it").
+- **Reversal of** two columns on phones in the entries below. The board is sized in em from one
+  value: 14px text at 562px wide and up, down to 7px at 358px. Phone text there is under the 14px rule
+  and is the board's own exception.
+- The four summary cards are gone, so the section is the board and its caption.
+
+### 2026-11-02 — Task flow board is four columns from 834
+**Decided by:** Lumbini ("still in the 2 column style, make it exactly look like Figma, all in one
+row"). The board and summary cards are one row of four from 834, as in 286:337, and the legend sits
+under the title again. **Extends** the 14px exception below to 834. Phones stay two columns: four
+across at 390 leaves each card under 80px wide.
+
 ### 2026-11-02 — Task flow board is compact from 1200
 **Decided by:** Lumbini ("looks really big in MacBook Pro screen"). From 1200 the board keeps four
 columns but its card text is 14px, with tighter padding and the legend beside the title, so it fits

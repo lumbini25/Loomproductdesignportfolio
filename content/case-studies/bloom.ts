@@ -252,7 +252,8 @@ export const bloom: CaseStudy = {
           paragraphs: [
             "I explored six logos, three script and three sans. Twelve participants chose the one that felt most welcoming. Nine picked option 3, a lowercase wordmark with a small daisy. Participants called the daisy friendly and human.",
           ],
-          image: img("brand-logo.png", 1424, 870, "Six logo options for Bloom & Heal in script and sans faces; option 3, a lowercase \"bloom&heal\" wordmark with a small daisy in Nunito Sans Bold, is marked Selected."),
+          // The image draws its own card to the edge, so the frame must not round it.
+          image: { ...img("brand-logo.png", 1424, 870, "Six logo options for Bloom & Heal in script and sans faces; option 3, a lowercase \"bloom&heal\" wordmark with a small daisy in Nunito Sans Bold, is marked Selected."), fit: "contain" },
         },
         {
           kind: "split",

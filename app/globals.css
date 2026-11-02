@@ -129,10 +129,12 @@
   /* Radius: Figma semantic radius tokens. */
   --radius-tag: 6px; /* radius/tag */
   --radius-control: 10px; /* radius/control/md */
-  --radius-card: 24px; /* radius/card */
-  --radius-media: 16px; /* radius/16 */
-  --radius-featured: 28px; /* TODO: no Figma token; featured block */
-  --radius-featured-media: 20px; /* TODO: no Figma token; featured thumbnail */
+  /* Cards, Lumbini 2026-11-02: 16 large, 12 small, 8 nested. TODO: Figma radius/card is still 24. */
+  --radius-card: 16px; /* radius/card */
+  --radius-media: 12px; /* small cards and media inside a card */
+  --radius-card-sm: 8px; /* TODO: no Figma token; cards nested in a card */
+  --radius-featured: 16px; /* TODO: no Figma token; featured block */
+  --radius-featured-media: 12px; /* TODO: no Figma token; featured thumbnail */
   --radius-portrait: 32px; /* TODO: no Figma token; About photo */
   --radius-pill: 9999px; /* TODO: no Figma token; interest chips */
   --radius-phone: 32px; /* TODO: no Figma token; phone screenshots in case studies */
@@ -411,6 +413,206 @@
   .case-study .font-serif {
     font-family: var(--font-heading);
   }
+}
+
+/* A row of like items keeps its columns at every width and scales down (Lumbini, 2026-11-02).
+   .fit-N is on a row of N columns. Below 1400 it re-points the type, radius and spacing tokens for
+   everything inside it, so a block needs no phone styles of its own. Sizes follow the screen below
+   834, measured at 390. The column only reaches its full 1096px at 1400. */
+@media (max-width: 1399px) {
+  .fit-3,
+  .fit-4,
+  .fit-5 {
+    --radius-card: 12px;
+    --radius-media: 8px;
+    --radius-control: 6px;
+    overflow-wrap: anywhere;
+    --text-body-m: var(--fit-body);
+    --text-body-m--line-height: 1.35;
+    --text-body-s: var(--fit-body);
+    --text-body-s--line-height: 1.35;
+    --text-mobile-body-1: var(--fit-body);
+    --text-mobile-body-1--line-height: 1.35;
+    --text-body-semibold-s: var(--fit-body);
+    --text-body-semibold-s--line-height: 1.35;
+    --text-subtitle-s: var(--fit-body);
+    --text-subtitle-s--line-height: 1.35;
+    --text-title-xs: var(--fit-title);
+    --text-title-xs--line-height: 1.3;
+    --text-title-s: var(--fit-title);
+    --text-title-s--line-height: 1.3;
+    --text-title-m: var(--fit-title);
+    --text-title-m--line-height: 1.3;
+    --text-h3-sm: var(--fit-title);
+    --text-h3-sm--line-height: 1.3;
+    --text-h3: var(--fit-title);
+    --text-h3--line-height: 1.3;
+    --text-caption-m: var(--fit-label);
+    --text-caption-m--line-height: 1.3;
+  }
+  .fit-3 {
+    --fit-body: 16px;
+    --fit-title: 18px;
+    --fit-label: 12px;
+  }
+  .fit-4,
+  .fit-5 {
+    --fit-body: 14px;
+    --fit-title: 16px;
+    --fit-label: 10px;
+    --spacing: 3px;
+  }
+}
+
+@media (max-width: 833px) {
+  .fit-2,
+  .fit-3,
+  .fit-4,
+  .fit-5 {
+    --fit-unit: calc(100vw / 390);
+    --radius-card: 12px;
+    --radius-media: 8px;
+    --radius-control: 6px;
+    overflow-wrap: anywhere;
+    --text-body-m: var(--fit-body);
+    --text-body-m--line-height: 1.35;
+    --text-body-s: var(--fit-body);
+    --text-body-s--line-height: 1.35;
+    --text-mobile-body-1: var(--fit-body);
+    --text-mobile-body-1--line-height: 1.35;
+    --text-body-semibold-s: var(--fit-body);
+    --text-body-semibold-s--line-height: 1.35;
+    --text-subtitle-s: var(--fit-body);
+    --text-subtitle-s--line-height: 1.35;
+    --text-title-xs: var(--fit-title);
+    --text-title-xs--line-height: 1.3;
+    --text-title-s: var(--fit-title);
+    --text-title-s--line-height: 1.3;
+    --text-title-m: var(--fit-title);
+    --text-title-m--line-height: 1.3;
+    --text-h3-sm: var(--fit-title);
+    --text-h3-sm--line-height: 1.3;
+    --text-h3: var(--fit-title);
+    --text-h3--line-height: 1.3;
+    --text-caption-m: var(--fit-label);
+    --text-caption-m--line-height: 1.3;
+  }
+  .fit-2 {
+    --fit-body: calc(14 * var(--fit-unit));
+    --fit-title: calc(16 * var(--fit-unit));
+    --fit-label: calc(9 * var(--fit-unit));
+    --spacing: calc(2 * var(--fit-unit));
+  }
+  .fit-3 {
+    --fit-body: calc(10 * var(--fit-unit));
+    --fit-title: calc(11 * var(--fit-unit));
+    --fit-label: calc(7 * var(--fit-unit));
+    --spacing: calc(1.5 * var(--fit-unit));
+  }
+  .fit-4 {
+    --fit-body: calc(8 * var(--fit-unit));
+    --fit-title: calc(9 * var(--fit-unit));
+    --fit-label: calc(6 * var(--fit-unit));
+    --spacing: var(--fit-unit);
+  }
+  .fit-5 {
+    --fit-body: calc(7 * var(--fit-unit));
+    --fit-title: calc(8 * var(--fit-unit));
+    --fit-label: calc(5.5 * var(--fit-unit));
+    --spacing: calc(0.8 * var(--fit-unit));
+  }
+}
+
+/* Knowunity task flow board: four columns at every width (Lumbini, 2026-11-02). Everything is in
+   em, so the whole board scales from one size: 14px at 562px wide and up, down to 7px at 358px. */
+.flow-board-frame {
+  container-type: inline-size;
+}
+
+.flow-board {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+  font-size: clamp(7px, calc(7px + (100cqw - 358px) * 0.0343), 14px);
+  line-height: 1.3;
+}
+
+.flow-board-title {
+  font-size: 1.7em;
+}
+
+.flow-board-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em 1.5em;
+}
+
+.flow-board-legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 0.86em;
+}
+
+.flow-board-legend span {
+  width: 0.8em;
+  height: 0.8em;
+}
+
+.flow-board-columns {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start;
+  gap: 0.6em;
+}
+
+.flow-board-columns > li {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.6em;
+}
+
+.flow-board-columns h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 1.1em;
+}
+
+.flow-board-columns h4 span {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.7em;
+  height: 1.7em;
+  font-size: 0.86em;
+}
+
+.flow-board-columns ol > li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flow-board-line {
+  width: 1px;
+  height: 0.6em;
+}
+
+.flow-board-card {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.2em;
+  padding: 0.7em;
+  overflow-wrap: anywhere;
+}
+
+.flow-board-tag {
+  font-size: 0.86em;
 }
 
 /* Project themes (Lumbini, 2026-10-28): a case study can carry its own product colours. Inside

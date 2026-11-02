@@ -75,15 +75,14 @@ export type Block =
     }
   // A comparison table: one column per product, one row per dimension.
   | { kind: "matrix"; columns: string[]; rows: { label: string; cells: string[] }[]; caption?: string }
-  // Figma 286:337: a dark board of step cards in four columns, its caption, then a summary card per
-  // column. Each column's tone colours its number and tags.
+  // Figma 286:337: a dark board of step cards in four columns at every width, then its caption.
+  // Each column's tone colours its number and tags.
   | {
       kind: "flowBoard";
       title: string;
       legend: { tone: FlowTone; label: string }[];
       columns: { title: string; tone: FlowTone; cards: { tag: string; title: string; body: string }[] }[];
       caption?: string;
-      summary: { title: string; items: string[] }[];
     }
   // A flow drawn as lanes of steps, left to right.
   | { kind: "lanes"; lanes: { title: string; summary: string; steps: string[] }[]; flags?: string[]; caption?: string }
@@ -108,11 +107,18 @@ export type Block =
     }
   // `look: "box"`: the quote on a filled box instead of beside a rule. "rules": large, centred
   // between two rules, for a "How might we" line.
-  | { kind: "quote"; text: string; cite?: string; look?: "box" | "rules" }
+  | { kind: "quote"; text: string; cite?: string; look?: "box" | "rules" | "title" }
   // A small label over one large line, as the Framer pages set "Design challenge".
   // `look: "large"`: the line at heading size (40px), as the WTV Figma frame sets "Overview".
   // `look: "compact"`: the line at body size (20px), as Anewvista's decision rows set "Why it matters".
   | { kind: "statement"; label: string; text: string; look?: "large" | "compact" }
+  // A row of screens at set widths (% of the column). Never stacks. They spread edge to edge, or
+  // sit left with `gap` (% of the column) between them.
+  | { kind: "screens"; images: Img[]; widths: number[]; gap?: number; caption?: string }
+  // Numbered outlined cards in rows of four, body text only (Knowunity, Figma 287:176).
+  | { kind: "findings"; heading: string; items: string[] }
+  // Outlined cards side by side: label, title, then a line or bullets (Knowunity, Figma 286:348).
+  | { kind: "options"; items: { label: string; title: string; body?: string; bullets?: string[] }[] }
   | { kind: "panel"; columns: { title: string; items: string[] }[]; caption?: string }
   | { kind: "cycle"; steps: { title: string; body: string }[]; caption?: string }
   | { kind: "flow"; steps: string[]; notes: string[]; caption?: string }

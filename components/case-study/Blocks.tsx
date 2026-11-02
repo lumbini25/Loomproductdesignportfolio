@@ -157,8 +157,8 @@ const flowToneFill: Record<FlowTone, string> = {
 
 const wideCols: Record<number, string> = {
   1: "grid-cols-1",
-  2: "grid-cols-1 tablet:grid-cols-2 tablet:items-start",
-  3: "grid-cols-1 tablet:grid-cols-3 tablet:items-start",
+  2: "fit-2 grid-cols-2 items-start",
+  3: "fit-3 grid-cols-3 items-start",
 };
 
 export function BlockView({ block }: { block: Block }) {
@@ -206,8 +206,8 @@ export function BlockView({ block }: { block: Block }) {
 
     case "feature":
       return (
-        <div className="grid grid-cols-1 items-center gap-6 tablet:grid-cols-2 tablet:gap-12">
-          <PhoneFrame className={block.side === "right" ? "tablet:order-2" : ""}>
+        <div className="fit-2 grid grid-cols-2 items-center gap-6 tablet:gap-12">
+          <PhoneFrame className={block.side === "right" ? "order-2" : ""}>
             <PortraitVideo video={block.video} />
           </PhoneFrame>
           <div className="flex flex-col gap-3">
@@ -232,7 +232,7 @@ export function BlockView({ block }: { block: Block }) {
           {/* Capped at 560px and 70% of the screen height, so a near-square visual stays a
               supporting image when the columns stack (2026-10-28). */}
           <div className="w-full" style={{ maxWidth: `min(560px, calc(70svh * ${block.image.width / block.image.height}))` }}>
-            <Picture image={block.image} sizes="(min-width: 1200px) 560px, (min-width: 834px) 560px, calc(100vw - 32px)" className="rounded-card" />
+            <Picture image={block.image} sizes="(min-width: 1200px) 560px, (min-width: 834px) 560px, calc(100vw - 32px)" className={block.image.fit === "contain" ? "" : "rounded-card"} />
             {block.caption && <figcaption className="mt-3 max-w-[70ch] font-jakarta text-body-s text-caption">{block.caption}</figcaption>}
           </div>
         </figure>
@@ -276,7 +276,7 @@ export function BlockView({ block }: { block: Block }) {
     case "phones":
       return (
         <figure>
-          <div className="flex flex-col gap-8 tablet:flex-row tablet:items-start">
+          <div className="fit-2 flex flex-row items-start gap-8">
             <PhoneFrame className="min-w-0 flex-1">
               {block.images.map((img) => (
                 <PortraitImage key={img.src} image={img} frame="rounded-phone border border-line" />
@@ -363,7 +363,7 @@ export function BlockView({ block }: { block: Block }) {
       return (
         <figure>
           <WideFigure>
-          <ul className="grid grid-cols-1 gap-8 tablet:grid-cols-2">
+          <ul className="fit-2 grid grid-cols-2 gap-8">
             {block.pairs.map((pair) => (
               <li key={pair.after.src} className="grid grid-cols-2 items-start gap-3 rounded-card bg-surface-subtle p-4">
                 {(["before", "after"] as const).map((side) => (
@@ -410,7 +410,7 @@ export function BlockView({ block }: { block: Block }) {
     case "tiles":
       if (block.look === "sky")
         return (
-          <ul className="grid grid-cols-1 gap-4 tablet:grid-cols-2 tablet:gap-x-28 tablet:gap-y-14">
+          <ul className="fit-2 grid grid-cols-2 gap-4 tablet:gap-x-28 tablet:gap-y-14">
             {block.items.map((item) => (
               <li key={item} className="rounded-media border border-line bg-surface p-4 text-title-s font-bold text-title">
                 {item}
@@ -457,12 +457,12 @@ export function BlockView({ block }: { block: Block }) {
       const numbered = block.numbered || block.look === "rows";
       const List = numbered || block.label ? "ol" : "ul";
       const n = block.items.length;
-      const cols = n === 5 ? "tablet:grid-cols-2 desktop:grid-cols-5" : n === 3 ? "tablet:grid-cols-2 desktop:grid-cols-3" : "tablet:grid-cols-2";
+      const cols = n === 5 ? "fit-5 grid-cols-5" : n === 3 ? "fit-3 grid-cols-3" : "fit-2 grid-cols-2";
       return (
         <div className="flex flex-col gap-4">
           {block.label && block.look !== "boxes" && <Eyebrow>{block.label}</Eyebrow>}
           {block.heading && <h3 className="font-jakarta text-title-xs font-bold">{block.heading}</h3>}
-          <List className={`grid grid-cols-1 gap-4 ${cols}`}>
+          <List className={`grid gap-4 ${cols}`}>
             {block.items.map((item, i) => {
               const steps = block.look === "boxes" && block.label;
               const labelOnly = block.look === "boxes" && !numbered && !block.label;
@@ -507,6 +507,13 @@ export function BlockView({ block }: { block: Block }) {
             <blockquote className="text-h3-sm font-bold text-title tablet:text-h3">{block.text}</blockquote>
           </figure>
         );
+      if (block.look === "title")
+        return (
+          <figure>
+            <blockquote className="font-jakarta text-title-s font-bold text-title">“{block.text}”</blockquote>
+            {block.cite && <figcaption className="mt-3 font-dm text-body-semibold-s font-semibold text-caption">{block.cite}</figcaption>}
+          </figure>
+        );
       if (block.look === "box")
         return (
           <figure className="rounded-card bg-surface-subtle p-6">
@@ -542,7 +549,7 @@ export function BlockView({ block }: { block: Block }) {
     case "panel":
       return (
         <figure>
-          <div className="grid grid-cols-1 gap-4 tablet:grid-cols-2">
+          <div className="fit-2 grid grid-cols-2 gap-4">
             {block.columns.map((col) => (
               <div key={col.title} className="rounded-card bg-surface-subtle p-6">
                 <h3 className="font-jakarta text-title-xs font-bold">{col.title}</h3>
@@ -561,14 +568,14 @@ export function BlockView({ block }: { block: Block }) {
     case "cycle":
       return (
         <figure>
-          <ol className="flex flex-col gap-3 tablet:flex-row tablet:items-stretch">
+          <ol className="fit-4 flex flex-row items-stretch gap-3">
             {block.steps.map((step, i) => (
-              <li key={step.title} className="flex flex-col gap-3 tablet:flex-1 tablet:flex-row tablet:items-center">
+              <li key={step.title} className="flex min-w-0 flex-1 flex-row items-center gap-3">
                 <div className="flex-1 rounded-card bg-surface-subtle p-5">
                   <p className="font-jakarta text-title-xs font-bold">{step.title}</p>
                   <p className="mt-1 font-jakarta text-body-s text-caption">{step.body}</p>
                 </div>
-                <ArrowRightIcon size={20} className="shrink-0 rotate-90 self-center text-caption tablet:rotate-0" />
+                <ArrowRightIcon size={20} className="size-[1em] shrink-0 self-center text-caption tablet:size-5" />
                 {i === block.steps.length - 1 && <span className="sr-only">then back to the first step</span>}
               </li>
             ))}
@@ -606,7 +613,7 @@ export function BlockView({ block }: { block: Block }) {
     case "stats":
       return (
         <figure>
-          <dl className="grid grid-cols-1 gap-4 tablet:grid-cols-3">
+          <dl className="fit-3 grid grid-cols-3 gap-4">
             {/* One number style on every case study (2026-10-29): a filled card. */}
             {block.items.map((s) => (
               // Figma 223:2793 finding card: Plus Jakarta Bold 40/48 number over a DM Sans SemiBold
@@ -674,39 +681,86 @@ export function BlockView({ block }: { block: Block }) {
         </figure>
       );
 
-    case "flowBoard":
+    case "screens":
       return (
-        <div className="flex flex-col gap-8">
-          <figure>
-            <div className="flex flex-col gap-5 rounded-media bg-flow-board tablet:gap-8 p-3 text-on-inverse tablet:p-10 desktop:gap-5 desktop:p-6">
-              <div className="flex flex-col gap-5 desktop:flex-row desktop:items-center desktop:justify-between">
-                <h3 className="text-title-s font-bold desktop:text-h1-mobile">{block.title}</h3>
-                <ul className="flex flex-wrap gap-x-6 gap-y-2">
-                  {block.legend.map((item) => (
-                    <li key={item.label} className="flex items-center gap-2 text-caption-m font-bold uppercase text-on-inverse/70">
-                      <span aria-hidden="true" className={`size-2.5 rounded-pill ${flowToneFill[item.tone]}`} />
-                      {item.label}
-                    </li>
+        <figure>
+          <div className={`flex items-start ${block.gap ? "" : "justify-between"}`} style={block.gap ? { columnGap: `${block.gap}%` } : undefined}>
+            {block.images.map((img, i) => (
+              <div key={img.src} style={{ width: `${block.widths[i]}%` }}>
+                <Image src={img.src} alt={img.alt} width={img.width} height={img.height} sizes={`(min-width: 1200px) ${Math.round(block.widths[i] * 11)}px, ${Math.round(block.widths[i])}vw`} className="h-auto w-full" />
+              </div>
+            ))}
+          </div>
+          <Caption>{block.caption}</Caption>
+        </figure>
+      );
+
+    case "findings":
+      return (
+        <div className="flex flex-col gap-4">
+          <h3 className="font-jakarta text-title-xs font-bold">{block.heading}</h3>
+          <ol className="fit-4 grid grid-cols-4 gap-4">
+            {block.items.map((item, i) => (
+              <li key={item} className="flex min-w-0 flex-col gap-2.5 rounded-media border border-line bg-surface p-6">
+                <Eyebrow>{String(i + 1).padStart(2, "0")}</Eyebrow>
+                <p className="text-body-m text-caption">{item}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      );
+
+    case "options":
+      return (
+        <ul className="fit-2 grid grid-cols-2 gap-4">
+          {block.items.map((item) => (
+            <li key={item.label} className="flex min-w-0 flex-col gap-2.5 rounded-card border border-line bg-surface p-6">
+              <Eyebrow>{item.label}</Eyebrow>
+              <h3 className="text-title-s font-bold text-title">{item.title}</h3>
+              {item.body && <p className="text-body-m text-caption">{item.body}</p>}
+              {item.bullets && (
+                <ul className="list-disc pl-5 text-body-m text-caption">
+                  {item.bullets.map((bullet) => (
+                    <li key={bullet}>{bullet}</li>
                   ))}
                 </ul>
-              </div>
-              <ol className="grid grid-cols-2 items-start gap-x-2 gap-y-6 tablet:gap-8 desktop:grid-cols-4 desktop:gap-4">
+              )}
+            </li>
+          ))}
+        </ul>
+      );
+
+    case "flowBoard":
+      return (
+        <figure>
+          <div className="flow-board-frame">
+            <div className="flow-board rounded-card bg-flow-board text-on-inverse">
+              <h3 className="flow-board-title font-bold">{block.title}</h3>
+              <ul className="flow-board-legend">
+                {block.legend.map((item) => (
+                  <li key={item.label} className="font-bold uppercase text-on-inverse/70">
+                    <span aria-hidden="true" className={`rounded-pill ${flowToneFill[item.tone]}`} />
+                    {item.label}
+                  </li>
+                ))}
+              </ul>
+              <ol className="flow-board-columns">
                 {block.columns.map((col, i) => (
-                  <li key={col.title} className="flex min-w-0 flex-col gap-2 tablet:gap-4 desktop:gap-3">
-                    <h4 className="flex items-center gap-2 text-body-semibold-s font-bold tablet:gap-3 tablet:text-h3-mobile">
-                      <span aria-hidden="true" className={`flex size-6 shrink-0 items-center justify-center rounded-pill text-body-s text-flow-board tablet:size-7 ${flowToneFill[col.tone]}`}>
+                  <li key={col.title}>
+                    <h4 className="font-bold">
+                      <span aria-hidden="true" className={`rounded-pill text-flow-board ${flowToneFill[col.tone]}`}>
                         {i + 1}
                       </span>
                       {col.title}
                     </h4>
-                    <ol className="flex flex-col">
+                    <ol>
                       {col.cards.map((card, j) => (
-                        <li key={card.title} className="flex flex-col items-center">
-                          {j > 0 && <span aria-hidden="true" className="h-2 w-px bg-flow-line tablet:h-[18px] desktop:h-2" />}
-                          <div className="flex w-full flex-col gap-1.5 rounded-media border border-flow-line bg-flow-card p-2.5 [overflow-wrap:anywhere] tablet:p-4 desktop:gap-1 desktop:p-3">
-                            <p className={`text-caption-m font-bold uppercase ${flowToneText[col.tone]}`}>{card.tag}</p>
-                            <p className="text-body-semibold-s font-bold tablet:text-h3-mobile desktop:text-body-semibold-s">{card.title}</p>
-                            <p className="text-body-s text-on-inverse/70 desktop:text-mobile-body-1">{card.body}</p>
+                        <li key={card.title}>
+                          {j > 0 && <span aria-hidden="true" className="flow-board-line bg-flow-line" />}
+                          <div className="flow-board-card rounded-card-sm border border-flow-line bg-flow-card">
+                            <p className={`flow-board-tag font-bold uppercase ${flowToneText[col.tone]}`}>{card.tag}</p>
+                            <p className="font-bold">{card.title}</p>
+                            <p className="text-on-inverse/70">{card.body}</p>
                           </div>
                         </li>
                       ))}
@@ -715,27 +769,15 @@ export function BlockView({ block }: { block: Block }) {
                 ))}
               </ol>
             </div>
-            <Caption>{block.caption}</Caption>
-          </figure>
-          <ol className="grid grid-cols-2 gap-2 tablet:gap-4 desktop:grid-cols-4">
-            {block.summary.map((card, i) => (
-              <li key={card.title} className="flex min-w-0 flex-col gap-2.5 rounded-media border border-line bg-surface p-3 [overflow-wrap:anywhere] tablet:p-6">
-                <Eyebrow>{`${i + 1}  ${card.title}`}</Eyebrow>
-                <ul className="list-disc pl-4 text-body-m text-caption tablet:pl-5">
-                  {card.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ol>
-        </div>
+          </div>
+          <Caption>{block.caption}</Caption>
+        </figure>
       );
 
     case "lanes":
       return (
         <figure>
-          <ol className="grid grid-cols-1 gap-4 tablet:grid-cols-2 desktop:grid-cols-4">
+          <ol className="fit-4 grid grid-cols-4 gap-4">
             {block.lanes.map((lane) => (
               <li key={lane.title} className="flex flex-col gap-3 rounded-card bg-surface-subtle p-5">
                 <div>
@@ -745,7 +787,7 @@ export function BlockView({ block }: { block: Block }) {
                 <ol className="flex flex-col gap-1.5">
                   {lane.steps.map((step, i) => (
                     <li key={step} className="flex flex-col items-start gap-1.5">
-                      <span className="w-full rounded-control border border-line bg-surface px-3 py-2 font-jakarta text-body-s font-medium text-title">
+                      <span className="w-full rounded-card-sm border border-line bg-surface px-3 py-2 font-jakarta text-body-s font-medium text-title">
                         {step}
                       </span>
                       {i < lane.steps.length - 1 && (
@@ -758,7 +800,7 @@ export function BlockView({ block }: { block: Block }) {
             ))}
           </ol>
           {block.flags && (
-            <ul className="mt-4 grid grid-cols-1 gap-3 tablet:grid-cols-2">
+            <ul className="fit-2 mt-4 grid grid-cols-2 gap-3">
               {block.flags.map((f) => (
                 <li key={f} className="rounded-card border-2 border-dashed border-line p-4 font-jakarta text-body-s text-caption">
                   <Rich text={f} />
@@ -922,7 +964,7 @@ export function BlockView({ block }: { block: Block }) {
               ))}
               {block.steps && (
                 <figure className="flex w-full flex-col gap-3">
-                  <ol className="grid grid-cols-1 gap-3 tablet:grid-cols-3">
+                  <ol className="fit-3 grid grid-cols-3 gap-3">
                     {block.steps.map((st) => (
                       <li key={st.title} className="rounded-media border border-on-inverse/15 p-4">
                         <p className="font-bold">{st.title}</p>
@@ -951,7 +993,7 @@ export function BlockView({ block }: { block: Block }) {
               </ul>
             </div>
           </div>
-          <ul className="grid grid-cols-1 gap-6 tablet:grid-cols-2">
+          <ul className="fit-2 grid grid-cols-2 gap-6">
             {block.cards.map((c) => (
               <li key={c.title} className="flex flex-col gap-4 rounded-card border border-on-inverse/15 bg-on-inverse/5 p-4 tablet:p-5">
                 {c.image && (
