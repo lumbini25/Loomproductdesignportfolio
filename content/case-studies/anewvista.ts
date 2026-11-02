@@ -447,10 +447,11 @@ export const anewvista: CaseStudy = {
       heading: "From the landing page to the Zoom link, in one flow",
       blocks: [
         {
-          // Edited from ~/Desktop/Anewvista Case study/Class booking flow video.mov. Click to play.
+          // Edited from ~/Desktop/Anewvista Case study/Class booking flow video.mov.
           kind: "video",
           video: {
             src: `${dir}/class-booking-flow.mp4`,
+            autoplay: true,
             poster: `${dir}/class-booking-flow-poster.jpg`,
             width: 1600,
             height: 900,

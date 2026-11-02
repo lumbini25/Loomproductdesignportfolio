@@ -147,7 +147,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
   };
 
   return (
-    <article className={study.theme ? `theme-${study.theme}` : undefined}>
+    <article className={`case-study ${study.theme ? `theme-${study.theme}` : ""}`}>
       {/* A project-coloured opening starts right under the site header (Lumbini, 2026-10-28);
           Work in the header still leads back. */}
       {!study.opening && (
@@ -228,7 +228,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
                 {study.facts.map((f) => (
                   <div key={f.label} className="flex flex-col gap-1.5">
                     <dt className="font-jakarta text-caption-m font-medium uppercase text-caption">{f.label}</dt>
-                    <dd className="text-subtitle-s font-semibold text-subtitle">{f.value}</dd>
+                    <dd className="text-subtitle-s font-semibold text-subtitle max-tablet:text-body-semibold-s">{f.value}</dd>
                   </div>
                 ))}
               </dl>

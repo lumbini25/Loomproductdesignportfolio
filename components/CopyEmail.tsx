@@ -20,7 +20,7 @@ export function CopyEmail({ email }: { email: string }) {
 
   return (
     <>
-      <button type="button" onClick={copy} className={buttonClasses("primary")}>
+      <button type="button" onClick={copy} className={buttonClasses("primary", "max-tablet:min-h-11 max-tablet:p-2 max-tablet:font-dm max-tablet:text-mobile-body-1 max-tablet:font-normal")}>
         {status === "copied" ? contact.copiedLabel : contact.copyLabel}
       </button>
       <span role="status" className="sr-only">

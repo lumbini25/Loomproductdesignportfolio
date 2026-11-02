@@ -8,6 +8,90 @@ from there.
 
 ---
 
+### 2026-11-02 — Case-study body text is DM Sans
+**Decided by:** Lumbini ("check all case study body texts, and fix it"). An audit of all five at 1440
+and 390 found body text in Nunito Sans and Plus Jakarta. Figma uses DM Sans for body and Plus Jakarta
+for headings and numbers. `.case-study` now sets that once, for every block. Desktop sizes are
+unchanged. On phones all body text is Mobile Body1, including statements, leads, quotes and the dark
+panel, so those drop from 20 to 14. The facts row is Body Semibold S. This also replaces the note
+below about Nunito.
+
+### 2026-11-02 — Phone text uses Figma's mobile styles, site-wide
+**Decided by:** Lumbini ("you did not use 14px regular body text and other text style I created in
+Figma for mobile"). The styles had changed since the frames were first read: Mobile Body1 is DM Sans
+Regular 14 with auto line height, not SemiBold 12. **Replaces** the phone sizes in the three entries
+below, including 12px on Fun.
+- Below 834, in the type scale, so every page gets them: body is Mobile Body1 (14 Regular), headings H1
+  Mobile (20 Bold), labels Caption Mobile (9, Plus Jakarta SemiBold). Chips and links are Body Semibold
+  S, Writing and the Fun card titles Title 1 Bold (24), buttons Button Mobile.
+- Mobile Body2 (SemiBold 10) is not used, although 336:1768 still sets the story in it: Lumbini chose
+  14px body text. CLAUDE.md's 16px rule now says 14px on phones.
+- Case-study paragraphs without `font-dm` take the size but stay Nunito Sans.
+
+### 2026-11-02 — Every video autoplays except the two demo films; smaller phone header
+**Decided by:** Lumbini ("make all the videos of the portfolio autoplay, except the Bloom and Heal and
+Knowunity demo videos"; "I reduced the size of mobile logos and top navbar"; "follow Figma design
+exactly for fun and experiment page").
+- Autoplay added: TDK demos (3), WTV clips (3), Knowunity hint ladder, Anewvista booking flow. **Reversal
+  of** the Knowunity film's autoplay (Oct 21): it now waits for a press, as does Bloom's film. All are
+  muted, looping, with a pause control; reduced motion shows the poster. Register updated.
+  Videos load metadata only until they play, so a page does not fetch them all at once.
+- Phone header on every page: 48.6px bar, 71px logo, 24px menu icon (408:2364). Tap targets stay 44px.
+- **Reversal of** the 14px body on Fun: 12px at phone width and 14px from 834, as the frames draw it.
+  14px stays on About and the footer. The motion tile's phone screen goes back to Figma's position,
+  and from 1200 the labels are Plus Jakarta and tiles and cards are 300 and 610px tall.
+- Still not Figma's colours: body text and links on beige stay darker, for 4.5:1.
+
+### 2026-11-01 — Fun at phone width follows Figma 408:2363
+**Decided by:** Lumbini ("use this layout for phone fun and experiment screen"). **Reversal of** "three
+cards in one row at every width", for phones only: cards stack below 834, and stay in a row from 834.
+- 24px card titles, 14px body (not Figma's 12, as decided), 9px labels, 300px image tiles.
+- The talk image is back to Figma's full source: centred on phones, as in 408:2391, and shifted up
+  from 834 to keep 103:3108's crop.
+- The motion tile's phone screen is centred. Figma has it 34px right of centre, carried over from the
+  wider desktop tile.
+- `writing.png` is Figma's source image, without the word "Writing" (Lumbini: "remove the writing word").
+- Not changed: 408:2363 draws a smaller logo (71px), but the header is shared and 336:1768 keeps 130px.
+
+### 2026-11-01 — About intro: portrait and story line up
+**Decided by:** Lumbini ("fix the alignment of the image and text block"). From 1200 both columns
+share top and bottom edges, as Figma's 664px columns do, with the resume button at the bottom; the
+portrait fills the height at 1200, cropping a little at the sides. At 834 the text is about twice the
+portrait's height, so the portrait stays top-aligned and sticks while the text scrolls.
+
+### 2026-11-01 — Phone body text is 14px, not Figma's 12 and 10
+**Decided by:** Lumbini ("yes", to 14px for body text). Replaces the 10 and 12px sizes in the two
+entries below; "Mobile Body1" and "Mobile Body2" are both 14/20 in code. Still under the 16px hard
+rule, by choice. Labels stay 9px. On About the story wraps around the portrait and under it, since
+at 14px it runs far past the 290px photo. On Fun, words hyphenate in the narrow phone cards.
+
+### 2026-11-01 — Fun page follows Figma 103:3078, three cards in one row at every width
+**Decided by:** Lumbini ("all 3 cards will be in the same row for all breakpoints"). She also
+confirmed the About photo rows stay at every breakpoint, closing that TODO.
+- 1440: Plus Jakarta 40px heading, DM Sans intro and body, 395x300 image tiles, equal-height cards.
+- Three columns hold at 390 and 320 (cards about 114 and 90px wide), so phones use Figma's small
+  styles: title 12, body 10/16, label 9, under the same exception as About.
+- Body and links keep AA on beige: caption grey, and blue-600 links, not Figma's #77736f and #4473b3
+  (4.22:1 and 4.34:1). Desktop body stays 16px, not Figma's 14px.
+- New primitive `--motion-tile` #e5f2ff (no Figma token).
+- `talk.png` is re-cut from Figma's source image at its 103:3108 crop; the old file lost the name.
+
+### 2026-11-01 — About at phone width follows Figma 336:1768; text under 16px by choice
+**Decided by:** Lumbini ("in the phone screen you should follow this layout and appropriate text style
+I used in the canvas"). Tablet and desktop stay as 394:1959.
+- **Exception to the hard rule of 16px minimum body text**, on About and in the footer below 834:
+  Mobile Body2 10/16, Mobile Body1 12, Caption Mobile 9. Tokens added. Figma's named styles, used as
+  asked. Tap targets stay 44px.
+- Portrait beside the story (141x290), resume button under it on the right, "I love…" chips (back, phone
+  only), Writing in two columns, the three beliefs as plain cards with the "I value human behavior"
+  heading, in place of the accordion.
+- In Figma the story is clipped at 290px, cutting off text. Here it runs to its full height.
+- 336:1768 has no photo section. The moving photos stay on phones after the beliefs (confirmed by
+  Lumbini: "it should be in all breakpoints").
+- Chips and belief text use caption grey, not Figma's #77736f, which is 4.22:1 on beige.
+- The phone footer (338:1644) is applied site-wide, as the footer is shared. Its 9px LinkedIn label
+  stays 14px like X, since Figma's two links differ.
+
 ### 2026-11-01 — About page follows Figma 394:1959
 **Decided by:** Lumbini ("for about me page follow this design, and use slow moving carousel for all
 the images").

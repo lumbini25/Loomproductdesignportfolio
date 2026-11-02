@@ -4,7 +4,9 @@ import { expect, test, type Page } from "@playwright/test";
 test.use({ contextOptions: { reducedMotion: "no-preference" } });
 
 const topCard = (page: Page) => page.locator('[data-place="0"] img').getAttribute("src");
-const settle = (page: Page) => page.waitForTimeout(1100);
+// A press during a throw is ignored by design, so wait for the flight, not a fixed time.
+const settle = (page: Page) =>
+  page.waitForFunction(() => document.getAnimations().every((a) => !(a.effect as KeyframeEffect)?.target?.hasAttribute("data-place") || a.playState !== "running"));
 
 for (const [width, height] of [
   [390, 844],
@@ -15,7 +17,8 @@ for (const [width, height] of [
     test.beforeEach(async ({ page }) => {
       await page.setViewportSize({ width, height });
       await page.goto("/");
-      await page.waitForTimeout(700 + 1100); // The landing throw.
+      await expect.poll(() => topCard(page), { timeout: 10_000 }).toContain("museum"); // The landing throw.
+      await settle(page);
     });
 
     test("cycles through all three and resets, without moving the page", async ({ page }) => {

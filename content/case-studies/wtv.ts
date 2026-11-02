@@ -229,6 +229,7 @@ export const wtv: CaseStudy = {
           bare: true,
           video: {
             src: `${dir}/solution-search.mp4`,
+            autoplay: true,
             poster: `${dir}/solution-search-poster.jpg`,
             width: 1942,
             height: 306,
@@ -241,6 +242,7 @@ export const wtv: CaseStudy = {
           bare: true,
           video: {
             src: `${dir}/solution-tools.mp4`,
+            autoplay: true,
             poster: `${dir}/solution-tools-poster.jpg`,
             width: 1476,
             height: 1080,
@@ -254,6 +256,7 @@ export const wtv: CaseStudy = {
           bare: true,
           video: {
             src: `${dir}/solution-brand-assets.mp4`,
+            autoplay: true,
             poster: `${dir}/solution-brand-assets-poster.jpg`,
             width: 1184,
             height: 1080,

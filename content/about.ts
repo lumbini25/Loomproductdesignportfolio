@@ -15,6 +15,17 @@ export const about = {
     height: 1328,
   },
   resumeCta: "Check my resume",
+  // Phone only (Figma 336:1768).
+  lovesHeading: "I love…",
+  loves: [
+    "Writing about my product design experience",
+    "Vibe coding",
+    "Urban photography",
+    "Visiting museums",
+    "Reading literature",
+    "Exploring human behavior",
+    "Traveling",
+  ],
   writing: {
     heading: "Writing",
     note: "Published research, from before I moved into design.",
@@ -42,6 +53,9 @@ export const about = {
   },
   principles: {
     heading: "What I believe",
+    // Phone only (Figma 336:1768).
+    phoneHeading: "I value human behavior in design",
+    phoneNote: "A few things that shape how I work and create.",
     items: [
       {
         title: "Behavior over assumption",

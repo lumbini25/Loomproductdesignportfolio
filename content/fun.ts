@@ -5,7 +5,8 @@ export type Experiment = {
   type: string;
   title: string;
   body: string;
-  image: { src: string; alt: string; width: number; height: number };
+  // `crop`: where the image sits in its tile, when that differs by width.
+  image: { src: string; alt: string; width: number; height: number; crop?: string };
   // Shown instead of the image where there is one.
   video?: Video;
   link: { label: string; url: string } | null;
@@ -45,9 +46,9 @@ export const fun = {
       body: "From research on a stress app: many people would try an AI chatbot before a human therapist. The article argues designers must build guardrails into AI products from the start.",
       image: {
         src: "/images/fun/writing.png",
-        alt: "Illustration of a designer at a cosy desk with a large monitor of app screens, captioned “Writing”.",
-        width: 790,
-        height: 600,
+        alt: "Illustration of a designer at a cosy desk with a large monitor of app screens.",
+        width: 1402,
+        height: 1122,
       },
       link: {
         label: "Read on Substack",
@@ -61,8 +62,10 @@ export const fun = {
       image: {
         src: "/images/fun/talk.png",
         alt: "Event card for Designers Exploring AI, Live, by IxDF and Ladies that UX Taipei, showing Lumbini Sharma as guest speaker.",
-        width: 790,
-        height: 520,
+        width: 1036,
+        height: 1310,
+        // Centred on phones (408:2391); higher from 834, keeping the logos in (103:3108).
+        crop: "tablet:object-[50%_11.7%]",
       },
       link: {
         label: "Read on Medium",

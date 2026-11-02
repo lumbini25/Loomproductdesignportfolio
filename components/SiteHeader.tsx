@@ -9,8 +9,9 @@ import { gutter, wrapper } from "@/components/Container";
 import { ListIcon, XIcon } from "@/components/icons";
 import { nav, site } from "@/content/site";
 
-// Figma "top nav" (103:2945). Full bar from 834 up; below 834 a menu button opens a
-// full-screen panel (brief, responsive table).
+// Figma "top nav" (103:2945). Full bar from 834 up; below 834 a 48.6px bar (408:2364) with a 71px
+// logo and a menu button that opens a full-screen panel. Both keep 44px targets, using negative
+// margins so they do not make the bar taller.
 export function SiteHeader() {
   const pathname = usePathname();
   const dialog = useRef<HTMLDialogElement>(null);
@@ -76,10 +77,10 @@ export function SiteHeader() {
   return (
     <header className="pt-[env(safe-area-inset-top)]">
       <div
-        className={`${wrapper} flex items-center justify-between py-5 ${gutter}`}
+        className={`${wrapper} flex items-center justify-between py-3 tablet:py-5 ${gutter}`}
       >
-        <Link href="/" className="inline-flex min-h-11 items-center">
-          <Image src="/images/logo.png" alt={site.logoAlt} width={130} height={45} preload />
+        <Link href="/" className="-my-2.5 inline-flex min-h-11 items-center tablet:my-0">
+          <Image src="/images/logo.png" alt={site.logoAlt} width={130} height={45} preload className="h-auto w-[71px] tablet:w-[130px]" />
         </Link>
 
         <nav aria-label="Main" className="hidden tablet:block">
@@ -88,11 +89,11 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className="inline-flex size-11 items-center justify-center rounded-control text-title tablet:hidden"
+          className="-my-2.5 -mr-2.5 inline-flex size-11 items-center justify-center rounded-control text-title tablet:hidden"
           aria-haspopup="dialog"
           onClick={() => dialog.current?.showModal()}
         >
-          <ListIcon size={28} />
+          <ListIcon size={24} />
           <span className="sr-only">Open menu</span>
         </button>
       </div>
@@ -102,14 +103,14 @@ export function SiteHeader() {
         aria-label="Menu"
         className="m-0 h-dvh max-h-none w-full max-w-none bg-surface p-0 tablet:hidden"
       >
-        <div className={`flex items-center justify-between py-5 ${gutter} pt-[calc(env(safe-area-inset-top)+20px)]`}>
-          <Image src="/images/logo.png" alt="" width={130} height={45} />
+        <div className={`flex items-center justify-between py-3 ${gutter} pt-[calc(env(safe-area-inset-top)+12px)]`}>
+          <Image src="/images/logo.png" alt="" width={130} height={45} className="h-auto w-[71px]" />
           <button
             type="button"
-            className="inline-flex size-11 items-center justify-center rounded-control text-title"
+            className="-my-2.5 -mr-2.5 inline-flex size-11 items-center justify-center rounded-control text-title"
             onClick={close}
           >
-            <XIcon size={28} />
+            <XIcon size={24} />
             <span className="sr-only">Close menu</span>
           </button>
         </div>

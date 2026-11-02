@@ -58,7 +58,6 @@ export const knowunity: CaseStudy = {
             poster: `${dir}/knowunity-hero-poster.jpg`,
             width: 1280,
             height: 720,
-            autoplay: true,
             description:
               "Product film: a student allows the mic, answers aloud, climbs two hints, reviews their take, sees 'You explained 2 of 4 without help', then retries the topic they missed.",
           },
@@ -350,6 +349,7 @@ export const knowunity: CaseStudy = {
           kind: "video",
           video: {
             src: `${dir}/hint-ladder-clip.mp4`,
+            autoplay: true,
             poster: `${dir}/hint-ladder-clip-poster.jpg`,
             width: 1280,
             height: 720,

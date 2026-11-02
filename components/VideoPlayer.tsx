@@ -62,7 +62,7 @@ export function VideoPlayer({
       muted={video.autoplay}
       loop={video.autoplay}
       playsInline
-      preload={video.autoplay ? "auto" : "metadata"}
+      preload="metadata"
       controls={!video.autoplay}
       aria-describedby={descId}
       onPlay={() => setPlaying(true)}

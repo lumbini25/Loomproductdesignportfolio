@@ -90,15 +90,17 @@ Filled in as we go. Nothing autoplays until it is marked "Yes" here.
 
 | Media | Where it appears | Autoplay | Notes |
 | --- | --- | --- | --- |
-| Knowunity hero film (`knowunity-active-recall.mp4`, 74 s, 1920x1080, 49 MB source) | Knowunity case study, hero | Yes (Oct 21) | Muted, looping, plays when in view and pauses when out of view or the tab is hidden. Poster is `knowunity-hero-poster.jpg`. Visible pause control. Reduced motion shows the poster with a play button. Do NOT ship the 49 MB source: make a compressed web version and a smaller 390px version first. Trimmed at 71.0 s (Oct 22). Shipped as a 1280x720 web version, 8.9 MB; the 49 MB source is only a download link. Size budget at 390: open, Lumbini to confirm. |
+| Knowunity hero film (`knowunity-active-recall.mp4`, 74 s, 1920x1080, 49 MB source) | Knowunity case study, hero | No (Nov 2, Lumbini: everything autoplays except the two demo films) | Starts when pressed; poster first. Shipped as a 1280x720 web version, 8.9 MB; the 49 MB source is only a download link. |
 | Knowunity prototype screen recording (Sep 30, 44 s, 824x1360, silent; `prototype-recording.mp4`, 2.8 MB) | Knowunity case study, Final designs, in a phone mockup | Yes (Oct 27, Lumbini) | Muted, looping, poster, visible pause control; pauses off screen; reduced motion shows the poster. |
-| AnewVista class booking flow (33 s, 1600x900, 12 MB) | Anewvista case study, bottom | No | Edited from Lumbini's recording, Oct 22. Starts only when pressed; poster first. |
+| AnewVista class booking flow (33 s, 1600x900, 12 MB) | Anewvista case study, bottom | Yes (Nov 2, Lumbini) | Edited from Lumbini's recording, Oct 22. Muted, looping, poster, pause control. |
 | Home card videos: ANVCS class booking flow (23.5 s, `anewvista-card.mp4`, 2.5 MB) and TDK unit creation (15.6 s, `tdk-card.mp4`, 1.2 MB), both silent | Home, inside the card thumbnails, as in Figma | Yes (Oct 28, Lumbini) | Muted, looping, poster, visible pause control; pauses off screen; reduced motion shows the poster. |
 | AnewVista hero laptop recording (`hero-laptop.mp4`, 6.2 s, 1320x806, 1.8 MB, silent) | Anewvista case study, opening beside the title | Yes (Oct 29, Lumbini: "make the video autoplay") | Muted, looping, poster, visible pause control; pauses off screen; reduced motion shows the poster. A PNG mask hides the white around the laptop. |
 | About photo rows (`PhotoMarquee`, 11 photographs, two rows moving slowly in opposite directions) | About, "When I'm not designing" | Yes (Nov 1, Lumbini: "slow moving carousel") | Not video. Pause button; hover and focus also stop it; reduced motion shows a still. |
 | Bloom and Heal daisy motion (`motion-daisy.mp4`) | Fun and experiments, motion card | Yes (Oct 20, reconfirmed Oct 22) | Muted, looping, poster, pause control. Reduced motion shows the poster. |
 | Bloom and Heal: full phone flow, 3 watch feature clips (from the Framer page, all silent) | Bloom and Heal case study | No | Added Oct 26. Start only when pressed; poster first. |
-| Bloom and Heal demo film (`bloom-heal-demo.mp4`, 40 s, 1280x720, 8.3 MB, has a soundtrack) | Bloom and Heal case study, hero | No | Added Oct 27, replacing the 3 hero phone clips. Starts only when pressed, with sound; poster first. |
+| Bloom and Heal demo film (`bloom-heal-demo.mp4`, 40 s, 1280x720, 8.3 MB, has a soundtrack) | Bloom and Heal case study, hero | No | Nov 2: stays press-to-play, with sound; poster first. |
+| TDK demos (`demo-1` to `demo-3`), WTV solution clips (3), Knowunity hint ladder clip | Their case studies | Yes (Nov 2, Lumbini: "all the videos") | All silent. Muted, looping, poster, pause control; pause off screen; reduced motion shows the poster. |
+| Bloom and Heal pinned device clips | Bloom and Heal case study | Yes | The active step plays, muted. |
 | All other media | | Open | Not yet reviewed. I need the files and what each one shows |
 
 ---

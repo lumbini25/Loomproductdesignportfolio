@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "check:tokens": "node scripts/check-tokens.mjs",
     "test:breakpoints": "next build && playwright test tests/breakpoints.spec.ts",
     "test:a11y": "next build && playwright test tests/accessibility.spec.ts --project=chromium"
   },

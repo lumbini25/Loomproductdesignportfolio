@@ -24,7 +24,7 @@ no contact form. Decisions made since then are in `decisions.md`, and those win 
   (Figma "Primitives" and "Semantic" collections). Only semantic names reach Tailwind.
   When a value has no token: add it to `globals.css` marked `TODO: no Figma token` and log it in
   `decisions.md`.
-- **Accessibility is the baseline.** WCAG 2.1 AA; 16px minimum body text; 44×44 touch targets at
+- **Accessibility is the baseline.** WCAG 2.1 AA; body text 16px or more from 834, 14px on phones (Figma's Mobile Body1); 44×44 touch targets at
   the **rendered** size; 4.5:1 text contrast; real alt text; keyboard reaches everything; reduced
   motion gets a still.
 - **Focus:** 2px Rust500 ring with a 2px gap outside the control (`outline-offset: 2px`), as drawn

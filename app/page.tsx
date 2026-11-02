@@ -24,11 +24,11 @@ export default function Home() {
           <span aria-hidden="true" className="size-3 shrink-0 rounded-pill bg-success" />
           {site.availability}
         </p>
-        <h1 className="font-jakarta text-title-s font-bold tablet:text-h3">
+        <h1 className="font-jakarta text-h3 font-bold">
           {home.headline.lead} <span className="text-accent">{home.headline.accent}</span>
         </h1>
         {/* The "Recent work" proof line is removed (Lumbini, 2026-10-28). */}
-        <p className="font-dm text-body-s text-body tablet:text-body-m">{home.intro}</p>
+        <p className="font-dm text-body-m text-body">{home.intro}</p>
         <ul className="flex gap-3">
           <li>
             <a href={site.linkedinUrl} target="_blank" rel="noopener noreferrer" className={iconLink}>

@@ -26,6 +26,7 @@
      are pale tints for cards that carry grey or rust text. */
   --bloom-50: #edf7fe; /* "Bloom/50" */
   --bloom-100: #d8eaf6; /* "Bloom/100" */
+  --motion-tile: #e5f2ff; /* TODO: no Figma token; motion tile on Fun (Figma 103:3093) */
   --anewvista-50: #f6f0ff; /* "Anewvista/50" (Figma 275:582) */
   --anewvista-700: #4d12a3; /* "Anewvista/700": highlighted bars in Lumbini's bounce rate chart */
   --anewvista-grey: #b9b3ad; /* "Anewvista/Grey": the other bars in that chart */
@@ -64,6 +65,22 @@
   --text-h3--letter-spacing: -0.01em;
   /* Sizes without a Figma style (28, 26 and 22) snap to "Title 1 Bold", 24/36, the Prototype
      page's type scale (Lumbini, 2026-10-27). The names stay so pages need no edits. */
+  /* Figma's phone text styles. Mobile Body2 (10px) is not used: body text is Mobile Body1, 14px
+     (Lumbini, 2026-11-01). "normal" is Figma's auto line height. */
+  --text-h1-mobile: 20px; /* "H1 Mobile" */
+  --text-h1-mobile--line-height: normal;
+  --text-h1-mobile--letter-spacing: -0.01em;
+  --text-title-mobile: 24px; /* "Title 1 Bold" */
+  --text-title-mobile--line-height: 36px;
+  --text-mobile-body-1: 14px; /* "Mobile Body1": DM Sans Regular */
+  --text-mobile-body-1--line-height: normal;
+  --text-body-semibold-s: 14px; /* "Body Semibold S": DM Sans SemiBold */
+  --text-body-semibold-s--line-height: normal;
+  --text-mobile-caption: 9px; /* "Caption Mobile": Plus Jakarta SemiBold */
+  --text-mobile-caption--line-height: normal;
+  --text-mobile-caption--letter-spacing: 0.06em;
+  --text-mobile-button: 14px; /* "Button Mobile" */
+  --text-mobile-button--line-height: 20px;
   --text-citation: 28px; /* "Body L": Writing titles on About */
   --text-citation--line-height: 38px;
   --text-body-l: 24px; /* "Title 1": statements, quotes */
@@ -141,6 +158,7 @@
   --color-line: var(--theme-line); /* TODO: no semantic token; tags and rules */
   --color-surface-sky: var(--theme-surface-sky); /* TODO: no semantic token; motion tile on Fun */
   --color-surface-bloom: var(--bloom-50); /* Project/Bloom/surface */
+  --color-surface-motion: var(--motion-tile);
   --color-device-stand: var(--beige-700); /* TODO: no semantic token; the monitor stand around a screenshot */
   --color-band: var(--theme-band); /* Project/<name>/band: the opening band behind the title */
   --color-chart: var(--theme-chart); /* Project/<name>/chart: highlighted bars */
@@ -296,8 +314,10 @@
     --text-h1--line-height: 52px;
     --text-display: 36px;
     --text-display--line-height: 44px;
-    --text-h3: 30px;
-    --text-h3--line-height: 38px;
+    --text-h3: 20px; /* "H1 Mobile" */
+    --text-h3--line-height: normal;
+    --text-h3-sm: 20px;
+    --text-h3-sm--line-height: normal;
     --text-citation: 20px;
     --text-citation--line-height: 30px;
     --text-body-l: 20px;
@@ -310,10 +330,14 @@
     --text-title-s--line-height: 28px;
     --text-title-xs: 20px;
     --text-title-xs--line-height: 28px;
-    --text-body-m: 18px;
-    --text-body-m--line-height: 28px;
-    --text-subtitle-s: 16px;
-    --text-subtitle-s--line-height: 24px;
+    --text-body-m: 14px; /* "Mobile Body1" */
+    --text-body-m--line-height: normal;
+    --text-body-s: 14px;
+    --text-body-s--line-height: normal;
+    --text-body-l-sm: 14px;
+    --text-body-l-sm--line-height: normal;
+    --text-caption-m: 9px; /* "Caption Mobile" */
+    --text-caption-m--line-height: normal;
   }
 }
 
@@ -334,6 +358,36 @@
 }
 .reveal-on .reveal-zoom:not(.is-in) img {
   scale: 1.08;
+}
+
+/* Case-study type (Lumbini, 2026-11-02): DM Sans for all body text, Plus Jakarta for headings and
+   numbers, as in the Figma frames. Blocks ask for Nunito or Jakarta by class in many places, so the
+   two families are re-pointed here once, instead of per block. */
+:root {
+  --font-heading: var(--font-plus-jakarta-sans);
+  --font-body: var(--font-dm-sans);
+}
+
+.case-study {
+  --font-nunito-sans: var(--font-body);
+  --font-plus-jakarta-sans: var(--font-body);
+  font-family: var(--font-body);
+}
+
+.case-study :is(h1, h2, h3, h4),
+.case-study .font-bold {
+  font-family: var(--font-heading);
+}
+
+@media (max-width: 833px) {
+  .case-study {
+    font-size: var(--text-mobile-body-1);
+    line-height: var(--text-mobile-body-1--line-height);
+  }
+
+  .case-study .font-serif {
+    font-family: var(--font-heading);
+  }
 }
 
 /* Project themes (Lumbini, 2026-10-28): a case study can carry its own product colours. Inside

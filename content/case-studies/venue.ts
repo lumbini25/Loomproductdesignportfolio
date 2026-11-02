@@ -40,6 +40,7 @@ export const venue: CaseStudy = {
           kind: "video",
           video: {
             src: `${dir}/demo-1.mp4`,
+            autoplay: true,
             poster: `${dir}/demo-1-poster.jpg`,
             width: 1920,
             height: 1080,
@@ -191,6 +192,7 @@ export const venue: CaseStudy = {
           kind: "video",
           video: {
             src: `${dir}/demo-2.mp4`,
+            autoplay: true,
             poster: `${dir}/demo-2-poster.jpg`,
             width: 1920,
             height: 1080,
@@ -217,6 +219,7 @@ export const venue: CaseStudy = {
           kind: "video",
           video: {
             src: `${dir}/demo-3.mp4`,
+            autoplay: true,
             poster: `${dir}/demo-3-poster.jpg`,
             width: 1920,
             height: 1080,
