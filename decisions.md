@@ -19,6 +19,13 @@ from there.
   (Oct entry below). It is an unlicensed preview. The fix is the licensed download, under the same
   file name, or a different image. TODO: replace before launch.
 
+### 2026-11-02 — Task flow board is compact from 1200
+**Decided by:** Lumbini ("looks really big in MacBook Pro screen"). From 1200 the board keeps four
+columns but its card text is 14px, with tighter padding and the legend beside the title, so it fits
+one laptop screen. This is an exception to the 16px rule from 834, for this board only. On phones
+("scale it down for mobile screen too") the board and summary are two columns with tighter cards;
+text stays 14px. Four across would shrink the text to about 3px. 834 is unchanged.
+
 ### 2026-11-02 — Knowunity Exploration follows Figma 286:337
 **Decided by:** Lumbini ("replace the task flow section with this section"). **Replaces** the
 flowchart of Oct 27, whose block is deleted.

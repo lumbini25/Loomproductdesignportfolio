@@ -678,9 +678,9 @@ export function BlockView({ block }: { block: Block }) {
       return (
         <div className="flex flex-col gap-8">
           <figure>
-            <div className="flex flex-col gap-8 rounded-media bg-flow-board p-5 text-on-inverse tablet:p-10">
-              <div className="flex flex-col gap-5">
-                <h3 className="text-title-s font-bold">{block.title}</h3>
+            <div className="flex flex-col gap-5 rounded-media bg-flow-board tablet:gap-8 p-3 text-on-inverse tablet:p-10 desktop:gap-5 desktop:p-6">
+              <div className="flex flex-col gap-5 desktop:flex-row desktop:items-center desktop:justify-between">
+                <h3 className="text-title-s font-bold desktop:text-h1-mobile">{block.title}</h3>
                 <ul className="flex flex-wrap gap-x-6 gap-y-2">
                   {block.legend.map((item) => (
                     <li key={item.label} className="flex items-center gap-2 text-caption-m font-bold uppercase text-on-inverse/70">
@@ -690,11 +690,11 @@ export function BlockView({ block }: { block: Block }) {
                   ))}
                 </ul>
               </div>
-              <ol className="grid grid-cols-1 items-start gap-8 tablet:grid-cols-2 desktop:grid-cols-4 desktop:gap-6">
+              <ol className="grid grid-cols-2 items-start gap-x-2 gap-y-6 tablet:gap-8 desktop:grid-cols-4 desktop:gap-4">
                 {block.columns.map((col, i) => (
-                  <li key={col.title} className="flex min-w-0 flex-col gap-4">
-                    <h4 className="flex items-center gap-3 text-h3-mobile font-bold">
-                      <span aria-hidden="true" className={`flex size-7 shrink-0 items-center justify-center rounded-pill text-body-s text-flow-board ${flowToneFill[col.tone]}`}>
+                  <li key={col.title} className="flex min-w-0 flex-col gap-2 tablet:gap-4 desktop:gap-3">
+                    <h4 className="flex items-center gap-2 text-body-semibold-s font-bold tablet:gap-3 tablet:text-h3-mobile">
+                      <span aria-hidden="true" className={`flex size-6 shrink-0 items-center justify-center rounded-pill text-body-s text-flow-board tablet:size-7 ${flowToneFill[col.tone]}`}>
                         {i + 1}
                       </span>
                       {col.title}
@@ -702,11 +702,11 @@ export function BlockView({ block }: { block: Block }) {
                     <ol className="flex flex-col">
                       {col.cards.map((card, j) => (
                         <li key={card.title} className="flex flex-col items-center">
-                          {j > 0 && <span aria-hidden="true" className="h-[18px] w-px bg-flow-line" />}
-                          <div className="flex w-full flex-col gap-1.5 rounded-media border border-flow-line bg-flow-card p-4">
+                          {j > 0 && <span aria-hidden="true" className="h-2 w-px bg-flow-line tablet:h-[18px] desktop:h-2" />}
+                          <div className="flex w-full flex-col gap-1.5 rounded-media border border-flow-line bg-flow-card p-2.5 [overflow-wrap:anywhere] tablet:p-4 desktop:gap-1 desktop:p-3">
                             <p className={`text-caption-m font-bold uppercase ${flowToneText[col.tone]}`}>{card.tag}</p>
-                            <p className="text-h3-mobile font-bold">{card.title}</p>
-                            <p className="text-body-s text-on-inverse/70">{card.body}</p>
+                            <p className="text-body-semibold-s font-bold tablet:text-h3-mobile desktop:text-body-semibold-s">{card.title}</p>
+                            <p className="text-body-s text-on-inverse/70 desktop:text-mobile-body-1">{card.body}</p>
                           </div>
                         </li>
                       ))}
@@ -717,11 +717,11 @@ export function BlockView({ block }: { block: Block }) {
             </div>
             <Caption>{block.caption}</Caption>
           </figure>
-          <ol className="grid grid-cols-1 gap-4 tablet:grid-cols-2 desktop:grid-cols-4">
+          <ol className="grid grid-cols-2 gap-2 tablet:gap-4 desktop:grid-cols-4">
             {block.summary.map((card, i) => (
-              <li key={card.title} className="flex min-w-0 flex-col gap-2.5 rounded-media border border-line bg-surface p-6">
+              <li key={card.title} className="flex min-w-0 flex-col gap-2.5 rounded-media border border-line bg-surface p-3 [overflow-wrap:anywhere] tablet:p-6">
                 <Eyebrow>{`${i + 1}  ${card.title}`}</Eyebrow>
-                <ul className="list-disc pl-5 text-body-m text-caption">
+                <ul className="list-disc pl-4 text-body-m text-caption tablet:pl-5">
                   {card.items.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
