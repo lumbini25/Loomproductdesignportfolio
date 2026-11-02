@@ -147,3 +147,15 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Next.js
+next-env.d.ts
+.vercel
+
+# Local only: inspiration and private brief
+/reference/
+/Portfolio Design Brief Lumbini Sharma.md
+
+# Playwright
+/test-results/
+/playwright-report/

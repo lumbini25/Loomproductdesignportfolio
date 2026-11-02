@@ -1,0 +1,383 @@
+@import "tailwindcss";
+
+/*
+ * Tokens mirror the Figma file Uu1a2kCZL3M4y86CtPcmqR: "Primitives" and "Semantic" collections,
+ * plus the text styles named in the frames (H1, H3, Body L, Body Regular M, Subtitle 1, Caption M).
+ * Primitives live here as plain custom properties; only semantic names reach Tailwind, so a
+ * utility like `bg-rust-500` cannot exist. Anything marked TODO has no Figma variable yet.
+ */
+:root {
+  /* Primitives: colour */
+  --white: #ffffff;
+  --neutral-0: #110d09;
+  --rust-500: #bb3010;
+  --rust-600: #a11700;
+  --beige-500: #f6f2ee;
+  --beige-600: #dcd8d4;
+  --beige-700: #a9a5a1; /* "Beige 700" */
+  --beige-900: #77736f;
+  --beige-950: #5d5955;
+  --beige-1000: #44403c;
+  --beige-1050: #2a2622;
+  --blue-500: #4473b3; /* "Secondary Blue 500" */
+  --blue-600: #3d669f; /* "blue-600" */
+  --blue-50: #ecf1f7; /* "Blue50" */
+  /* Project colours (Figma Primitives, added 2026-10-29). The /50 steps of Knowunity, WTV and TDK
+     are pale tints for cards that carry grey or rust text. */
+  --bloom-50: #edf7fe; /* "Bloom/50" */
+  --bloom-100: #d8eaf6; /* "Bloom/100" */
+  --anewvista-50: #f6f0ff; /* "Anewvista/50" (Figma 275:582) */
+  --anewvista-700: #4d12a3; /* "Anewvista/700": highlighted bars in Lumbini's bounce rate chart */
+  --anewvista-grey: #b9b3ad; /* "Anewvista/Grey": the other bars in that chart */
+  --knowunity-25: #edebfa; /* "Knowunity/25": the opening band (Figma 285:584) */
+  --knowunity-50: #ebe6fb; /* "Knowunity/50" */
+  --knowunity-500: #9178e6; /* "Knowunity/500" */
+  --wtv-50: #e6f2f9; /* "WTV/50" */
+  --wtv-300: #a1cfe9; /* "WTV/300" */
+  --tdk-50: #eef3fa; /* "TDK/50" */
+  --tdk-200: #ccdaef; /* "TDK/200" */
+  --green-500: #00770e;
+}
+
+@theme {
+  --color-*: initial;
+  --breakpoint-*: initial;
+  --text-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+
+  /* Three widths: 390 is the base, then 834 and 1440. The 1440 composition starts at 1200 and
+     its columns keep their Figma proportions down to there, so laptop windows get the desktop
+     layout rather than a stretched tablet one (decisions.md, Oct 22). */
+  --breakpoint-tablet: 834px;
+  --breakpoint-desktop: 1200px;
+
+  /* Type, from the Figma text styles. Letter spacing is Figma's percentage as em. */
+  --text-h1: 72px;
+  --text-h1--line-height: 80px;
+  --text-h1--letter-spacing: -0.02em;
+  --text-display: 56px; /* TODO: no Figma style; hero headline and "Let's talk." */
+  --text-display--line-height: 64px;
+  --text-display--letter-spacing: -0.015em;
+  --text-h3: 40px;
+  --text-h3--line-height: 48px;
+  --text-h3--letter-spacing: -0.01em;
+  /* Sizes without a Figma style (28, 26 and 22) snap to "Title 1 Bold", 24/36, the Prototype
+     page's type scale (Lumbini, 2026-10-27). The names stay so pages need no edits. */
+  --text-citation: 28px; /* "Body L": Writing titles on About */
+  --text-citation--line-height: 38px;
+  --text-body-l: 24px; /* "Title 1": statements, quotes */
+  --text-body-l--line-height: 36px;
+  --text-title-l: 24px; /* "Title 1" */
+  --text-title-l--line-height: 36px;
+  --text-title-m: 24px; /* "Title 1" */
+  --text-title-m--line-height: 36px;
+  --text-title-s: 24px; /* "Title 1 Bold" 24/36 */
+  --text-title-s--line-height: 36px;
+  --text-title-xs: 24px; /* "Title 1" */
+  --text-title-xs--line-height: 36px;
+  --text-body-m: 20px;
+  --text-body-m--line-height: 30px;
+  --text-subtitle-s: 18px; /* "Subtitle 1 Regular S" */
+  --text-subtitle-s--line-height: 24px;
+  --text-body-s: 16px;
+  --text-body-s--line-height: 24px;
+  --text-caption-m: 12px; /* "Caption M" */
+  --text-caption-m--line-height: 16px;
+  --text-caption-m--letter-spacing: 0.06em;
+
+  /* 390 sizes for the largest styles. TODO: no Figma frame at 390; see decisions.md. */
+  --text-h1-sm: 44px;
+  --text-h1-sm--line-height: 52px;
+  --text-h1-sm--letter-spacing: -0.02em;
+  --text-display-sm: 36px;
+  --text-display-sm--line-height: 44px;
+  --text-display-sm--letter-spacing: -0.015em;
+  --text-h3-sm: 30px;
+  --text-h3-sm--line-height: 38px;
+  --text-h3-sm--letter-spacing: -0.01em;
+  --text-body-l-sm: 20px; /* "Body Regular M" at 390 */
+  --text-body-l-sm--line-height: 30px;
+
+  /* Radius: Figma semantic radius tokens. */
+  --radius-tag: 6px; /* radius/tag */
+  --radius-control: 10px; /* radius/control/md */
+  --radius-card: 24px; /* radius/card */
+  --radius-media: 16px; /* radius/16 */
+  --radius-featured: 28px; /* TODO: no Figma token; featured block */
+  --radius-featured-media: 20px; /* TODO: no Figma token; featured thumbnail */
+  --radius-portrait: 32px; /* TODO: no Figma token; About photo */
+  --radius-pill: 9999px; /* TODO: no Figma token; interest chips */
+  --radius-phone: 32px; /* TODO: no Figma token; phone screenshots in case studies */
+  --radius-device: 48px; /* TODO: no Figma token; phone mockup bezel */
+  --radius-device-screen: 36px; /* TODO: no Figma token; the screen inside the phone mockup */
+
+  /* Spacing between page sections (2026-10-28 audit): 64px below 1200, 96px from 1200. Block
+     spacing inside a section stays on Tailwind's 4px scale (gap-8 = 32px between blocks). */
+  --spacing-section-sm: 4rem;
+  --spacing-section: 6rem;
+
+  --shadow-card-hover: 0 16px 32px -8px rgb(26 38 77 / 0.18); /* TODO: no Figma token */
+  --shadow-mockup: 0 28px 48px rgb(26 8 77 / 0.6); /* TODO: no Figma token; phone drop shadow in the Knowunity thumbnail (112:104) */
+}
+
+@theme inline {
+  /* Semantic colour, named after the Figma "Semantic" collection. */
+  --color-title: var(--neutral-0); /* Greyscale/Text/Title */
+  --color-subtitle: var(--beige-1050); /* Greyscale/Text/Subtitle */
+  --color-body: var(--beige-900); /* Greyscale/Text/Body: white surfaces only (4.7:1) */
+  --color-caption: var(--beige-950); /* Greyscale/Text/Caption */
+  --color-on-inverse: var(--white); /* Greyscale/Text/Inverse */
+  --color-accent: var(--rust-500); /* Primary/Text/Body */
+  --color-secondary: var(--blue-500); /* Secondary Blue 500: white surfaces only (4.8:1) */
+  --color-secondary-strong: var(--blue-600); /* blue-600: hover on the Bloom "Full process" banner */
+  --color-success: var(--green-500); /* Green500 */
+  --color-surface: var(--white);
+  --color-surface-subtle: var(--theme-surface-subtle); /* Greyscale/surface/subtle */
+  --color-surface-inverse: var(--neutral-0); /* Greyscale/surface/inverse */
+  --color-surface-inverse-hover: var(--beige-1000); /* Greyscale/surface/inverse-hover */
+  --color-primary: var(--rust-500); /* Primary/background */
+  --color-primary-hover: var(--rust-600); /* Primary/background-hover */
+  --color-line: var(--theme-line); /* TODO: no semantic token; tags and rules */
+  --color-surface-sky: var(--theme-surface-sky); /* TODO: no semantic token; motion tile on Fun */
+  --color-surface-bloom: var(--bloom-50); /* Project/Bloom/surface */
+  --color-device-stand: var(--beige-700); /* TODO: no semantic token; the monitor stand around a screenshot */
+  --color-band: var(--theme-band); /* Project/<name>/band: the opening band behind the title */
+  --color-chart: var(--theme-chart); /* Project/<name>/chart: highlighted bars */
+  --color-chart-muted: var(--theme-chart-muted); /* Project/<name>/chart-muted: the other bars */
+  --color-focus: var(--rust-500);
+
+  --font-sans: var(--font-nunito-sans);
+  --font-jakarta: var(--font-plus-jakarta-sans);
+  --font-dm: var(--font-dm-sans);
+  --font-serif: var(--font-libre-baskerville);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-title);
+    font-family: var(--font-sans);
+  }
+
+  /* 2px Rust500 ring with a 2px gap outside the control, as drawn on the Figma button set. */
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  [id] {
+    scroll-margin-top: 24px;
+  }
+
+  /* The page behind the open mobile menu does not scroll. */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+}
+
+@layer components {
+  /* PhoneFrame (components/case-study/MediaFrames.tsx): a group of portrait screens stays one row
+     (Lumbini, 2026-10-27). From 834 every screen gets an equal column; below 834 the row scrolls
+     sideways, one screen and a peek of the next in view. */
+  .phone-frame {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.5rem;
+  }
+  .phone-frame > .phone-cell {
+    display: flex;
+    justify-content: center;
+    flex: 0 0 62%;
+    scroll-snap-align: center;
+  }
+  .phone-frame > .phone-cell:only-child {
+    flex-basis: 100%;
+  }
+  @media (min-width: 834px) {
+    .phone-frame {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(0, 1fr);
+      gap: 1.5rem;
+      overflow: visible;
+      padding-bottom: 0;
+    }
+  }
+}
+
+/* WTV logo cloud (components/case-study/LogoCloud.tsx): Framer's loop effect, one turn in 1s,
+   linear, then a 0.8s pause. Still under reduced motion. */
+@keyframes logo-spin {
+  0% {
+    rotate: 0deg;
+  }
+  55.556%,
+  100% {
+    rotate: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .logo-spin {
+    animation: logo-spin 1.8s linear infinite;
+  }
+}
+
+/* The logo cloud's Pause button. */
+[data-paused] .logo-spin {
+  animation-play-state: paused;
+}
+
+/* About photo rows (2026-11-01): a slow loop, half the track at a time, opposite ways. Each row
+   sets its own duration. Still under reduced motion. */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .marquee {
+    animation: marquee linear infinite;
+  }
+}
+
+.marquee-reverse {
+  animation-direction: reverse;
+}
+
+[data-paused] .marquee,
+.marquee-strip:hover .marquee,
+.marquee-strip:focus-within .marquee {
+  animation-play-state: paused;
+}
+
+/* Type scale by breakpoint (2026-10-28). The @theme values above are Figma's, used from 1200.
+   Tablet and mobile step the same styles down here, so every `text-*` utility adapts without
+   page edits. Body text never drops below 16px. */
+@media (max-width: 1199px) {
+  :root {
+    --text-h1: 56px;
+    --text-h1--line-height: 64px;
+    --text-display: 48px;
+    --text-display--line-height: 56px;
+    --text-h3: 34px;
+    --text-h3--line-height: 42px;
+    --text-citation: 24px;
+    --text-citation--line-height: 34px;
+    --text-body-l: 22px;
+    --text-body-l--line-height: 32px;
+    --text-title-l: 22px;
+    --text-title-l--line-height: 32px;
+    --text-title-m: 22px;
+    --text-title-m--line-height: 32px;
+    --text-title-s: 22px;
+    --text-title-s--line-height: 32px;
+    --text-title-xs: 22px;
+    --text-title-xs--line-height: 32px;
+  }
+}
+@media (max-width: 833px) {
+  :root {
+    --text-h1: 44px;
+    --text-h1--line-height: 52px;
+    --text-display: 36px;
+    --text-display--line-height: 44px;
+    --text-h3: 30px;
+    --text-h3--line-height: 38px;
+    --text-citation: 20px;
+    --text-citation--line-height: 30px;
+    --text-body-l: 20px;
+    --text-body-l--line-height: 30px;
+    --text-title-l: 20px;
+    --text-title-l--line-height: 28px;
+    --text-title-m: 20px;
+    --text-title-m--line-height: 28px;
+    --text-title-s: 20px;
+    --text-title-s--line-height: 28px;
+    --text-title-xs: 20px;
+    --text-title-xs--line-height: 28px;
+    --text-body-m: 18px;
+    --text-body-m--line-height: 28px;
+    --text-subtitle-s: 16px;
+    --text-subtitle-s--line-height: 24px;
+  }
+}
+
+/* Carmen's entrance effects (components/case-study/ScrollReveal.tsx). Only once the script has
+   run with motion allowed (html.reveal-on), so nothing is hidden without JS or under reduced
+   motion. */
+.reveal-on .reveal:not(.is-in) {
+  opacity: 0;
+  translate: 0 30px;
+}
+.reveal-on .reveal {
+  transition:
+    opacity 0.6s ease-out,
+    translate 0.6s ease-out;
+}
+.reveal-on .reveal-zoom img {
+  transition: scale 1.2s ease-out;
+}
+.reveal-on .reveal-zoom:not(.is-in) img {
+  scale: 1.08;
+}
+
+/* Project themes (Lumbini, 2026-10-28): a case study can carry its own product colours. Inside
+   it, the subtle surfaces, tiles and rules take the project's palette, so cards match the opening
+   band instead of the site's beige. Text and accent colours stay the site's.
+   The @theme block is inline, so utilities compile to these three role variables; a theme class
+   overrides them. Each maps to Figma Semantic "Project/<name>/surface | tile | border":
+   surface = surface-subtle (cards with text), tile = surface-sky (no text), border = line. */
+:root {
+  --theme-surface-subtle: var(--beige-500);
+  --theme-surface-sky: var(--blue-50);
+  --theme-band: var(--blue-50);
+  --theme-line: var(--beige-600);
+  --theme-chart: var(--rust-500);
+  --theme-chart-muted: var(--beige-950);
+}
+.theme-bloom {
+  --theme-surface-subtle: var(--bloom-50);
+  --theme-surface-sky: var(--bloom-50);
+  --theme-band: var(--bloom-50);
+  --theme-line: var(--bloom-100);
+}
+/* Anewvista: no card stroke in Figma, so rules stay beige. */
+.theme-anewvista {
+  --theme-surface-subtle: var(--anewvista-50);
+  --theme-surface-sky: var(--anewvista-50);
+  --theme-band: var(--anewvista-50);
+  --theme-chart: var(--anewvista-700);
+  --theme-chart-muted: var(--anewvista-grey);
+}
+/* Knowunity, WTV, TDK: the full colour is too strong under grey and rust text, so text cards
+   take the pale /50 tint and text-free tiles the full colour. */
+.theme-knowunity {
+  --theme-surface-subtle: var(--knowunity-50);
+  --theme-surface-sky: var(--knowunity-500);
+  --theme-band: var(--knowunity-25);
+}
+.theme-wtv {
+  --theme-surface-subtle: var(--wtv-50);
+  --theme-surface-sky: var(--wtv-300);
+  --theme-band: var(--wtv-50);
+}
+.theme-tdk {
+  --theme-surface-subtle: var(--tdk-50);
+  --theme-surface-sky: var(--tdk-200);
+  --theme-band: var(--tdk-50);
+}

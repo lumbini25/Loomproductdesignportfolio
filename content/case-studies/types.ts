@@ -1,0 +1,215 @@
+// Shape of a case study. Copy lives in the per-project files; the page only renders it.
+// Text fields accept **bold** for emphasis that exists in the source copy.
+
+// `caption` is used where each image in a group has its own line underneath.
+// `crop` is a width/height ratio: the image fills that frame from the top, as the source page
+// crops it. Without it the image keeps its own ratio. `fit` changes how it fills the frame:
+// "contain" shows all of it, centred; "center" crops from the middle instead of the top.
+export type Img = {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  caption?: string;
+  crop?: number;
+  fit?: "contain" | "center";
+  // Carmen's banner effect: the image settles from 108% to 100% as it scrolls into view.
+  zoom?: boolean;
+  // A wide strip that stays at least this wide (px) and scrolls sideways on narrow screens.
+  minWidth?: number;
+};
+
+export type Video = {
+  src: string;
+  poster: string;
+  width: number;
+  height: number;
+  // Text alternative, read by screen readers and shown when the video cannot play.
+  description: string;
+  // Only true when the autoplay register in platform-constraints.md says Yes.
+  autoplay?: boolean;
+  // An alpha mask (PNG, same shape as the video) that hides a recording's plain background, so a
+  // device sits straight on the page colour (Anewvista hero, 2026-10-29).
+  mask?: string;
+};
+
+export type Block =
+  // `look: "lead"`: larger, semibold subtitle text (Bloom's Framer page, 26px).
+  | { kind: "text"; paragraphs: string[]; look?: "lead"; label?: string; heading?: string }
+  // Text in a narrow column beside a visual (Bloom Figma brand and testing rows).
+  | { kind: "split"; title?: string; paragraphs: string[]; image: Img; caption?: string }
+  // Carmen's pinned device: the device sticks while numbered steps scroll past, and its screen
+  // switches to each step's recording (Bloom Figma "Pinned phone / watch (sticky scroll)").
+  | { kind: "pinned"; device: "phone" | "watch"; steps: { title: string; body?: string; video: Video }[] }
+  // A numbered list, with an optional line above it.
+  | { kind: "list"; intro?: string; items: string[] }
+  // Phone screen recordings side by side, each at phone width; click to play.
+  | { kind: "clips"; videos: Video[] }
+  // One video beside a title and a short text; `side` puts the video left or right from 834 up.
+  | { kind: "feature"; video: Video; title: string; text: string; side: "left" | "right" }
+  // `bare`: full column width with no mat, whatever the video's shape (WTV, as on Framer).
+  // `hero`: the study's lead film, shown 16:9 in HeroMedia (at most 70vh tall).
+  | {
+      kind: "video";
+      video: Video;
+      caption?: string;
+      link?: { label: string; href: string };
+      bare?: boolean;
+      hero?: boolean;
+      // `device: "phone"`: a portrait screen recording inside a phone mockup (bezel and island).
+      device?: "phone";
+    }
+  // Tall phone screenshots, shown in rows at phone width.
+  // `aside` sits beside the phones from 834 up, so a short row does not leave empty space.
+  | { kind: "phones"; images: Img[]; caption?: string; callouts?: string[]; aside?: Block[] }
+  // Desktop screens or diagrams at full content width. `bare`: tall images too run the full
+  // column width, with no mat and no height cap.
+  | { kind: "wide"; images: Img[]; caption?: string; columns?: 1 | 2 | 3; bare?: boolean }
+  // A photo across the full window width with Carmen's scroll scale (Learn.xyz); caption below,
+  // inside the column.
+  | { kind: "banner"; image: Img; caption?: string }
+  // `note` says what each screen lacked or fixed, shown under it.
+  | {
+      kind: "compare";
+      pairs: { before: Img; after: Img; note?: { before: string; after: string } }[];
+      caption?: string;
+      device: "phone" | "desktop";
+    }
+  // A comparison table: one column per product, one row per dimension.
+  | { kind: "matrix"; columns: string[]; rows: { label: string; cells: string[] }[]; caption?: string }
+  // A traditional flowchart in columns: ovals start and end, boxes are steps, diamonds are decisions
+  // with Yes/No branches, and numbered circles continue in another column.
+  | { kind: "flowchart"; columns: { title: string; nodes: FlowNode[] }[]; caption?: string }
+  // A flow drawn as lanes of steps, left to right.
+  | { kind: "lanes"; lanes: { title: string; summary: string; steps: string[] }[]; flags?: string[]; caption?: string }
+  | { kind: "steps"; label: string; before: string[]; after: string[]; caption?: string }
+  // `look: "sky"`: two across, large bold text on the light blue surface (Bloom Figma 179:674).
+  | { kind: "tiles"; items: string[]; caption?: string; look?: "sky" }
+  // `look`: "quotes" puts each body in its own quote box under a centred title, three across;
+  // "list" stacks title over body with no card; "outline" is three across on outlined white cards;
+  // "rows" is one full-width row per item, numbered, title only (Bloom's "Design decision").
+  | {
+      kind: "cards";
+      items: { title: string; body?: string }[];
+      numbered?: boolean;
+      heading?: string;
+      // "boxes" (Anewvista Figma 283:572): outlined cards in one row from 1200. Not numbered: the
+      // title is the card's label over the body. Numbered: "01" over the title and body. With a
+      // `label` ("Step"): "Step 1" over the title, set as body text.
+      look?: "quotes" | "list" | "outline" | "rows" | "boxes";
+      label?: string;
+    }
+  // `look: "box"`: the quote on a filled box instead of beside a rule. "rules": large, centred
+  // between two rules, for a "How might we" line.
+  | { kind: "quote"; text: string; cite?: string; look?: "box" | "rules" }
+  // A small label over one large line, as the Framer pages set "Design challenge".
+  // `look: "large"`: the line at heading size (40px), as the WTV Figma frame sets "Overview".
+  // `look: "compact"`: the line at body size (20px), as Anewvista's decision rows set "Why it matters".
+  | { kind: "statement"; label: string; text: string; look?: "large" | "compact" }
+  | { kind: "panel"; columns: { title: string; items: string[] }[]; caption?: string }
+  | { kind: "cycle"; steps: { title: string; body: string }[]; caption?: string }
+  | { kind: "flow"; steps: string[]; notes: string[]; caption?: string }
+  // `look: "outline"`: centred value and label on an outlined white card.
+  | { kind: "stats"; items: { value: string; label: string }[]; source?: string; look?: "outline" }
+  // Desktop screens shown one at a time, with buttons and a counter. `frame` is a width/height
+  // ratio: every slide fills the same frame from the top, so all screens show at one width.
+  | { kind: "carousel"; label: string; images: Img[]; frame?: number }
+  | { kind: "links"; items: { label: string; href: string }[] }
+  // A short visible list with the full list behind a native toggle.
+  | { kind: "details"; summary: string; blocks: Block[] }
+  // One series of values as bars; `highlight` marks the bars the text is about (the start and end
+  // of a trend, say).
+  | {
+      kind: "bars";
+      title: string;
+      unit: string;
+      items: { label: string; value: number }[];
+      highlight?: string[];
+      source: string;
+    }
+  // A dark panel in the pattern of Carmen's Pilgrimz "Claude Design OS" section: a chip, intro and
+  // steps on the left, a checklist card on the right, then a grid of cards (image or text).
+  | {
+      kind: "showcase";
+      label: string;
+      intro: string[];
+      steps?: { title: string; body: string }[];
+      stepsCaption?: string;
+      kit: { title: string; items: { title: string; body?: string }[] };
+      cards: { image?: Img; label?: string; title: string; body?: string }[];
+    }
+  // Figma "problem section" (203:1646): a labelled statement beside phone screens, each with a
+  // numbered marker (x, y as % of the screen) and a caption under it. Stacks below 1200.
+  | {
+      kind: "annotated";
+      label: string;
+      text: string;
+      screens: { image: Img; marker: { x: number; y: number } }[];
+    }
+  // An open question for Lumbini. Rendered in local dev only, never in a production build.
+  | { kind: "todo"; text: string }
+  // Content not handed over yet. Shown everywhere, labelled, so it never reads as real.
+  | { kind: "placeholder"; text: string };
+
+export type FlowNode =
+  | { shape: "start" | "step" | "end" | "exit"; label: string }
+  | { shape: "decision"; label: string; branches: { label: string; nodes: FlowNode[] }[] }
+  // Continues at the column with this number.
+  | { shape: "goto"; to: number };
+
+export type Stage = "Problem" | "Solution" | "Impact";
+
+export type Section = {
+  id: string;
+  stage: Stage;
+  // Starts a numbered chapter (e.g. "01", "The problem"). When a study has chapters, the page
+  // index lists them instead of the three stages.
+  chapter?: { number: string; title: string };
+  // Optional small label above the heading, from the source copy (e.g. "Design challenge").
+  label?: string;
+  heading: string;
+  // The section's name in the content navigation, from words already on the page. Used by
+  // studies without chapters (WTV, Bloom); sections without it are left out of the navigation.
+  nav?: string;
+  // An image beside the heading from 834 up, under it below (WTV's ideation, as on Framer).
+  media?: Img;
+  // WTV's animated logo cloud beside the heading, in place of `media`; `label` is its alt text.
+  logoCloud?: { label: string };
+  // From 1200, the label, heading and text sit in a 440 column beside the section's visuals (its
+  // `wide` and `video` blocks) in a 696 column (Anewvista Figma 283:572 decision rows).
+  aside?: boolean;
+  blocks: Block[];
+};
+
+export type CaseStudy = {
+  slug: string;
+  title: string;
+  summary: string;
+  facts: { label: string; value: string }[];
+  // "My role" list under the facts, where the source has one.
+  contributions?: string[];
+  cover?: Img;
+  // "full": the WTV Figma frame (112:13). Full content width with no page index, a 40px title
+  // beside a large cover, the role list in a box numbered /01, and 40px section headings.
+  // Default is the index layout.
+  layout?: "full";
+  // Full layout only. "stacked": title and summary across the full width, cover below
+  // (Bloom Figma 176:383). Default is the title beside the cover (WTV).
+  hero?: "stacked";
+  // A full-width project-coloured opening with an eyebrow, tags and a visual beside the title,
+  // then the facts row (Bloom Figma 211:1164 and 221:2779).
+  // The visual is an image (Bloom) or a looping recording (Anewvista).
+  // `screen`: the visual is a plain screenshot, so it sits in a monitor (MonitorFrame).
+  // `clip`: the visual sits on the band's bottom edge and is cut there (Knowunity's phones).
+  opening?: { eyebrow: string; tags: string[]; image?: Img; video?: Video; screen?: boolean; clip?: boolean };
+  // Carmen's Pilgrimz scroll effects on this page: sections slide up as they enter.
+  motion?: "carmen";
+  // The project's colours on cards, tiles and rules across the page (theme-* in globals.css).
+  theme?: "bloom" | "anewvista" | "knowunity" | "wtv" | "tdk";
+  // Shown under the title in a stacked hero, in place of a cover (Bloom's three phone videos).
+  heroBlocks?: Block[];
+  // Sections `first` to `last` (ids) sit inside one collapsible "full process" panel, open at
+  // first, as on Bloom's Framer page.
+  process?: { label: string; title: string; first: string; last: string };
+  sections: Section[];
+};
