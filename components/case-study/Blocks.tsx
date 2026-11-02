@@ -15,7 +15,7 @@ import {
   WideFigure,
   wideSizes,
 } from "@/components/case-study/MediaFrames";
-import type { Block, FlowNode, Img, Video } from "@/content/case-studies/types";
+import type { Block, FlowTone, Img, Video } from "@/content/case-studies/types";
 import { caseStudy } from "@/content/site";
 
 // Renders case-study content blocks. Every image and video goes through a media wrapper
@@ -142,61 +142,18 @@ function PortraitVideo({ video, caption }: { video: Video; caption?: string }) {
   );
 }
 
-// Flowchart pieces. Arrows are drawn with the Phosphor arrow, turned to point down.
-function FlowArrow() {
-  return <ArrowRightIcon size={18} className="my-1 rotate-90 text-caption" />;
-}
-
-function FlowNodes({ nodes }: { nodes: FlowNode[] }) {
-  return (
-    <ol className="flex flex-col items-center">
-      {nodes.map((n, i) => (
-        <li key={i} className="flex w-full flex-col items-center">
-          {i > 0 && <FlowArrow />}
-          <FlowShape node={n} />
-        </li>
-      ))}
-    </ol>
-  );
-}
-
-function FlowShape({ node }: { node: FlowNode }) {
-  const text = "font-jakarta text-body-s text-title text-center";
-  switch (node.shape) {
-    case "start":
-    case "end":
-      return <p className={`rounded-pill border-2 border-title bg-surface px-4 py-2 font-semibold ${text}`}>{node.label}</p>;
-    case "exit":
-      return <p className={`rounded-pill border-2 border-dashed border-caption bg-surface px-4 py-2 ${text}`}>{node.label}</p>;
-    case "step":
-      return <p className={`w-full rounded-control border border-line bg-surface px-3 py-2 ${text}`}>{node.label}</p>;
-    case "goto":
-      return (
-        <p className="flex size-9 items-center justify-center rounded-pill border-2 border-accent font-jakarta text-body-s font-bold text-accent">
-          {node.to}
-          <span className="sr-only">: continues in column {node.to}</span>
-        </p>
-      );
-    case "decision":
-      return (
-        <div className="flex w-full flex-col items-center">
-          <div className="relative flex size-28 items-center justify-center">
-            <div className="absolute size-20 rotate-45 rounded-tag border-2 border-title bg-surface" aria-hidden="true" />
-            <p className={`relative max-w-24 font-semibold ${text}`}>{node.label}</p>
-          </div>
-          <div className="grid w-full grid-cols-2 gap-3">
-            {node.branches.map((b) => (
-              <div key={b.label} className="flex flex-col items-center">
-                <p className="font-jakarta text-body-s font-semibold text-caption">{b.label}</p>
-                <FlowArrow />
-                <FlowNodes nodes={b.nodes} />
-              </div>
-            ))}
-          </div>
-        </div>
-      );
-  }
-}
+const flowToneText: Record<FlowTone, string> = {
+  blue: "text-flow-blue",
+  purple: "text-flow-purple-text",
+  red: "text-flow-red",
+  green: "text-flow-green",
+};
+const flowToneFill: Record<FlowTone, string> = {
+  blue: "bg-flow-blue",
+  purple: "bg-flow-purple",
+  red: "bg-flow-red",
+  green: "bg-flow-green",
+};
 
 const wideCols: Record<number, string> = {
   1: "grid-cols-1",
@@ -376,29 +333,20 @@ export function BlockView({ block }: { block: Block }) {
                     </div>
                   ) : (
                     <div key={img.src}>
-                      {img.minWidth ? (
-                        // Keeps a wide strip readable on a phone: it scrolls sideways instead of shrinking.
-                        <div tabIndex={0} role="group" aria-label="Scroll sideways to see the whole image" className="overflow-x-auto pb-2">
-                          <div style={{ minWidth: img.minWidth }}>
-                            <Picture image={img} sizes={wideSizes[columns]} className={frame(img)} />
+                      {/* Never taller than 80% of the screen: on a short laptop screen the
+                          image narrows instead (2026-10-28, MacBook Pro). A framed screen sits in
+                          a box with 32px padding (16px below 834); a `bare` image (a photo
+                          banner) keeps its plain edge (Lumbini, 2026-10-29). A narrower image keeps
+                          to the column's left edge, like the text above it. */}
+                      <div style={{ maxWidth: `calc(80svh * ${img.width / img.height})` }}>
+                        {block.bare || img.fit === "contain" ? (
+                          <Picture image={img} sizes={wideSizes[columns]} className={frame(img)} />
+                        ) : (
+                          <div className="rounded-card border border-line bg-surface p-4 tablet:p-8">
+                            <Picture image={img} sizes={wideSizes[columns]} />
                           </div>
-                        </div>
-                      ) : (
-                        // Never taller than 80% of the screen: on a short laptop screen the
-                        // image narrows instead (2026-10-28, MacBook Pro). A framed screen sits in
-                        // a box with 32px padding (16px below 834); a `bare` image (a photo
-                        // banner) keeps its plain edge (Lumbini, 2026-10-29). A narrower image keeps
-                        // to the column's left edge, like the text above it.
-                        <div style={{ maxWidth: `calc(80svh * ${img.width / img.height})` }}>
-                          {block.bare || img.fit === "contain" ? (
-                            <Picture image={img} sizes={wideSizes[columns]} className={frame(img)} />
-                          ) : (
-                            <div className="rounded-card border border-line bg-surface p-4 tablet:p-8">
-                              <Picture image={img} sizes={wideSizes[columns]} />
-                            </div>
-                          )}
-                        </div>
-                      )}
+                        )}
+                      </div>
                       {img.caption && <p className="mt-3 max-w-[70ch] font-jakarta text-body-s text-caption">{img.caption}</p>}
                     </div>
                   ),
@@ -523,8 +471,17 @@ export function BlockView({ block }: { block: Block }) {
               const text = steps ? item.title : item.body;
               return (
                 <li key={item.title} className="flex flex-col gap-2.5 rounded-media border border-line bg-surface p-6">
-                  {label && <Eyebrow>{label}</Eyebrow>}
-                  {title && <Title className="text-title-s font-bold text-title">{title}</Title>}
+                  {block.numberInline && label && title ? (
+                    <div className="flex items-baseline gap-3">
+                      <Eyebrow>{label}</Eyebrow>
+                      <Title className="text-title-s font-bold text-title">{title}</Title>
+                    </div>
+                  ) : (
+                    <>
+                      {label && <Eyebrow>{label}</Eyebrow>}
+                      {title && <Title className="text-title-s font-bold text-title">{title}</Title>}
+                    </>
+                  )}
                   {text &&
                     (block.look === "quotes" ? (
                       <blockquote className="text-body-m text-caption italic">
@@ -717,22 +674,62 @@ export function BlockView({ block }: { block: Block }) {
         </figure>
       );
 
-    case "flowchart":
+    case "flowBoard":
       return (
-        <figure>
+        <div className="flex flex-col gap-8">
+          <figure>
+            <div className="flex flex-col gap-8 rounded-media bg-flow-board p-5 text-on-inverse tablet:p-10">
+              <div className="flex flex-col gap-5">
+                <h3 className="text-title-s font-bold">{block.title}</h3>
+                <ul className="flex flex-wrap gap-x-6 gap-y-2">
+                  {block.legend.map((item) => (
+                    <li key={item.label} className="flex items-center gap-2 text-caption-m font-bold uppercase text-on-inverse/70">
+                      <span aria-hidden="true" className={`size-2.5 rounded-pill ${flowToneFill[item.tone]}`} />
+                      {item.label}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <ol className="grid grid-cols-1 items-start gap-8 tablet:grid-cols-2 desktop:grid-cols-4 desktop:gap-6">
+                {block.columns.map((col, i) => (
+                  <li key={col.title} className="flex min-w-0 flex-col gap-4">
+                    <h4 className="flex items-center gap-3 text-h3-mobile font-bold">
+                      <span aria-hidden="true" className={`flex size-7 shrink-0 items-center justify-center rounded-pill text-body-s text-flow-board ${flowToneFill[col.tone]}`}>
+                        {i + 1}
+                      </span>
+                      {col.title}
+                    </h4>
+                    <ol className="flex flex-col">
+                      {col.cards.map((card, j) => (
+                        <li key={card.title} className="flex flex-col items-center">
+                          {j > 0 && <span aria-hidden="true" className="h-[18px] w-px bg-flow-line" />}
+                          <div className="flex w-full flex-col gap-1.5 rounded-media border border-flow-line bg-flow-card p-4">
+                            <p className={`text-caption-m font-bold uppercase ${flowToneText[col.tone]}`}>{card.tag}</p>
+                            <p className="text-h3-mobile font-bold">{card.title}</p>
+                            <p className="text-body-s text-on-inverse/70">{card.body}</p>
+                          </div>
+                        </li>
+                      ))}
+                    </ol>
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <Caption>{block.caption}</Caption>
+          </figure>
           <ol className="grid grid-cols-1 gap-4 tablet:grid-cols-2 desktop:grid-cols-4">
-            {block.columns.map((col, i) => (
-              <li key={col.title} className="flex flex-col gap-4 rounded-card bg-surface-subtle p-5">
-                <p className="flex items-center gap-3 font-jakarta text-body-s font-bold text-title">
-                  <span className="flex size-8 shrink-0 items-center justify-center rounded-pill bg-accent text-on-inverse">{i + 1}</span>
-                  {col.title}
-                </p>
-                <FlowNodes nodes={col.nodes} />
+            {block.summary.map((card, i) => (
+              <li key={card.title} className="flex min-w-0 flex-col gap-2.5 rounded-media border border-line bg-surface p-6">
+                <Eyebrow>{`${i + 1}  ${card.title}`}</Eyebrow>
+                <ul className="list-disc pl-5 text-body-m text-caption">
+                  {card.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
               </li>
             ))}
           </ol>
-          <Caption>{block.caption}</Caption>
-        </figure>
+        </div>
       );
 
     case "lanes":

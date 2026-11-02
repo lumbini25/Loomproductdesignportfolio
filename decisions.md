@@ -8,6 +8,65 @@ from there.
 
 ---
 
+### 2026-11-02 — Bloom usability test had 10 participants; chapter link; persona quote source
+**Decided by:** Lumbini.
+- **Reversal of** the Oct 28 and Oct 30 counts: the usability test had 10 participants, and 9 of 12
+  belongs to the logo choice only. The testing heading is now 90% (9 of 10) and the "phone for AI
+  chat" card 9 of 10, which matches Figma 223:2800. The logo title stays 9 of 12.
+- About: the book chapter links to Manchester Hive, not JSTOR, matching its label.
+- Anewvista: the persona quote is from the user interview and usability test.
+- **Rejected:** removing the Unsplash+ watermark from the persona photo, as for the high-five photo
+  (Oct entry below). It is an unlicensed preview. The fix is the licensed download, under the same
+  file name, or a different image. TODO: replace before launch.
+
+### 2026-11-02 — Knowunity Exploration follows Figma 286:337
+**Decided by:** Lumbini ("replace the task flow section with this section"). **Replaces** the
+flowchart of Oct 27, whose block is deleted.
+- The board is an image in Figma. It is rebuilt as HTML, so its text is real, stacks on phones and
+  meets the 16px and 14px rules. In the image, the card body would be about 9px at 1184.
+- Left out of the image: "Generated in this file by Claude, via the Figma Console MCP" and "A sample,
+  not the answer. Yours will look different the moment you decide where this feature lives." They
+  speak to a designer using a template, not to a hiring manager.
+- Idle's last sentence is cut off in the image too, so it ends at "speak, type, skip." TODO: the rest.
+- The heading is Title 1 Bold (24) as drawn, and "it75%" gets its missing space. The eyebrow stays
+  "Exploration" with no number, per the Oct chapter decision. Other copy is as in Figma.
+- Purple tag text is #9a82ea, not Figma's #9178e6, which is under 4.5:1 on the card. The number
+  circle keeps #9178e6.
+- TODO: "Under four seconds" has no source; is it a target? New `--flow-*` colours have no Figma
+  tokens.
+
+### 2026-11-02 — Knowunity: "Not built, kept as findings" removed
+**Decided by:** Lumbini. The two cards (other students' answers, bringing weak concepts back) are gone
+from the page. The usability-test finding about comparing answers stays.
+
+### 2026-11-02 — H3 Mobile and scaled-down media on every page
+**Decided by:** Lumbini ("do it for landing page, about me, fun and all case studies").
+- Home project titles, About's Writing and principle titles, and Fun's card titles are H3 Mobile.
+  **Reversal of** Title 1 Bold (24) on the Fun cards and the Writing heading: at 24 they were larger
+  than the page title. Fun's cards no longer match 408:2363, and Writing is H1 Mobile (20).
+- Home's section and project headings are Plus Jakarta below 834. From 834 they stay Nunito Sans.
+- Knowunity's storyboard no longer scrolls at 960px. It scales to the column, so its small text is
+  harder to read on phones. `minWidth` is gone from the image type.
+- The Knowunity and WTV carousels stay: one whole screen shows at a time, with Previous and Next.
+
+### 2026-11-02 — Phone screens stay in one row and scale down
+**Decided by:** Lumbini ("do not make it scrollable, scale down the frame sizes"). **Replaces** the
+two columns in the entry below: `PhoneFrame` is one row at every width, and a lone screen is 60% wide
+below 834.
+
+### 2026-11-02 — Phone sub-headings are H3 Mobile; phone screens fit the width
+**Decided by:** Lumbini ("check what typography you use for titles"; "these screens are not fitting
+the width of a smaller size of device").
+- At 390 the page title, chapter titles and card titles were all 20px, so nothing separated them. New
+  Figma and code style **H3 Mobile**, Plus Jakarta Bold 16/24, for case-study sub-headings on phones.
+  Page and chapter titles stay H1 Mobile (20), body Mobile Body1 (14). Desktop and 834 are unchanged.
+- **Reversal of** the sideways phone scroll: below 834 `PhoneFrame` is two columns, so every screen
+  shows at once. This covers Knowunity and WTV, the only two studies that use it with several screens.
+
+### 2026-11-02 — Anewvista numbered cards: number and title on one row
+**Decided by:** Lumbini. Applies to "The journey" and "What we learned". Knowunity and WTV keep the
+number above the title.
+
 ### 2026-11-02 — Case-study body text is DM Sans
 **Decided by:** Lumbini ("check all case study body texts, and fix it"). An audit of all five at 1440
 and 390 found body text in Nunito Sans and Plus Jakarta. Figma uses DM Sans for body and Plus Jakarta

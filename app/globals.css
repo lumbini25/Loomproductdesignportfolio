@@ -32,6 +32,14 @@
   --anewvista-grey: #b9b3ad; /* "Anewvista/Grey": the other bars in that chart */
   --knowunity-25: #edebfa; /* "Knowunity/25": the opening band (Figma 285:584) */
   --knowunity-50: #ebe6fb; /* "Knowunity/50" */
+  /* TODO: no Figma token. Sampled from the task flow board, Figma 286:337. */
+  --flow-board: #090c18;
+  --flow-card: #22242f;
+  --flow-line: #393a44;
+  --flow-blue: #5fa0fc;
+  --flow-purple-text: #9a82ea; /* Knowunity 500 lightened to reach 4.5:1 on the card */
+  --flow-red: #ff6b6b;
+  --flow-green: #00c386;
   --knowunity-500: #9178e6; /* "Knowunity/500" */
   --wtv-50: #e6f2f9; /* "WTV/50" */
   --wtv-300: #a1cfe9; /* "WTV/300" */
@@ -70,6 +78,8 @@
   --text-h1-mobile: 20px; /* "H1 Mobile" */
   --text-h1-mobile--line-height: normal;
   --text-h1-mobile--letter-spacing: -0.01em;
+  --text-h3-mobile: 16px; /* "H3 Mobile": Plus Jakarta Bold, case-study sub-headings */
+  --text-h3-mobile--line-height: 24px;
   --text-title-mobile: 24px; /* "Title 1 Bold" */
   --text-title-mobile--line-height: 36px;
   --text-mobile-body-1: 14px; /* "Mobile Body1": DM Sans Regular */
@@ -161,6 +171,14 @@
   --color-surface-motion: var(--motion-tile);
   --color-device-stand: var(--beige-700); /* TODO: no semantic token; the monitor stand around a screenshot */
   --color-band: var(--theme-band); /* Project/<name>/band: the opening band behind the title */
+  --color-flow-board: var(--flow-board);
+  --color-flow-card: var(--flow-card);
+  --color-flow-line: var(--flow-line);
+  --color-flow-blue: var(--flow-blue);
+  --color-flow-purple: var(--knowunity-500);
+  --color-flow-purple-text: var(--flow-purple-text);
+  --color-flow-red: var(--flow-red);
+  --color-flow-green: var(--flow-green);
   --color-chart: var(--theme-chart); /* Project/<name>/chart: highlighted bars */
   --color-chart-muted: var(--theme-chart-muted); /* Project/<name>/chart-muted: the other bars */
   --color-focus: var(--rust-500);
@@ -205,33 +223,30 @@
 }
 
 @layer components {
-  /* PhoneFrame (components/case-study/MediaFrames.tsx): a group of portrait screens stays one row
-     (Lumbini, 2026-10-27). From 834 every screen gets an equal column; below 834 the row scrolls
-     sideways, one screen and a peek of the next in view. */
+  /* Portrait screens stay in one row and scale down to fit it at every width, never scrolling
+     (Lumbini, 2026-11-02). A lone screen is capped below 834 so it scales down too. */
   .phone-frame {
-    display: flex;
-    gap: 1rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 0.5rem;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+    align-items: start;
   }
   .phone-frame > .phone-cell {
     display: flex;
     justify-content: center;
-    flex: 0 0 62%;
-    scroll-snap-align: center;
+    min-width: 0;
   }
   .phone-frame > .phone-cell:only-child {
-    flex-basis: 100%;
+    justify-self: center;
+    width: 60%;
   }
   @media (min-width: 834px) {
     .phone-frame {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(0, 1fr);
       gap: 1.5rem;
-      overflow: visible;
-      padding-bottom: 0;
+    }
+    .phone-frame > .phone-cell:only-child {
+      width: 100%;
     }
   }
 }
@@ -383,6 +398,14 @@
   .case-study {
     font-size: var(--text-mobile-body-1);
     line-height: var(--text-mobile-body-1--line-height);
+    --text-title-l: var(--text-h3-mobile);
+    --text-title-l--line-height: var(--text-h3-mobile--line-height);
+    --text-title-m: var(--text-h3-mobile);
+    --text-title-m--line-height: var(--text-h3-mobile--line-height);
+    --text-title-s: var(--text-h3-mobile);
+    --text-title-s--line-height: var(--text-h3-mobile--line-height);
+    --text-title-xs: var(--text-h3-mobile);
+    --text-title-xs--line-height: var(--text-h3-mobile--line-height);
   }
 
   .case-study .font-serif {

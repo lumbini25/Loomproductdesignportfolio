@@ -114,6 +114,7 @@ export const anewvista: CaseStudy = {
           look: "boxes",
           heading: "The journey",
           numbered: true,
+          numberInline: true,
           items: [
             { title: "Research synthesis.", body: "Data from analytics and two surveys, and a persona from a user interview." },
             { title: "Design decisions.", body: "Four decisions, each tied to a finding." },
@@ -148,6 +149,7 @@ export const anewvista: CaseStudy = {
           look: "boxes",
           heading: "What we learned",
           numbered: true,
+          numberInline: true,
           items: [
             { title: "First-time visitors did not understand how to book classes." },
             { title: "Mostly 70+ members hit the same wall: finding things." },
@@ -236,7 +238,8 @@ export const anewvista: CaseStudy = {
         {
           // ~/Desktop/Anewvista Case study/persona quote.png, after the persona as in Figma 303:874
           // (Lumbini, 2026-10-29: "use it"). It is an Unsplash+ stock photo with the watermark
-          // visible; Lumbini chose to use it. TODO: an Unsplash+ licence before launch.
+          // visible; Lumbini chose to use it. The quote is from the user interview and usability test.
+          // TODO: an Unsplash+ licence before launch.
           kind: "wide",
           bare: true,
           images: [

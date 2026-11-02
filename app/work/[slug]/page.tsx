@@ -94,7 +94,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
     const header = (
       <div className={`flex flex-col gap-3 ${chapter ? "max-w-[968px]" : "max-w-[820px]"}`}>
         {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-        <h2 id={s.id} className={chapter ? "text-h3-sm font-bold tablet:text-h3" : "text-title-m font-bold tablet:text-title-l"}>
+        <h2 id={s.id} className={chapter ? (s.compactHeading ? "text-h1-mobile font-bold tablet:text-title-l" : "text-h3-sm font-bold tablet:text-h3") : "text-title-m font-bold tablet:text-title-l"}>
           {s.heading}
         </h2>
       </div>

@@ -45,9 +45,8 @@ export const about = {
           "Policing ‘terrorist’ propaganda: A study of counter-terrorism strategies in colonial Bengal 1908–18",
         citation:
           "In Global counter terrorism, edited by Sagnik Dutta, Tahir Abbas, and Sylvia I. Bergh. Manchester University Press.",
-        // TODO: the Figma label says Manchester Hive, but the Figma link goes to JSTOR.
         linkLabel: "View the chapter on Manchester Hive",
-        url: "https://www.jstor.org/stable/jj.25136990" as string | null,
+        url: "https://www.manchesterhive.com/display/9781526178626/9781526178626.00012.xml" as string | null,
       },
     ],
   },

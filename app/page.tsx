@@ -65,7 +65,7 @@ export default function Home() {
 
       <section aria-labelledby="about-heading">
         <Container className="flex flex-col gap-5 pt-12 pb-24 desktop:flex-row desktop:gap-24">
-          <h2 id="about-heading" className="text-h3-sm font-extrabold tablet:text-h3 desktop:w-[260px] desktop:shrink-0">
+          <h2 id="about-heading" className="text-h3-sm font-extrabold max-tablet:font-jakarta max-tablet:font-bold tablet:text-h3 desktop:w-[260px] desktop:shrink-0">
             {home.about.heading}
           </h2>
           <div className="flex flex-col items-start gap-5">

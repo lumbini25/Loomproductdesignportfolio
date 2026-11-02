@@ -11,7 +11,7 @@ export function SectionHeading({
 }) {
   return (
     <div className="flex flex-col gap-2 desktop:flex-row desktop:items-end desktop:justify-between desktop:gap-8">
-      <h2 id={id} className="text-h3-sm font-bold tablet:text-h3">
+      <h2 id={id} className="text-h3-sm font-bold max-tablet:font-jakarta tablet:text-h3">
         {title}
       </h2>
       {note && <p className="text-subtitle-s text-caption desktop:text-right">{note}</p>}

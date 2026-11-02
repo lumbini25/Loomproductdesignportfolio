@@ -288,8 +288,9 @@ export const bloom: CaseStudy = {
       nav: "Testing",
       stage: "Impact",
       label: "Testing",
-      // Source: Lumbini's first usability test, 9 of 12 participants (confirmed 2026-10-28; was 92%).
-      heading: "75% of the participants (9 of 12) in my first usability test expected to chat with an AI bot before they would talk to a therapist.",
+      // Source: Lumbini's first usability test, 9 of 10 participants (Lumbini, 2026-11-02: 10 took
+      // part in the test; the 12 belong to the logo choice).
+      heading: "90% of the participants (9 of 10) in my first usability test expected to chat with an AI bot before they would talk to a therapist.",
       blocks: [
         {
           kind: "split",
@@ -337,9 +338,7 @@ export const bloom: CaseStudy = {
           kind: "stats",
           items: [
             { value: "9 of 10", label: "Participants expressed their intent to use this app" },
-            // Lumbini (2026-10-30): 9 of 12, matching the testing section's 75% (9 of 12). Figma
-            // 223:2800 still reads "9 of 10".
-            { value: "9 of 12", label: "participants chose to use phone for AI chat" },
+            { value: "9 of 10", label: "participants chose to use phone for AI chat" },
             { value: "10 out of 10", label: "participants wanted to book their therapist from a phone" },
           ],
         },

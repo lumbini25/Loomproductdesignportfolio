@@ -63,7 +63,7 @@ export function ProjectCard({ project }: { project: Project }) {
       <div className="flex flex-1 flex-col px-6 pt-5 pb-6 tablet:px-4 desktop:px-6">
         <div className="flex flex-col gap-2.5">
           <Eyebrow>{project.eyebrow}</Eyebrow>
-          <h3 className={`text-title-s font-bold text-title motion-safe:transition-colors ${hover}`}>
+          <h3 className={`text-h3-mobile font-bold text-title motion-safe:transition-colors max-tablet:font-jakarta tablet:text-title-s ${hover}`}>
             {project.title}
           </h3>
           <p className="font-jakarta text-body-s text-caption">{project.descriptor}</p>

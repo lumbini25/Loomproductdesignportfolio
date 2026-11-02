@@ -38,7 +38,7 @@ export function FeaturedProject({ project, preload }: { project: Project; preloa
         <Eyebrow>{project.eyebrow}</Eyebrow>
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-4">
-            <h3 className={`text-h3-sm font-bold motion-safe:transition-colors tablet:text-h3 ${hover}`}>{project.title}</h3>
+            <h3 className={`text-h3-mobile font-bold motion-safe:transition-colors max-tablet:font-jakarta tablet:text-h3 ${hover}`}>{project.title}</h3>
             <p className="font-jakarta text-body-s text-caption">{project.descriptor}</p>
             <Tags items={project.tags} label={`Skills: ${project.title}`} />
           </div>

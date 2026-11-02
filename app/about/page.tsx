@@ -73,7 +73,7 @@ export default function AboutPage() {
       <section aria-labelledby="writing-heading">
         <Container className="flex flex-col gap-8 pb-4 tablet:pt-10 tablet:pb-section-sm desktop:pb-section">
           <div className="flex items-center justify-between gap-4 tablet:flex-col tablet:items-start tablet:gap-2 desktop:flex-row desktop:items-end desktop:justify-between desktop:gap-8">
-            <h2 id="writing-heading" className="font-jakarta text-title-mobile font-bold tablet:text-title-s">
+            <h2 id="writing-heading" className="font-jakarta text-h1-mobile font-bold tablet:text-title-s">
               {about.writing.heading}
             </h2>
             <p className="font-dm text-mobile-body-1 text-body tablet:font-sans tablet:text-subtitle-s tablet:text-caption">{about.writing.note}</p>
@@ -86,7 +86,7 @@ export default function AboutPage() {
                   <p className="font-dm text-mobile-body-1 text-caption tablet:text-body-s tablet:font-semibold">{entry.year}</p>
                 </div>
                 <div className="flex min-w-0 flex-col gap-3">
-                  <h3 className="font-jakarta text-h1-mobile font-bold text-title [overflow-wrap:anywhere] tablet:font-dm tablet:text-citation tablet:font-normal">{entry.title}</h3>
+                  <h3 className="font-jakarta text-h3-mobile font-bold text-title [overflow-wrap:anywhere] tablet:font-dm tablet:text-citation tablet:font-normal">{entry.title}</h3>
                   <p className="font-dm text-mobile-body-1 text-body tablet:font-sans tablet:text-subtitle-s">{entry.citation}</p>
                   {entry.url && (
                     <a
@@ -117,7 +117,7 @@ export default function AboutPage() {
           <ul className="flex flex-col gap-4">
             {about.principles.items.map((item) => (
               <li key={item.title} className="flex flex-col gap-3 rounded-card bg-surface-subtle p-3">
-                <h3 className="font-jakarta text-h1-mobile font-bold text-title">{item.title}</h3>
+                <h3 className="font-jakarta text-h3-mobile font-bold text-title tablet:text-h1-mobile">{item.title}</h3>
                 <p className="font-dm text-mobile-body-1 text-caption">{item.body}</p>
               </li>
             ))}
@@ -128,7 +128,7 @@ export default function AboutPage() {
       <Container className="pt-4 pb-section-sm tablet:pt-10 desktop:pb-section">
         <div className="grid grid-cols-1 gap-6 tablet:grid-cols-2">
           <section aria-labelledby="beliefs-heading" className="hidden min-w-0 flex-col gap-5 tablet:flex rounded-portrait border border-line bg-surface p-7">
-            <h2 id="beliefs-heading" className="font-jakarta text-title-s font-bold text-title">
+            <h2 id="beliefs-heading" className="font-jakarta text-h1-mobile font-bold text-title tablet:text-title-s">
               {about.principles.heading}
             </h2>
             {/* Native details with one shared name: opening one closes the others. */}
@@ -149,7 +149,7 @@ export default function AboutPage() {
           </section>
 
           <section aria-labelledby="photos-heading" className="flex min-w-0 flex-col overflow-hidden rounded-portrait border border-line bg-surface">
-            <h2 id="photos-heading" className="px-7 pt-7 pb-5 font-jakarta text-title-s font-bold text-title">
+            <h2 id="photos-heading" className="px-7 pt-7 pb-5 font-jakarta text-h1-mobile font-bold text-title tablet:text-title-s">
               {about.photos.heading}
             </h2>
             <PhotoMarquee rows={about.photos.rows} />

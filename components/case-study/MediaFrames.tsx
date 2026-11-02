@@ -1,8 +1,8 @@
-import { Children, type CSSProperties, type ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 // Case-study media wrappers. Every image and video in a case study sits in one of these, so no
 // visual renders larger than its frame allows.
-//   PhoneFrame  portrait media in one row: equal columns from 834, a sideways scroll below
+//   PhoneFrame  portrait media: equal columns in one row at every width, never scrolling
 //               (.phone-frame in globals.css). Each item centred, at most min(80vh, 720px) tall.
 //   WideFigure  landscape media and diagrams: at most 1100px wide, centred.
 //   HeroMedia   the lead visual: 16:9, at most 70vh tall, centred.
@@ -14,16 +14,7 @@ const PHONE_MAX_H_PX = 720;
 export const isPortrait = (m: { width: number; height: number }) => m.height >= m.width;
 
 export function PhoneFrame({ children, className = "" }: { children: ReactNode; className?: string }) {
-  // A scrolling row must be reachable by keyboard; a single item never scrolls.
-  const many = Children.count(children) > 1;
-  return (
-    <div
-      className={`phone-frame ${className}`}
-      {...(many ? { tabIndex: 0, role: "group", "aria-label": "Screens: scroll sideways on small screens" } : {})}
-    >
-      {children}
-    </div>
-  );
+  return <div className={`phone-frame ${className}`}>{children}</div>;
 }
 
 // Box for one portrait item: keeps the media's ratio and caps its height, never wider than its cell.

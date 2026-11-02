@@ -44,7 +44,7 @@ export default function FunPage() {
               )}
               <div className="flex flex-col gap-2.5 px-3">
                 <Eyebrow className="font-jakarta!">{item.type}</Eyebrow>
-                <h2 className="font-jakarta text-title-mobile font-bold tablet:text-title-m">{item.title}</h2>
+                <h2 className="font-jakarta text-h3-mobile font-bold tablet:text-title-m">{item.title}</h2>
                 <p className="font-dm text-mobile-body-1 text-caption tablet:text-body-semibold-s tablet:font-semibold">{item.body}</p>
                 {item.link && (
                   <a

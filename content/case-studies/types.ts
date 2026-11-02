@@ -15,8 +15,6 @@ export type Img = {
   fit?: "contain" | "center";
   // Carmen's banner effect: the image settles from 108% to 100% as it scrolls into view.
   zoom?: boolean;
-  // A wide strip that stays at least this wide (px) and scrolls sideways on narrow screens.
-  minWidth?: number;
 };
 
 export type Video = {
@@ -77,9 +75,16 @@ export type Block =
     }
   // A comparison table: one column per product, one row per dimension.
   | { kind: "matrix"; columns: string[]; rows: { label: string; cells: string[] }[]; caption?: string }
-  // A traditional flowchart in columns: ovals start and end, boxes are steps, diamonds are decisions
-  // with Yes/No branches, and numbered circles continue in another column.
-  | { kind: "flowchart"; columns: { title: string; nodes: FlowNode[] }[]; caption?: string }
+  // Figma 286:337: a dark board of step cards in four columns, its caption, then a summary card per
+  // column. Each column's tone colours its number and tags.
+  | {
+      kind: "flowBoard";
+      title: string;
+      legend: { tone: FlowTone; label: string }[];
+      columns: { title: string; tone: FlowTone; cards: { tag: string; title: string; body: string }[] }[];
+      caption?: string;
+      summary: { title: string; items: string[] }[];
+    }
   // A flow drawn as lanes of steps, left to right.
   | { kind: "lanes"; lanes: { title: string; summary: string; steps: string[] }[]; flags?: string[]; caption?: string }
   | { kind: "steps"; label: string; before: string[]; after: string[]; caption?: string }
@@ -92,6 +97,8 @@ export type Block =
       kind: "cards";
       items: { title: string; body?: string }[];
       numbered?: boolean;
+      // The number sits on the title's row, not above it (Anewvista, Lumbini 2026-11-02).
+      numberInline?: boolean;
       heading?: string;
       // "boxes" (Anewvista Figma 283:572): outlined cards in one row from 1200. Not numbered: the
       // title is the card's label over the body. Numbered: "01" over the title and body. With a
@@ -151,11 +158,7 @@ export type Block =
   // Content not handed over yet. Shown everywhere, labelled, so it never reads as real.
   | { kind: "placeholder"; text: string };
 
-export type FlowNode =
-  | { shape: "start" | "step" | "end" | "exit"; label: string }
-  | { shape: "decision"; label: string; branches: { label: string; nodes: FlowNode[] }[] }
-  // Continues at the column with this number.
-  | { shape: "goto"; to: number };
+export type FlowTone = "blue" | "purple" | "red" | "green";
 
 export type Stage = "Problem" | "Solution" | "Impact";
 
@@ -167,6 +170,8 @@ export type Section = {
   chapter?: { number: string; title: string };
   // Optional small label above the heading, from the source copy (e.g. "Design challenge").
   label?: string;
+  // Title 1 Bold (24) instead of the chapter's 40, for a heading that is a long sentence.
+  compactHeading?: boolean;
   heading: string;
   // The section's name in the content navigation, from words already on the page. Used by
   // studies without chapters (WTV, Bloom); sections without it are left out of the navigation.
