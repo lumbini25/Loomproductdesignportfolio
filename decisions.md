@@ -19,6 +19,66 @@ from there.
   (Oct entry below). It is an unlicensed preview. The fix is the licensed download, under the same
   file name, or a different image. TODO: replace before launch.
 
+### 2026-11-02 — Home: one Featured project, then All projects
+**Decided by:** Lumbini, structure and proportions from carmen-elena.space/work, measured at 1440, 834
+and 390. **Reversal of** the two featured blocks in 103:2944. A dark Featured panel holds Knowunity as
+one horizontal card, half image and half text. All projects is a grid of three from 1200, two from 834,
+one on phones, with Bloom & Heal first. Card images go from 416:303 to 366:200, so thumbnails crop.
+Her copy, button wording and blue are not used; the site keeps its own.
+
+### 2026-11-02 — Knowunity keeps its links, carousel and recording; no comparison table
+**Decided by:** Lumbini ("do not remove this, add those in their previous places"; "no table needed";
+"remove what the audit caught section"). **Reversal of** the removals in the 285:574 entry below:
+the Outcome links, the Final designs carousel and the prototype recording are back where they were,
+and the 3×2 grid is gone. The comparison table and its block are removed from the site. The rectangular
+button opens the table in Figma (286:229) in a new tab, which needs the file set to view by link. The
+two audit cards are removed from the dark panel.
+
+### 2026-11-02 — Knowunity keeps two earlier designs over the frame
+**Decided by:** Lumbini. Two departures from 285:574, both on purpose.
+- **Reversal of** the open table: the competitive analysis text is followed by the rectangular "See the
+  full competitive analysis" button, with the table inside it.
+- **Reversal of** the light AI-native cards: the dark "What stayed mine" panel is back as committed,
+  with its Storybook and audit cards.
+
+### 2026-11-02 — Knowunity: comparison table back on the page; Solution uses the demo film
+**Decided by:** Lumbini. **Reversal of** the inline text link: the competitive analysis table shows in
+full, with its caption. Solution holds the 71-second demo film instead of the prototype recording,
+click to play under the autoplay register. Its frame is 16:9 below 1200, Figma's ratio from 1200.
+The prototype recording is no longer on the page.
+
+### 2026-11-02 — Contents list stays on one line from 1200
+**Decided by:** Lumbini. From 1200 the rail is as wide as its longest label and labels never wrap, on
+every case study. Below 1200 it stays 176px and labels wrap.
+
+### 2026-11-02 — Knowunity type scale, Research hierarchy, contents spacing
+**Decided by:** Lumbini ("you did not use visual hierarchy"; "I also use different type scale for the
+knowunity, use that"). Scoped to `.theme-knowunity`, from a census of 285:574: Plus Jakarta labels, 14
+SemiBold captions and at-a-glance values, H3 with auto line height, a 20/30 contents list, beige panels
+(Greyscale/surface/subtle). **Replaces** Knowunity's purple surface; the opening band stays purple.
+Research follows 286:318: the beta audit line is grey, competitive analysis is body text with an
+inline link. The Solution video frame is square on phones, 3:2 from 834, and Figma's ratio from 1200.
+Every study's contents list now has even padding.
+
+### 2026-11-02 — Knowunity follows Figma 285:574; WTV follows the arrangement of 112:13
+**Decided by:** Lumbini.
+- Knowunity order: Context, Solution (new), Role and approach, Research, Exploration, Usability test,
+  Key decision, Final designs, AI-native process, Outcome, Reflection. Copy is the frame's.
+- **Removed, because the frame does not have them:** the 71-second product film, the Outcome links
+  (full-quality film, Try the prototype, Storybook), the dark "What stayed mine" panel, and the Final
+  designs carousel. The prototype recording moves up to Solution, in a dark band.
+- Figma's "competitive analysis" link points inside Figma, so the page opens the existing table in
+  place. The frame's task flow is still rebuilt as HTML (see Exploration below), without the two
+  template lines. "TO CONFIRM" lines are dev-only notes.
+- WTV: My role comes straight after the at-a-glance row, and the row takes the frame's values. That
+  changes the Timeline from May to April 2026, Role to UX designer, and Platform to Result. The two
+  problem images keep their own captions; the frame has them swapped.
+
+### 2026-11-02 — WTV My role is one box again
+**Decided by:** Lumbini, Figma 137:109. **Reversal of** the Oct 29 numbered cards: one filled box with
+the heading and a /01 list. The words are Figma's, with the dash. The heading stays "My role" under
+the sentence-case rule, and body text stays DM Sans like every case study (Figma's box is Plus Jakarta).
+
 ### 2026-11-02 — Key decision screens follow the updated 286:368
 **Decided by:** Lumbini, who updated the frame after the first build. Both option screens are now whole
 phones, 450 wide with a 48 gap, left-aligned, instead of cropped and spread to the edges.

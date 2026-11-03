@@ -646,9 +646,32 @@
 /* Knowunity, WTV, TDK: the full colour is too strong under grey and rust text, so text cards
    take the pale /50 tint and text-free tiles the full colour. */
 .theme-knowunity {
-  --theme-surface-subtle: var(--knowunity-50);
+  --theme-surface-subtle: var(--beige-500);
   --theme-surface-sky: var(--knowunity-500);
   --theme-band: var(--knowunity-25);
+  --text-h3--line-height: normal;
+}
+
+/* Knowunity's own type scale, from Figma 285:574 (Lumbini, 2026-11-02): Plus Jakarta labels, 14
+   SemiBold captions and at-a-glance values, and a 20/30 contents list. */
+.theme-knowunity .font-serif {
+  font-family: var(--font-heading);
+}
+
+.theme-knowunity figcaption,
+.theme-knowunity dd.text-subtitle-s,
+.theme-knowunity dt.font-dm {
+  font-size: var(--text-body-semibold-s);
+  line-height: var(--text-body-semibold-s--line-height);
+  font-weight: 600;
+}
+
+@media (min-width: 834px) {
+  .theme-knowunity nav a {
+    padding-block: 7px;
+    font-size: var(--text-body-m);
+    line-height: var(--text-body-m--line-height);
+  }
 }
 .theme-wtv {
   --theme-surface-subtle: var(--wtv-50);

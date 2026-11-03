@@ -165,7 +165,7 @@ export function BlockView({ block }: { block: Block }) {
   switch (block.kind) {
     case "text":
       return (
-        <div className={`flex flex-col gap-4 ${block.look === "lead" ? "max-w-[960px]" : "max-w-[720px]"}`}>
+        <div className={`flex flex-col gap-4 ${block.wide ? "" : block.look === "lead" ? "max-w-[960px]" : "max-w-[720px]"}`}>
           {block.label && <Eyebrow>{block.label}</Eyebrow>}
           {block.heading && <h3 className="text-title-s font-bold text-title">{block.heading}</h3>}
           {block.paragraphs.map((p) => (
@@ -244,7 +244,11 @@ export function BlockView({ block }: { block: Block }) {
     case "video":
       return (
         <figure>
-          {block.hero ? (
+          {block.band ? (
+            <div className="aspect-video max-h-[80svh] w-full overflow-hidden rounded-card bg-flow-board desktop:aspect-[1184/480]">
+              <VideoPlayer video={block.video} className="h-full w-full" videoClassName="block h-full w-full bg-flow-board! object-contain" />
+            </div>
+          ) : block.hero ? (
             <HeroMedia>
               <VideoPlayer video={block.video} className="h-full w-full" videoClassName="block h-full w-full object-cover" />
             </HeroMedia>
@@ -613,6 +617,7 @@ export function BlockView({ block }: { block: Block }) {
     case "stats":
       return (
         <figure>
+          <div className={block.side ? "grid grid-cols-1 items-center gap-6 desktop:grid-cols-[minmax(0,752fr)_minmax(0,380fr)] desktop:gap-12" : undefined}>
           <dl className="fit-3 grid grid-cols-3 gap-4">
             {/* One number style on every case study (2026-10-29): a filled card. */}
             {block.items.map((s) => (
@@ -624,60 +629,9 @@ export function BlockView({ block }: { block: Block }) {
               </div>
             ))}
           </dl>
-          <Caption>{block.source}</Caption>
-        </figure>
-      );
-
-    case "matrix":
-      return (
-        <figure>
-          {/* A table from 834 up; one card per product below that. */}
-          <div className="hidden overflow-hidden rounded-card border border-line tablet:block">
-            <table className="w-full border-collapse text-left font-jakarta text-body-s">
-              <thead className="bg-surface-subtle">
-                <tr>
-                  <th scope="col" className="w-[150px] p-4 font-serif text-caption-m font-medium uppercase text-caption">
-                    <span className="sr-only">Dimension</span>
-                  </th>
-                  {block.columns.map((c) => (
-                    <th key={c} scope="col" className="p-4 font-semibold text-title">
-                      {c}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {block.rows.map((row) => (
-                  <tr key={row.label} className="border-t border-line align-top">
-                    <th scope="row" className="p-4 font-semibold text-title">
-                      {row.label}
-                    </th>
-                    {row.cells.map((cell, i) => (
-                      <td key={i} className="p-4 text-caption">
-                        {cell}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          {block.side && <p className="text-body-m text-caption">{block.side}</p>}
           </div>
-          <ul className="flex flex-col gap-4 tablet:hidden">
-            {block.columns.map((c, ci) => (
-              <li key={c} className="rounded-card bg-surface-subtle p-5">
-                <h3 className="font-jakarta text-title-xs font-bold">{c}</h3>
-                <dl className="mt-3 flex flex-col gap-3 font-jakarta text-body-s">
-                  {block.rows.map((row) => (
-                    <div key={row.label}>
-                      <dt className="font-semibold text-title">{row.label}</dt>
-                      <dd className="text-caption">{row.cells[ci]}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </li>
-            ))}
-          </ul>
-          <Caption>{block.caption}</Caption>
+          <Caption>{block.source}</Caption>
         </figure>
       );
 
@@ -710,24 +664,53 @@ export function BlockView({ block }: { block: Block }) {
         </div>
       );
 
-    case "options":
+    case "options": {
+      const columns = block.columns ?? 2;
+      const Title = block.heading ? "h4" : "h3";
+      const rowClass = columns === 3 ? "fit-3 grid grid-cols-3 gap-4" : columns === 2 ? "fit-2 grid grid-cols-2 gap-4" : "grid grid-cols-1 gap-4";
       return (
-        <ul className="fit-2 grid grid-cols-2 gap-4">
-          {block.items.map((item) => (
-            <li key={item.label} className="flex min-w-0 flex-col gap-2.5 rounded-card border border-line bg-surface p-6">
-              <Eyebrow>{item.label}</Eyebrow>
-              <h3 className="text-title-s font-bold text-title">{item.title}</h3>
-              {item.body && <p className="text-body-m text-caption">{item.body}</p>}
-              {item.bullets && (
-                <ul className="list-disc pl-5 text-body-m text-caption">
-                  {item.bullets.map((bullet) => (
-                    <li key={bullet}>{bullet}</li>
-                  ))}
-                </ul>
+        <div className="flex flex-col gap-4">
+          {block.heading && <h3 className="font-jakarta text-title-xs font-bold">{block.heading}</h3>}
+          <figure>
+            <ul className={rowClass}>
+              {block.items.map((item) => (
+                <li key={item.label ?? item.title ?? item.body} className="flex min-w-0 flex-col gap-2.5 rounded-card border border-line bg-surface p-6">
+                  {item.label && <Eyebrow>{item.label}</Eyebrow>}
+                  {item.title && <Title className="text-title-s font-bold text-title">{item.title}</Title>}
+                  {item.body && <p className={`text-body-m ${block.strong ? "text-title" : block.muted ? "text-body" : "text-caption"}`}>{item.body}</p>}
+                  {item.bullets && (
+                    <ul className="list-disc pl-5 text-body-m text-caption">
+                      {item.bullets.map((bullet) => (
+                        <li key={bullet}>{bullet}</li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ul>
+            <Caption>{block.caption}</Caption>
+          </figure>
+        </div>
+      );
+    }
+
+    case "lead":
+      return <p className={`text-title-s font-bold ${block.muted ? "text-caption" : "text-title"}`}>{block.text}</p>;
+
+    case "gallery":
+      return (
+        <div className={`grid items-start gap-4 ${block.columns === 3 ? "fit-3 grid-cols-3" : "fit-2 grid-cols-2"}`}>
+          {block.images.map((img) => (
+            <figure key={img.src} className="flex min-w-0 flex-col gap-2.5">
+              <Picture image={img} sizes={wideSizes[block.columns]} className="rounded-card bg-surface-subtle" />
+              {img.caption && (
+                <figcaption className="font-dm text-body-semibold-s font-semibold text-caption">
+                  <Rich text={img.caption} />
+                </figcaption>
               )}
-            </li>
+            </figure>
           ))}
-        </ul>
+        </div>
       );
 
     case "flowBoard":
@@ -891,6 +874,22 @@ export function BlockView({ block }: { block: Block }) {
         <WideFigure>
           <Carousel images={block.images} label={block.label} frame={block.frame} />
         </WideFigure>
+      );
+
+    case "linkButton":
+      return (
+        <a
+          href={block.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex min-h-11 items-center justify-between gap-4 rounded-card border border-line p-5 font-jakarta text-body-s font-semibold text-title hover:bg-surface-subtle"
+        >
+          <span>
+            {block.label}
+            <span className="sr-only"> (opens in a new tab)</span>
+          </span>
+          <ArrowRightIcon size={18} className="shrink-0 text-caption" />
+        </a>
       );
 
     case "links":

@@ -11,8 +11,9 @@ import { site } from "@/content/site";
 
 // Figma Prototype frame 103:2944: hero text beside one sketch (103:2953, redrawn 2026-11-01).
 export default function Home() {
-  // Figma 103:2944: two featured projects, then the rest as cards.
-  const [first, second, ...rest] = projects;
+  // One featured project in its own panel, then every other project as a card, in the structure of
+  // carmen-elena.space/work (Lumbini, 2026-11-02). Bloom & Heal is the first card.
+  const [featured, ...rest] = projects;
   const iconLink =
     "inline-flex size-11 items-center justify-center rounded-control border border-line text-caption hover:bg-surface-subtle motion-safe:transition-colors";
 
@@ -48,18 +49,26 @@ export default function Home() {
       </Container>
 
       <section aria-labelledby="work-heading" id="work" className="pt-section-sm pb-section-sm desktop:pt-section">
-        <Container className="flex flex-col gap-8">
+        <Container className="flex flex-col gap-6">
           <SectionHeading id="work-heading" title={home.work.heading} />
-          <FeaturedProject project={first} preload />
-          <FeaturedProject project={second} />
-          {/* Figma 103:3000: vertical cards, three in one row from 834 (Lumbini, 2026-10-28), 1 at 390. */}
-          <ul className="grid grid-cols-1 gap-8 tablet:grid-cols-3 tablet:gap-4 desktop:gap-8">
-            {rest.map((project) => (
-              <li key={project.slug}>
-                <ProjectCard project={project} />
-              </li>
-            ))}
-          </ul>
+          <section aria-labelledby="featured-heading" className="flex flex-col gap-4 rounded-featured bg-surface-inverse p-4 tablet:p-6">
+            <h3 id="featured-heading" className="font-jakarta text-subtitle-s font-semibold text-on-inverse">
+              {home.work.featured}
+            </h3>
+            <FeaturedProject project={featured} preload />
+          </section>
+          <section aria-labelledby="all-projects-heading" className="flex flex-col gap-3">
+            <h3 id="all-projects-heading" className="font-jakarta text-subtitle-s font-semibold text-title">
+              {home.work.all}
+            </h3>
+            <ul className="grid grid-cols-1 gap-6 tablet:grid-cols-2 desktop:grid-cols-3">
+              {rest.map((project) => (
+                <li key={project.slug}>
+                  <ProjectCard project={project} />
+                </li>
+              ))}
+            </ul>
+          </section>
         </Container>
       </section>
 

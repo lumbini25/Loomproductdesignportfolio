@@ -19,10 +19,11 @@ export const wtv: CaseStudy = {
   summary:
     "I redesigned WTV company's intranet while introducing role-based dashboard to improve work efficiency and productivity of the employees.",
   facts: [
-    { label: "Role", value: "Product Designer" },
-    { label: "Timeline", value: "May 2026" },
-    { label: "Team", value: "3 Designers" },
-    { label: "Platform", value: "Internal Tool" },
+    // Figma 336:1754.
+    { label: "Role", value: "UX designer" },
+    { label: "Team", value: "3 UX designers (including me)" },
+    { label: "Timeline", value: "April 2026" },
+    { label: "Result", value: "Stakeholder validation" },
   ],
   // The coloured opening shared by every case study (Lumbini, 2026-10-29). Eyebrow and tags from the
   // Home card (Figma 103:2944); the visual is the former cover. "My role" moved into its own section.
@@ -40,9 +41,24 @@ export const wtv: CaseStudy = {
   },
   sections: [
     {
+      // Figma 137:109: one box holding the heading and a numbered list.
+      id: "my-role",
+      nav: "My role",
+      stage: "Problem",
+      heading: "My role",
+      role: [
+        "Led user research — planned the interview guide, conducted all four generative interviews, and adapted methodology to work without direct intranet access, reconstructing behavior through self-reporting.",
+        "Led research synthesis",
+        "Led information architecture",
+        "Built the component library — established the shared token system and reusable patterns that gave both role-based dashboards a consistent, governable foundation.",
+      ],
+      blocks: [],
+    },
+    {
       id: "overview",
       nav: "Overview",
       stage: "Problem",
+      compactHeading: true,
       heading: "The intranet existed — employees just stopped using it.",
       blocks: [
         {
@@ -89,33 +105,6 @@ export const wtv: CaseStudy = {
           ],
           caption:
             "Employees had to repeatedly copy and paste brand colors from Figma whenever they created or updated materials",
-        },
-      ],
-    },
-    {
-      // The former "My role" box under the cover, now a section (Lumbini, 2026-10-29). Lead and
-      // detail are the box's own words, split at the dash.
-      id: "my-role",
-      nav: "My role",
-      stage: "Problem",
-      heading: "My role",
-      blocks: [
-        {
-          kind: "cards",
-          look: "boxes",
-          numbered: true,
-          items: [
-            {
-              title: "Led user research",
-              body: "Planned the interview guide, conducted all four generative interviews, and adapted methodology to work without direct intranet access, reconstructing behavior through self-reporting.",
-            },
-            { title: "Led research synthesis" },
-            { title: "Led information architecture" },
-            {
-              title: "Built the component library",
-              body: "Established the shared token system and reusable patterns that gave both role-based dashboards a consistent, governable foundation.",
-            },
-          ],
         },
       ],
     },

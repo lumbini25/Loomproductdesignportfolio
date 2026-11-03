@@ -90,7 +90,7 @@ Filled in as we go. Nothing autoplays until it is marked "Yes" here.
 
 | Media | Where it appears | Autoplay | Notes |
 | --- | --- | --- | --- |
-| Knowunity hero film (`knowunity-active-recall.mp4`, 74 s, 1920x1080, 49 MB source) | Knowunity case study, hero | No (Nov 2, Lumbini: everything autoplays except the two demo films) | Starts when pressed; poster first. Shipped as a 1280x720 web version, 8.9 MB; the 49 MB source is only a download link. |
+| Knowunity hero film (`knowunity-active-recall.mp4`, 74 s, 1920x1080, 49 MB source) | Knowunity case study, Solution | No (Nov 2, Lumbini: everything autoplays except the two demo films) | Starts when pressed; poster first. Shipped as a 1280x720 web version, 8.9 MB; the 49 MB source is only a download link. |
 | Knowunity prototype screen recording (Sep 30, 44 s, 824x1360, silent; `prototype-recording.mp4`, 2.8 MB) | Knowunity case study, Final designs, in a phone mockup | Yes (Oct 27, Lumbini) | Muted, looping, poster, visible pause control; pauses off screen; reduced motion shows the poster. |
 | AnewVista class booking flow (33 s, 1600x900, 12 MB) | Anewvista case study, bottom | Yes (Nov 2, Lumbini) | Edited from Lumbini's recording, Oct 22. Muted, looping, poster, pause control. |
 | Home card videos: ANVCS class booking flow (23.5 s, `anewvista-card.mp4`, 2.5 MB) and TDK unit creation (15.6 s, `tdk-card.mp4`, 1.2 MB), both silent | Home, inside the card thumbnails, as in Figma | Yes (Oct 28, Lumbini) | Muted, looping, poster, visible pause control; pauses off screen; reduced motion shows the poster. |

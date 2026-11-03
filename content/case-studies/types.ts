@@ -33,7 +33,7 @@ export type Video = {
 
 export type Block =
   // `look: "lead"`: larger, semibold subtitle text (Bloom's Framer page, 26px).
-  | { kind: "text"; paragraphs: string[]; look?: "lead"; label?: string; heading?: string }
+  | { kind: "text"; paragraphs: string[]; wide?: boolean; look?: "lead"; label?: string; heading?: string }
   // Text in a narrow column beside a visual (Bloom Figma brand and testing rows).
   | { kind: "split"; title?: string; paragraphs: string[]; image: Img; caption?: string }
   // Carmen's pinned device: the device sticks while numbered steps scroll past, and its screen
@@ -49,6 +49,8 @@ export type Block =
   // `hero`: the study's lead film, shown 16:9 in HeroMedia (at most 70vh tall).
   | {
       kind: "video";
+      // Figma 286:228: a dark band with the video whole inside it.
+      band?: boolean;
       video: Video;
       caption?: string;
       link?: { label: string; href: string };
@@ -73,8 +75,6 @@ export type Block =
       caption?: string;
       device: "phone" | "desktop";
     }
-  // A comparison table: one column per product, one row per dimension.
-  | { kind: "matrix"; columns: string[]; rows: { label: string; cells: string[] }[]; caption?: string }
   // Figma 286:337: a dark board of step cards in four columns at every width, then its caption.
   // Each column's tone colours its number and tags.
   | {
@@ -118,15 +118,30 @@ export type Block =
   // Numbered outlined cards in rows of four, body text only (Knowunity, Figma 287:176).
   | { kind: "findings"; heading: string; items: string[] }
   // Outlined cards side by side: label, title, then a line or bullets (Knowunity, Figma 286:348).
-  | { kind: "options"; items: { label: string; title: string; body?: string; bullets?: string[] }[] }
+  // `columns` defaults to 2; `strong`: body text in the title colour.
+  | {
+      kind: "options";
+      heading?: string;
+      columns?: 1 | 2 | 3;
+      strong?: boolean;
+      muted?: boolean;
+      items: { label?: string; title?: string; body?: string; bullets?: string[] }[];
+      caption?: string;
+    }
+  // One bold line between blocks, Title 1 Bold (Knowunity, Figma 286:315).
+  | { kind: "lead"; text: string; muted?: boolean }
+  // Images in equal columns, each with its caption under it. Never stacks.
+  | { kind: "gallery"; columns: 2 | 3; images: Img[] }
   | { kind: "panel"; columns: { title: string; items: string[] }[]; caption?: string }
   | { kind: "cycle"; steps: { title: string; body: string }[]; caption?: string }
   | { kind: "flow"; steps: string[]; notes: string[]; caption?: string }
   // `look: "outline"`: centred value and label on an outlined white card.
-  | { kind: "stats"; items: { value: string; label: string }[]; source?: string; look?: "outline" }
+  | { kind: "stats"; items: { value: string; label: string }[]; source?: string; look?: "outline"; side?: string }
   // Desktop screens shown one at a time, with buttons and a counter. `frame` is a width/height
   // ratio: every slide fills the same frame from the top, so all screens show at one width.
   | { kind: "carousel"; label: string; images: Img[]; frame?: number }
+  // One full-width outlined button that opens a page (Knowunity, competitive analysis).
+  | { kind: "linkButton"; label: string; href: string }
   | { kind: "links"; items: { label: string; href: string }[] }
   // A short visible list with the full list behind a native toggle.
   | { kind: "details"; summary: string; blocks: Block[] }
@@ -176,6 +191,8 @@ export type Section = {
   chapter?: { number: string; title: string };
   // Optional small label above the heading, from the source copy (e.g. "Design challenge").
   label?: string;
+  // Replaces the usual header and blocks with a filled box: the heading and a /01 numbered list.
+  role?: string[];
   // Title 1 Bold (24) instead of the chapter's 40, for a heading that is a long sentence.
   compactHeading?: boolean;
   heading: string;

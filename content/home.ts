@@ -18,6 +18,8 @@ export const home = {
   ],
   work: {
     heading: "Selected work",
+    featured: "Featured",
+    all: "All projects",
     note: "Five projects. Each one says what shipped and what did not.",
   },
   about: {

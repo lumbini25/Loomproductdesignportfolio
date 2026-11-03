@@ -34,6 +34,25 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">): P
 
 const stages: Stage[] = ["Problem", "Solution", "Impact"];
 
+// Figma 137:109: a filled box with the heading and a list numbered /01.
+function RoleBox({ id, title, items }: { id?: string; title: string; items: string[] }) {
+  return (
+    <div className="flex flex-col gap-3 rounded-card bg-surface-subtle p-4">
+      <h2 id={id} className="text-title-s font-bold">
+        {title}
+      </h2>
+      <ol className="flex flex-col gap-1">
+        {items.map((item, i) => (
+          <li key={item.slice(0, 32)} className="font-jakarta text-body-s text-title">
+            <span className="mr-2 font-sans text-title-s font-bold">/{String(i + 1).padStart(2, "0")}</span>
+            <Rich text={item} />
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]">) {
   const { slug } = await params;
   const project = getProject(slug);
@@ -89,6 +108,13 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
   }
 
   const renderSection = (s: Section) => {
+    if (s.role) {
+      return (
+        <section key={s.id} aria-labelledby={s.id} className={study.motion === "carmen" ? "reveal" : undefined}>
+          <RoleBox id={s.id} title={s.heading} items={s.role} />
+        </section>
+      );
+    }
     const chapter = chapterName.get(s.id);
     const eyebrow = chapter ?? s.label;
     const header = (
@@ -272,17 +298,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
               ))}
             </div>
             {study.contributions && (
-              <div className="flex flex-col gap-3 rounded-media bg-surface-subtle p-4 tablet:p-6">
-                <h2 className="text-title-s font-bold">{labels.myRole}</h2>
-                <ol className="flex flex-col gap-1">
-                  {study.contributions.map((c, i) => (
-                    <li key={c.slice(0, 32)} className="font-jakarta text-body-s text-title">
-                      <span className="mr-2 font-sans text-title-s font-bold">/{String(i + 1).padStart(2, "0")}</span>
-                      <Rich text={c} />
-                    </li>
-                  ))}
-                </ol>
-              </div>
+              <RoleBox title={labels.myRole} items={study.contributions} />
             )}
           </Container>
         ) : (

@@ -56,7 +56,7 @@ export function CaseStudyNav({
   return (
     <nav
       aria-label={label}
-      className={`${hideBelowTablet ? "hidden tablet:block" : ""} tablet:sticky tablet:top-6 tablet:order-last tablet:w-44 tablet:shrink-0 tablet:self-start tablet:bg-surface tablet:py-2 desktop:w-30`}
+      className={`${hideBelowTablet ? "hidden tablet:block" : ""} tablet:sticky tablet:top-6 tablet:order-last tablet:w-44 tablet:shrink-0 desktop:w-max tablet:self-start tablet:bg-surface tablet:py-2 desktop:w-30`}
     >
       <p className="font-serif text-caption-m font-medium uppercase text-accent">{label}</p>
       <ul className="flex flex-wrap gap-x-6 tablet:mt-2 tablet:flex-col">
@@ -68,7 +68,7 @@ export function CaseStudyNav({
                 href={`#${item.id}`}
                 aria-current={on ? "location" : undefined}
                 onClick={() => setActive(item.id)}
-                className={`inline-flex min-h-11 min-w-11 items-center gap-2 text-subtitle-s text-title transition-colors duration-200 [@media(hover:hover)]:hover:text-accent ${on ? "tablet:font-semibold" : "tablet:text-caption"}`}
+                className={`inline-flex min-h-11 min-w-11 items-center gap-2 py-2.5 text-subtitle-s desktop:whitespace-nowrap text-title transition-colors duration-200 [@media(hover:hover)]:hover:text-accent ${on ? "tablet:font-semibold" : "tablet:text-caption"}`}
               >
                 <span
                   aria-hidden="true"

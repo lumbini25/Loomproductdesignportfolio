@@ -42,43 +42,27 @@ export const knowunity: CaseStudy = {
     },
   },
   sections: [
-    // Block 1: the hook. The film is the hero.
+    // Sections follow Figma 285:574 (Lumbini, 2026-11-02).
     {
       id: "hook",
       stage: "Problem",
       chapter: { number: "01", title: "Context" },
       heading:
-        "Students revise, then can't retrieve it in the exam, and nothing in the app tells them which is which",
+        "Students revise, then can’t retrieve it in the exam, and nothing in the app tells them which is which",
       blocks: [
         {
-          kind: "video",
-          hero: true,
-          video: {
-            src: `${dir}/knowunity-active-recall-web.mp4`,
-            poster: `${dir}/knowunity-hero-poster.jpg`,
-            width: 1280,
-            height: 720,
-            description:
-              "Product film: a student allows the mic, answers aloud, climbs two hints, reviews their take, sees 'You explained 2 of 4 without help', then retries the topic they missed.",
-          },
-          caption:
-            "71-second product film of the prototype: iOS, 390px, dark mode. Every frame on the phone is the real prototype, rendered from its own components.",
-        },
-        // Block 2: context and challenge.
-        {
-          kind: "statement",
-          label: "Situation",
-          text: "Knowunity is a study app with 30M+ downloads. Its practice tools test recognition, like multiple choice and flashcards. None of them ask a student to pull an idea from memory and say it.",
-        },
-        {
-          kind: "statement",
-          label: "Users",
-          text: "Secondary-school students before exams. Flattering feedback sends them in over-confident, and punishing hints stops them asking for help.",
+          kind: "options",
+          columns: 2,
+          strong: true,
+          items: [
+            { label: "Problem 1", body: "‘Almost there’ cannot tell whether students were misheard" },
+            { label: "Problem 2", body: "The Summary screen names perfection and time to complete without giving a next step" },
+          ],
         },
         // Figma "problem section" 203:1646 (Lumbini, 2026-10-27); copy and screens verbatim from it.
         {
           kind: "annotated",
-          label: "Core problem",
+          label: "Problem",
           text: "Knowunity’s beta shows a verdict and a hint but never what the app heard, so a student who gets “Almost there” can’t tell whether they were misheard or genuinely partial, and a fair result can feel unfair. Its summary then names perfection and time to complete without giving a next step, so the student leaves with a judgment they can neither verify nor act on.",
           screens: [
             {
@@ -103,6 +87,21 @@ export const knowunity: CaseStudy = {
             },
           ],
         },
+        {
+          kind: "options",
+          columns: 2,
+          muted: true,
+          items: [
+            {
+              label: "Overview",
+              body: "Knowunity is a study app with 30M+ downloads. Its practice tools test recognition, like multiple choice and flashcards. None of them ask a student to pull an idea from memory and say it.",
+            },
+            {
+              label: "Users",
+              body: "Secondary school students and college students before exams. Flattering feedback sends them in over-confident, and punishing hints stops them asking for help.",
+            },
+          ],
+        },
         // Lumbini's "Problem storyboard.png" (~/Desktop/Knowunity case study), after the core problem.
         {
           kind: "wide",
@@ -119,127 +118,135 @@ export const knowunity: CaseStudy = {
       ],
     },
 
-    // Block 3: role and approach.
+    // Figma 286:228's band, holding the demo film (Lumbini, 2026-11-02).
     {
-      id: "approach",
-      stage: "Problem",
-      chapter: { number: "02", title: "Role and approach" },
-      heading: "I owned the whole feature as the solo designer, from audit to coded prototype",
+      id: "solution",
+      stage: "Solution",
+      chapter: { number: "02", title: "Solution" },
+      compactHeading: true,
+      heading:
+        "An AI-powered voice experience that turns passive studying into active recall. Students explain concepts aloud, receive progressive hints when needed, and get a personalized breakdown of their strengths and knowledge gaps, along with a targeted study plan to improve weaker areas and build exam confidence over time.",
       blocks: [
         {
-          kind: "text",
-          paragraphs: ["**What I owned:** everything in a 2.5-week sprint with Knowunity, as the solo designer."],
-        },
-        {
-          kind: "flow",
-          steps: ["Beta audit", "Figma design", "Coded prototype", "Usability testing", "Rebuild after the test"],
-          notes: [],
-        },
-        {
-          kind: "todo",
-          text: "\"Remove kickoff\": I removed only the Kickoff step from this strip. Confirm the whole opening should stay.",
+          kind: "video",
+          band: true,
+          video: {
+            src: `${dir}/knowunity-active-recall-web.mp4`,
+            poster: `${dir}/knowunity-hero-poster.jpg`,
+            width: 1280,
+            height: 720,
+            description:
+              "Product film: a student allows the mic, answers aloud, climbs two hints, reviews their take, sees 'You explained 2 of 4 without help', then retries the topic they missed.",
+          },
+          caption:
+            "71-second product film of the prototype: iOS, 390px, dark mode. Every frame on the phone is the real prototype, rendered from its own components.",
         },
       ],
     },
 
-    // Block 4A: research.
+    {
+      id: "approach",
+      stage: "Problem",
+      chapter: { number: "03", title: "Role and approach" },
+      heading: "I owned the whole feature as the solo designer, from audit to coded prototype",
+      blocks: [
+        {
+          kind: "text",
+          paragraphs: ["What I owned: everything in a 2.5-week sprint with Knowunity, as the solo designer."],
+        },
+        {
+          kind: "cards",
+          look: "boxes",
+          numbered: true,
+          items: [
+            { title: "Beta audit" },
+            { title: "Figma design" },
+            { title: "Coded prototype" },
+            { title: "Usability testing" },
+            { title: "Rebuild after the test" },
+          ],
+        },
+      ],
+    },
+
     {
       id: "research",
       stage: "Problem",
-      chapter: { number: "03", title: "Research" },
-      heading: "The beta graded students, and participants lost track of the hint ladder",
+      chapter: { number: "04", title: "Research" },
+      compactHeading: true,
+      heading: "The beta graded students on the basis of answer but students lost track of the hint ladder",
       blocks: [
         {
           kind: "cards",
-          heading: "What I learned",
+          look: "boxes",
           numbered: true,
           items: [
-            { title: "The beta's grade misled.", body: "It flattered a student who guessed and punished one who used help." },
-            { title: "The hint ladder was invisible.", body: "Participants lost track of where they were, and the reveal didn't read as the last step." },
-            { title: "The next action was unclear.", body: "After the answer appeared, participants didn't know whether to retry or submit." },
+            { title: "The beta’s grade misled.", body: "It flattered a student who guessed and punished one who used help." },
+            { title: "The hint ladder was invisible.", body: "Participants lost track of where they were, and the reveal didn’t read as the last step." },
+            { title: "The next action was unclear.", body: "After the answer appeared, participants didn’t know whether to retry or submit." },
           ],
-        },
-        {
-          kind: "phones",
-          images: [
-            phone(
-              "beta-take-before.png",
-              "The beta's recording ends in a tick captioned \"Tap to send\".",
-              "**Lacking:** the recording ends in a tick. The student can't replay it or try again.",
-              1179,
-              2556,
-            ),
-            phone(
-              "beta-thinking-before-clean.png",
-              "The beta's thinking state, three dots and a tick.",
-              "**Lacking:** three dots and a tick look like \"sent\". The student can't tell if the app heard them.",
-              390,
-              844,
-            ),
-            phone(
-              "beta-pass-before.png",
-              "The beta's result screen, \"Amazing job! Impressive! You've mastered this content! You're on fire!\", with XP +14, Perfect 100% and a time of 1:45.",
-              "**Lacking:** praise and a \"Perfect\" 100%. It never says which terms the student recalled alone.",
-              1179,
-              2556,
-            ),
-          ],
-          caption:
-            "Beta audit. Drove three decisions: the take became a choice, the wait stopped looking like \"sent\", and praise became a count.",
         },
         {
           kind: "text",
+          wide: true,
           paragraphs: [
-            "I audited Knowunity's beta before designing anything. Its intro promised scores \"up to 20% higher on exams\". It ended with a grade and listed missed terms under a red \"Needs practice\".",
+            "I audited Knowunity’s beta before designing anything. Its intro promised scores “up to 20% higher on exams”. It ended with a grade and listed missed terms under a red “Needs practice”.",
           ],
+        },
+        {
+          kind: "gallery",
+          columns: 3,
+          images: [
+            {
+              src: `${dir}/beta-take-before.png`,
+              width: 1179,
+              height: 2556,
+              crop: 376 / 420,
+              fit: "contain",
+              alt: "The beta's recording ends in a tick captioned \"Tap to send\".",
+              caption: "Lacking: the recording ends in a tick. The student can’t replay it or try again.",
+            },
+            {
+              src: `${dir}/beta-thinking-before-clean.png`,
+              width: 390,
+              height: 844,
+              crop: 376 / 420,
+              fit: "contain",
+              alt: "The beta's thinking state, three dots and a tick.",
+              caption: "Lacking: three dots and a tick look like “sent”. The student can’t tell if the app heard them.",
+            },
+            {
+              src: `${dir}/beta-pass-before.png`,
+              width: 1179,
+              height: 2556,
+              crop: 376 / 420,
+              fit: "contain",
+              alt: "The beta's result screen, \"Amazing job! Impressive! You've mastered this content! You're on fire!\", with XP +14, Perfect 100% and a time of 1:45.",
+              caption: "Lacking: praise and a “Perfect” 100%. It never says which terms the student recalled alone.",
+            },
+          ],
+        },
+        {
+          kind: "lead",
+          muted: true,
+          text: "Beta audit. Drove three decisions: the take became a choice, the wait stopped looking like “sent”, and praise became a count.",
+        },
+        {
+          kind: "text",
+          wide: true,
+          paragraphs: [
+            "Competitive analysis shows how four apps handle recall, misses, repetition and the summary. Drove the decision to show the student’s answer beside the model answer, as Anki and Quizlet do.",
+          ],
+        },
+        // Figma's own link target, the competitive analysis table (286:229).
+        {
+          kind: "linkButton",
+          label: "See the full competitive analysis",
+          href: "https://www.figma.com/design/Uu1a2kCZL3M4y86CtPcmqR/Loombini-Claude-Portfolio?node-id=286-229",
         },
         {
           kind: "todo",
-          text: "The \"Explain it to Knowie\" intro screen is removed, so the \"up to 20% higher\" line has no visual proof. Reword it as something observed in the beta, or cut it.",
-        },
-        {
-          kind: "matrix",
-          columns: ["Anki", "Quizlet", "Duolingo", "Knowunity beta"],
-          rows: [
-            {
-              label: "Active recall",
-              cells: [
-                "The user speaks the answer to a flashcard, then grades themselves against the full model answer.",
-                "Shows the correct answer beside the typed answer, so you can see exactly where you diverged.",
-                "No free recall. Exercises test recognition: tap the right word, match pairs, build sentences from tiles.",
-                "\"Explain out loud\" after each module, so students prove they know a concept by heart.",
-              ],
-            },
-            {
-              label: "Recovery from a miss",
-              cells: [
-                "Missed cards go to the back of the queue. The scheduler decides when each one returns.",
-                "Re-queues missed terms and makes you get them right twice before they count as learned.",
-                "App Store reviewers say they don't understand their mistakes or the sentences they didn't quite get.",
-                "A student can tap Reveal answer, then Next question, and never say the right answer.",
-              ],
-            },
-            {
-              label: "Learning by repetition",
-              cells: [
-                "Spaced repetition: every graded card feeds an algorithm that decides when you see it again.",
-                "Flashcards track weak words and resurface them.",
-                "The lesson system tracks weak words and resurfaces them.",
-                "The session ends at the summary. Nothing links missed terms to the flashcards' spaced repetition.",
-              ],
-            },
-            {
-              label: "Summary",
-              cells: [
-                "Shows your retention rate over time.",
-                "Tells you which terms you missed.",
-                "Roleplay gives prose feedback on what you could improve.",
-                "XP and one overall percentage (33%). A student can't tell which terms to revisit.",
-              ],
-            },
-          ],
-          caption:
-            "Competitive analysis. Shows how four apps handle recall, misses, repetition and the summary. Drove the decision to show the student's answer beside the model answer, as Anki and Quizlet do.",
+          text: "The \"Explain it to Knowie\" intro screen is removed, so the \"up to 20% higher\" line has no visual proof. Also a source and access date for each competitor claim, especially the Duolingo App Store reviews and the Quizlet \"twice\" rule.",
         },
       ],
     },
@@ -248,9 +255,9 @@ export const knowunity: CaseStudy = {
     {
       id: "exploration",
       stage: "Solution",
-      chapter: { number: "04", title: "Exploration" },
+      chapter: { number: "05", title: "Exploration" },
       compactHeading: true,
-      heading: "I explored 3 other options with the goal for 25% activation and those who started it 75% students should complete the task",
+      heading: "I explored three interaction directions to increase Active Recall adoption, targeting 25% activation among students and 75% task completion among those who started.",
       blocks: [
         // Figma 286:337. Figma holds the board as a flat image; it is rebuilt here so the text is real
         // and scales with the screen. Copy is as in the image, minus its "generated by" eyebrow
@@ -318,7 +325,7 @@ export const knowunity: CaseStudy = {
     {
       id: "usability-test",
       stage: "Problem",
-      chapter: { number: "05", title: "Usability test" },
+      chapter: { number: "06", title: "Usability test" },
       heading: "A think-aloud usability test surfaced eight problems",
       blocks: [
         {
@@ -337,6 +344,7 @@ export const knowunity: CaseStudy = {
             { src: `${dir}/usability-summary.png`, width: 804, height: 2415, alt: "Here's how it went: 6/10 recalled, with 3 hinted, 6/10 perfect and 1 missed, concepts you are strong in, concepts to review, then Revise and Try Again." },
           ],
         },
+        { kind: "text", paragraphs: ["Entry point, Recall loop and summary screen."] },
         {
           kind: "findings",
           heading: "All eight things the test surfaced",
@@ -362,7 +370,7 @@ export const knowunity: CaseStudy = {
     {
       id: "key-decision",
       stage: "Solution",
-      chapter: { number: "06", title: "Key decision" },
+      chapter: { number: "07", title: "Key decision" },
       heading: "I rebuilt the hint ladder so every rung looks like the step it is",
       blocks: [
         {
@@ -406,7 +414,8 @@ export const knowunity: CaseStudy = {
     {
       id: "final-designs",
       stage: "Solution",
-      chapter: { number: "07", title: "Final designs" },
+      chapter: { number: "08", title: "Final designs" },
+      compactHeading: true,
       heading: "Each screen answers one question, and every turn has a way out",
       blocks: [
         {
@@ -444,11 +453,10 @@ export const knowunity: CaseStudy = {
       ],
     },
 
-    // Extra block: AI-native process, after Final designs and before Outcome.
     {
       id: "ai-native",
       stage: "Solution",
-      chapter: { number: "08", title: "AI-native process" },
+      chapter: { number: "09", title: "AI-native process" },
       heading: "I used AI to build and audit the prototype, and kept the design decisions myself",
       blocks: [
         // Laid out like Carmen's Pilgrimz "Claude Design OS" section (Lumbini, 2026-10-27). All copy is
@@ -503,16 +511,6 @@ export const knowunity: CaseStudy = {
               title: "The HintLadder component",
               body: "Its Figma source, the reason for each state, and where it departs from Figma.",
             },
-            {
-              label: "What the audit caught",
-              title: "A \"Type your answer\" link that rendered 93 × 16 px.",
-              body: "It failed the tap-target gate.",
-            },
-            {
-              label: "What the audit caught",
-              title: "A score that printed \"6500%\".",
-              body: "A percentage multiplied by 100 twice.",
-            },
           ],
         },
         {
@@ -522,11 +520,11 @@ export const knowunity: CaseStudy = {
       ],
     },
 
-    // Block 5: outcome and impact.
     {
       id: "outcome",
       stage: "Impact",
-      chapter: { number: "09", title: "Outcome" },
+      chapter: { number: "10", title: "Outcome" },
+      compactHeading: true,
       heading: "What I can claim: a tested, iterated prototype, not a shipped result",
       blocks: [
         {
@@ -536,14 +534,8 @@ export const knowunity: CaseStudy = {
             { value: "32", label: "Components in the Storybook library" },
             { value: "11", label: "Critique rounds by critic agents" },
           ],
-          source: "What exists today.",
-        },
-        {
-          kind: "text",
-          paragraphs: [
-            "Nothing shipped, so I don't claim a metric. A pilot would measure Knowunity's targets: **25% of students who see the feature start it, and 70% of those finish it.** These are targets, not results.",
-            "I placed the entry in AI Chat, where 15.2% of active users already send voice messages.",
-          ],
+          side: "What exists today. Nothing shipped, so I don’t claim a metric. A pilot would measure Knowunity’s targets: 25% of students who see the feature start it, and 70% of those finish it. These are targets, not results.",
+          source: "I placed the entry in AI Chat, where 15.2% of active users already send voice messages.",
         },
         {
           kind: "links",
@@ -564,7 +556,7 @@ export const knowunity: CaseStudy = {
     {
       id: "reflection",
       stage: "Impact",
-      chapter: { number: "10", title: "Reflection" },
+      chapter: { number: "11", title: "Reflection" },
       heading: "I built the whole loop before testing it, so the fixes meant reworking finished screens.",
       blocks: [],
     },
