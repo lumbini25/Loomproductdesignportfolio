@@ -30,10 +30,13 @@ export const venue: CaseStudy = {
       alt: "The TDK Venue Overview dashboard: floors monitored, desk utilization, meeting-room wait time and collaboration-zone occupancy across the top; a live tracking map of Floor 2 with an over-capacity alert in the open office; and a table of five floors with their addresses and status.",
     },
   },
+  // Chapter names (Lumbini, 2026-11-03: "make it consistent with other case studies") are short labels
+  // taken from each section's own heading, as every other study has them.
   sections: [
     {
       id: "precision-task",
       stage: "Problem",
+      chapter: { number: "01", title: "The task" },
       heading: "Setting up a building digitally is a precision task, and the old flow made it feel like a form",
       blocks: [
         {
@@ -62,6 +65,7 @@ export const venue: CaseStudy = {
     {
       id: "constraints",
       stage: "Problem",
+      chapter: { number: "02", title: "Constraints" },
       heading: "The constraints were clear: one canvas, a mocked engine, and no excuses for the hard states",
       blocks: [
         {
@@ -88,6 +92,7 @@ export const venue: CaseStudy = {
     {
       id: "old-wizard",
       stage: "Problem",
+      chapter: { number: "03", title: "The old wizard" },
       heading: "The old wizard split one idea across two steps, and hid where you were headed",
       blocks: [
         {
@@ -119,6 +124,7 @@ export const venue: CaseStudy = {
     {
       id: "mapped-every-path",
       stage: "Solution",
+      chapter: { number: "04", title: "Mapping the paths" },
       heading: "I mapped every path before drawing a screen, including the ones that go wrong",
       blocks: [
         {
@@ -160,6 +166,7 @@ export const venue: CaseStudy = {
     {
       id: "alignment",
       stage: "Solution",
+      chapter: { number: "05", title: "Alignment" },
       heading: "Alignment is where a floorplan becomes a place, so the screen says when it's right",
       blocks: [
         {
@@ -186,6 +193,7 @@ export const venue: CaseStudy = {
     {
       id: "boundaries-and-zones",
       stage: "Solution",
+      chapter: { number: "06", title: "Boundaries and zones" },
       heading: "Boundaries and zones are drawn step by step, and validated while you draw",
       blocks: [
         {
@@ -213,6 +221,7 @@ export const venue: CaseStudy = {
     {
       id: "units",
       stage: "Solution",
+      chapter: { number: "07", title: "Units" },
       heading: "Units flag overlaps and say how to fix them",
       blocks: [
         {
@@ -239,6 +248,7 @@ export const venue: CaseStudy = {
     {
       id: "whole-building",
       stage: "Solution",
+      chapter: { number: "08", title: "Dashboard and summary" },
       heading: "The dashboard and summary give an admin the whole building at a glance",
       blocks: [
         {
@@ -265,6 +275,7 @@ export const venue: CaseStudy = {
     {
       id: "without-mouse-or-colour",
       stage: "Solution",
+      chapter: { number: "09", title: "Accessibility" },
       heading: "I designed it to work without a mouse and to read without colour",
       blocks: [
         {
@@ -308,6 +319,7 @@ export const venue: CaseStudy = {
     {
       id: "lessons",
       stage: "Impact",
+      chapter: { number: "10", title: "Lessons" },
       heading: "Lessons from redesigning a tool for venue managers",
       blocks: [
         {

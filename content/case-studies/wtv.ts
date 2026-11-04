@@ -55,14 +55,97 @@ export const wtv: CaseStudy = {
       blocks: [],
     },
     {
+      id: "the-problem",
+      nav: "The problem",
+      stage: "Problem",
+      label: "The problem",
+      heading:
+        "WTV's intranet failed to support search, file collaboration, brand asset access, project visibility, and tool routing — so employees stopped using it entirely, each building their own workaround, costing the team billable hours, introducing version control risk, and leaving every new hire with no reliable starting point.",
+      blocks: [
+        {
+          kind: "wide",
+          bare: true,
+          images: [
+            {
+              src: `${dir}/current-intranet-annotated.png`,
+              width: 2400,
+              height: 1090,
+              alt: "The old intranet, annotated: navigation overload in a long sidebar; a role-blind interface where all roles see the same screen; no search anywhere; and no actionable entry point, since the main area is a full-bleed brand splash with no tasks, files or tools.",
+            },
+          ],
+        },
+        {
+          kind: "statement",
+          look: "compact",
+          label: "Design Challenge",
+          text: "How might we help employees find what they need faster—without requiring them to understand how the intranet is organized?",
+        },
+        {
+          kind: "statement",
+          look: "compact",
+          label: "Opportunity",
+          text: "The challenge wasn't simply to make the intranet \"look better.\" It was to reduce the hidden cost of **searching, switching, sharing, and re-authenticating** that employees experienced every day.",
+        },
+      ],
+    },
+    {
+      id: "solution",
+      nav: "Solution",
+      stage: "Solution",
+      heading: "Solution",
+      blocks: [
+        {
+          kind: "video",
+          bare: true,
+          video: {
+            src: `${dir}/solution-search.mp4`,
+            autoplay: true,
+            poster: `${dir}/solution-search-poster.jpg`,
+            width: 1942,
+            height: 306,
+            description: "Screen recording: the search bar at the top of the new dashboard, in use.",
+          },
+          caption: "Now search is constant at the top of the dashboard",
+        },
+        {
+          kind: "video",
+          bare: true,
+          video: {
+            src: `${dir}/solution-tools.mp4`,
+            autoplay: true,
+            poster: `${dir}/solution-tools-poster.jpg`,
+            width: 1476,
+            height: 1080,
+            description:
+              "Screen recording: Monday.com, Teams and Figma open from the dashboard's Quick Links without a separate log-in.",
+          },
+          caption: "Now everyday tools are available within the dashboard, no need for authentication and log in",
+        },
+        {
+          kind: "video",
+          bare: true,
+          video: {
+            src: `${dir}/solution-brand-assets.mp4`,
+            autoplay: true,
+            poster: `${dir}/solution-brand-assets-poster.jpg`,
+            width: 1184,
+            height: 1080,
+            description: "Screen recording: brand assets opened from the dashboard instead of copied from Figma.",
+          },
+          caption: "Now employees do not need to copy paste for brand assets from Figma",
+        },
+      ],
+    },
+    {
       id: "overview",
       nav: "Overview",
       stage: "Problem",
-      compactHeading: true,
+      hideEyebrow: true,
       heading: "The intranet existed — employees just stopped using it.",
       blocks: [
         {
           kind: "statement",
+          look: "compact",
           label: "Overview",
           text: "WTV Consulting's employees had stopped using their intranet entirely — so they built their own systems to replace it.",
         },
@@ -134,38 +217,6 @@ export const wtv: CaseStudy = {
       ],
     },
     {
-      id: "the-problem",
-      nav: "The problem",
-      stage: "Problem",
-      label: "The problem",
-      heading:
-        "WTV's intranet failed to support search, file collaboration, brand asset access, project visibility, and tool routing — so employees stopped using it entirely, each building their own workaround, costing the team billable hours, introducing version control risk, and leaving every new hire with no reliable starting point.",
-      blocks: [
-        {
-          kind: "wide",
-          bare: true,
-          images: [
-            {
-              src: `${dir}/current-intranet-annotated.png`,
-              width: 2400,
-              height: 1090,
-              alt: "The old intranet, annotated: navigation overload in a long sidebar; a role-blind interface where all roles see the same screen; no search anywhere; and no actionable entry point, since the main area is a full-bleed brand splash with no tasks, files or tools.",
-            },
-          ],
-        },
-        {
-          kind: "statement",
-          label: "Design Challenge",
-          text: "**How might we help employees find what they need faster—without requiring them to understand how the intranet is organized?**",
-        },
-        {
-          kind: "statement",
-          label: "Opportunity",
-          text: "The challenge wasn't simply to make the intranet \"look better.\" It was to reduce the hidden cost of **searching, switching, sharing, and re-authenticating** that employees experienced every day.",
-        },
-      ],
-    },
-    {
       id: "strategic-shift",
       nav: "Strategic Shift",
       stage: "Solution",
@@ -206,54 +257,6 @@ export const wtv: CaseStudy = {
         label: "Logos of the AI and design tools used for exploration: ChatGPT, Gemini, Claude, Figma, JavaScript and others.",
       },
       blocks: [],
-    },
-    {
-      id: "solution",
-      nav: "Solution",
-      stage: "Solution",
-      heading: "Solution",
-      blocks: [
-        {
-          kind: "video",
-          bare: true,
-          video: {
-            src: `${dir}/solution-search.mp4`,
-            autoplay: true,
-            poster: `${dir}/solution-search-poster.jpg`,
-            width: 1942,
-            height: 306,
-            description: "Screen recording: the search bar at the top of the new dashboard, in use.",
-          },
-          caption: "Now search is constant at the top of the dashboard",
-        },
-        {
-          kind: "video",
-          bare: true,
-          video: {
-            src: `${dir}/solution-tools.mp4`,
-            autoplay: true,
-            poster: `${dir}/solution-tools-poster.jpg`,
-            width: 1476,
-            height: 1080,
-            description:
-              "Screen recording: Monday.com, Teams and Figma open from the dashboard's Quick Links without a separate log-in.",
-          },
-          caption: "Now everyday tools are available within the dashboard, no need for authentication and log in",
-        },
-        {
-          kind: "video",
-          bare: true,
-          video: {
-            src: `${dir}/solution-brand-assets.mp4`,
-            autoplay: true,
-            poster: `${dir}/solution-brand-assets-poster.jpg`,
-            width: 1184,
-            height: 1080,
-            description: "Screen recording: brand assets opened from the dashboard instead of copied from Figma.",
-          },
-          caption: "Now employees do not need to copy paste for brand assets from Figma",
-        },
-      ],
     },
     {
       id: "design",
@@ -382,11 +385,23 @@ export const wtv: CaseStudy = {
           look: "box",
           text: "It's a fantastic intranet design! The information architecture is highly intuitive and offers a user-friendly experience; it will greatly enhance the team's productivity.",
         },
-        // The Framer photo is an Unsplash+ preview with the watermark across it, and its overlay
-        // says "Now onboarding of new hire is 10x faster" with no source. Not shipped.
+        // The team photo from the Framer page (loombinicreative.framer.website/wtv-2), as Lumbini asked
+        // (2026-11-03). It is an Unsplash+ preview with the watermark across it, shipped as it is.
         {
-          kind: "placeholder",
-          text: "Team photo from the Framer page, 900 × 506. Needs a licensed, unwatermarked copy, and a source for the \"10x faster\" onboarding line or that line removed.",
+          kind: "wide",
+          bare: true,
+          images: [
+            {
+              src: `${dir}/team-onboarding.png`,
+              width: 2048,
+              height: 1184,
+              alt: "Two colleagues high-five at a laptop table. Cards over the photo read \"Now onboarding of new hire is 10x faster\" (accessible HR docs, onboarding video, personalized dashboard) and \"The tool launch pad removed the tab fatigue\" (unified access to tools, visibility of project ownership, calendar integration).",
+            },
+          ],
+        },
+        {
+          kind: "todo",
+          text: "Team photo: an Unsplash+ licence and an unwatermarked copy before launch, and a source for \"10x faster\" onboarding (or remove that line from the image).",
         },
         {
           kind: "stats",

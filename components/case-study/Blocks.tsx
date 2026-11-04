@@ -4,6 +4,7 @@ import { Eyebrow } from "@/components/Eyebrow";
 import { ArrowCounterClockwiseIcon, ArrowRightIcon, CheckCircleIcon } from "@/components/icons";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { Carousel } from "@/components/case-study/Carousel";
+import { QuoteCarousel } from "@/components/case-study/QuoteCarousel";
 import { PinnedDevice } from "@/components/case-study/PinnedDevice";
 import { ScrollBanner } from "@/components/case-study/ScrollBanner";
 import {
@@ -33,7 +34,7 @@ export function Rich({ text }: { text: string }) {
 function Caption({ children }: { children?: ReactNode }) {
   if (!children) return null;
   // Left-aligned under its visual, on the column's text edge (2026-10-29 alignment audit).
-  return <figcaption className="mt-3 max-w-[70ch] font-jakarta text-body-s text-caption">{children}</figcaption>;
+  return <figcaption className="mt-3 font-jakarta text-body-s text-caption">{children}</figcaption>;
 }
 
 function Phone({ image, sizes = "(min-width: 834px) 240px, 45vw" }: { image: Img; sizes?: string }) {
@@ -110,7 +111,7 @@ function PortraitItem({
           {children}
         </div>
         {caption && (
-          <p className="max-w-[70ch] font-jakarta text-body-s text-caption">
+          <p className="caption font-jakarta text-body-s text-caption">
             <Rich text={caption} />
           </p>
         )}
@@ -165,7 +166,7 @@ export function BlockView({ block }: { block: Block }) {
   switch (block.kind) {
     case "text":
       return (
-        <div className={`flex flex-col gap-4 ${block.wide ? "" : block.look === "lead" ? "max-w-[960px]" : "max-w-[720px]"}`}>
+        <div className="flex flex-col gap-4">
           {block.label && <Eyebrow>{block.label}</Eyebrow>}
           {block.heading && <h3 className="text-title-s font-bold text-title">{block.heading}</h3>}
           {block.paragraphs.map((p) => (
@@ -185,7 +186,7 @@ export function BlockView({ block }: { block: Block }) {
 
     case "list":
       return (
-        <div className="flex max-w-[720px] flex-col gap-2 text-body-m text-body">
+        <div className="flex flex-col gap-2 text-body-m text-body">
           {block.intro && <p>{block.intro}</p>}
           <ol className="flex list-decimal flex-col gap-1 pl-7">
             {block.items.map((item) => (
@@ -233,7 +234,7 @@ export function BlockView({ block }: { block: Block }) {
               supporting image when the columns stack (2026-10-28). */}
           <div className="w-full" style={{ maxWidth: `min(560px, calc(70svh * ${block.image.width / block.image.height}))` }}>
             <Picture image={block.image} sizes="(min-width: 1200px) 560px, (min-width: 834px) 560px, calc(100vw - 32px)" className={block.image.fit === "contain" ? "" : "rounded-card"} />
-            {block.caption && <figcaption className="mt-3 max-w-[70ch] font-jakarta text-body-s text-caption">{block.caption}</figcaption>}
+            {block.caption && <figcaption className="mt-3 font-jakarta text-body-s text-caption">{block.caption}</figcaption>}
           </div>
         </figure>
       );
@@ -351,7 +352,7 @@ export function BlockView({ block }: { block: Block }) {
                           </div>
                         )}
                       </div>
-                      {img.caption && <p className="mt-3 max-w-[70ch] font-jakarta text-body-s text-caption">{img.caption}</p>}
+                      {img.caption && <p className="caption mt-3 font-jakarta text-body-s text-caption">{img.caption}</p>}
                     </div>
                   ),
                 )}
@@ -414,9 +415,10 @@ export function BlockView({ block }: { block: Block }) {
     case "tiles":
       if (block.look === "sky")
         return (
-          <ul className="fit-2 grid grid-cols-2 gap-4 tablet:gap-x-28 tablet:gap-y-14">
+          <ul className="stack-fit-2 grid grid-cols-1 gap-4 desktop:grid-cols-2 desktop:gap-x-16 desktop:gap-y-11">
             {block.items.map((item) => (
-              <li key={item} className="rounded-media border border-line bg-surface p-4 text-title-s font-bold text-title">
+              // Figma 226:2985: soft filled tiles, 18px regular text, centred in a 79px band.
+              <li key={item} className="flex min-h-20 items-center rounded-card-sm bg-surface-subtle px-6 py-2 text-subtitle-s text-title">
                 {item}
               </li>
             ))}
@@ -440,7 +442,7 @@ export function BlockView({ block }: { block: Block }) {
       // "list" is not a card: headings and paragraphs down the column.
       if (block.look === "list")
         return (
-          <div className="flex max-w-[820px] flex-col gap-8">
+          <div className="flex flex-col gap-8">
             {block.items.map((item) => (
               <div key={item.title} className="flex flex-col gap-3">
                 <h3 className="font-jakarta text-title-s font-bold">{item.title}</h3>
@@ -461,7 +463,9 @@ export function BlockView({ block }: { block: Block }) {
       const numbered = block.numbered || block.look === "rows";
       const List = numbered || block.label ? "ol" : "ul";
       const n = block.items.length;
-      const cols = n === 5 ? "fit-5 grid-cols-5" : n === 3 ? "fit-3 grid-cols-3" : "fit-2 grid-cols-2";
+      // "rows": one full-width horizontal card per item, number beside the title (Bloom, Figma 232:3004).
+      // Below 1200 every card row is one card per line (Lumbini, 2026-11-03).
+      const cols = block.look === "rows" ? "grid-cols-1" : n === 5 ? "stack-fit-5 grid-cols-1 desktop:grid-cols-5" : n === 3 ? "stack-fit-3 grid-cols-1 desktop:grid-cols-3" : "stack-fit-2 grid-cols-1 desktop:grid-cols-2";
       return (
         <div className="flex flex-col gap-4">
           {block.label && block.look !== "boxes" && <Eyebrow>{block.label}</Eyebrow>}
@@ -474,8 +478,15 @@ export function BlockView({ block }: { block: Block }) {
               const title = steps || labelOnly ? undefined : item.title;
               const text = steps ? item.title : item.body;
               return (
-                <li key={item.title} className="flex flex-col gap-2.5 rounded-media border border-line bg-surface p-6">
-                  {block.numberInline && label && title ? (
+                <li
+                  key={item.title}
+                  className={
+                    block.look === "soft"
+                      ? "flex flex-col gap-3 rounded-card-sm bg-surface-subtle px-3 py-6 shadow-card"
+                      : "flex flex-col gap-2.5 rounded-media border border-line bg-surface p-6"
+                  }
+                >
+                  {(block.numberInline || block.look === "rows") && label && title ? (
                     <div className="flex items-baseline gap-3">
                       <Eyebrow>{label}</Eyebrow>
                       <Title className="text-title-s font-bold text-title">{title}</Title>
@@ -483,7 +494,7 @@ export function BlockView({ block }: { block: Block }) {
                   ) : (
                     <>
                       {label && <Eyebrow>{label}</Eyebrow>}
-                      {title && <Title className="text-title-s font-bold text-title">{title}</Title>}
+                      {title && <Title className={block.look === "soft" ? "text-subtitle-s font-semibold text-title" : "text-title-s font-bold text-title"}>{title}</Title>}
                     </>
                   )}
                   {text &&
@@ -492,7 +503,7 @@ export function BlockView({ block }: { block: Block }) {
                         <Rich text={text} />
                       </blockquote>
                     ) : (
-                      <p className="text-body-m text-caption">
+                      <p className={block.look === "soft" ? "text-subtitle-s text-caption" : "text-body-m text-caption"}>
                         <Rich text={text} />
                       </p>
                     ))}
@@ -514,35 +525,37 @@ export function BlockView({ block }: { block: Block }) {
       if (block.look === "title")
         return (
           <figure>
-            <blockquote className="font-jakarta text-title-s font-bold text-title">“{block.text}”</blockquote>
+            <blockquote className="font-jakarta text-body-m font-bold text-title">“{block.text}”</blockquote>
             {block.cite && <figcaption className="mt-3 font-dm text-body-semibold-s font-semibold text-caption">{block.cite}</figcaption>}
           </figure>
         );
       if (block.look === "box")
         return (
           <figure className="rounded-card bg-surface-subtle p-6">
-            <blockquote className="font-jakarta text-title-s font-semibold text-title">“{block.text}”</blockquote>
+            <blockquote className="font-jakarta text-body-m font-semibold text-title">“{block.text}”</blockquote>
             {block.cite && <figcaption className="mt-3 font-jakarta text-body-s text-caption">{block.cite}</figcaption>}
           </figure>
         );
       return (
-        <figure className="max-w-[820px] border-l-4 border-primary pl-6">
-          <blockquote className="text-body-l-sm text-title tablet:text-body-l">“{block.text}”</blockquote>
+        <figure className="border-l-4 border-primary pl-6">
+          <blockquote className="text-body-m text-title">“{block.text}”</blockquote>
           {block.cite && <figcaption className="mt-3 font-jakarta text-body-s text-caption">{block.cite}</figcaption>}
         </figure>
       );
 
     case "statement":
       return (
-        <div className={`flex flex-col ${block.look === "large" ? "gap-5" : "max-w-[820px] gap-2"}`}>
+        <div className={`flex flex-col ${block.look === "large" ? "gap-5" : block.look === "title" ? "gap-3" : "gap-2"}`}>
           <Eyebrow>{block.label}</Eyebrow>
           <p
             className={
-              block.look === "large"
+              block.look === "title"
+                ? "text-title-s font-bold text-title"
+                : block.look === "large"
                 ? "text-h3-sm font-bold text-title tablet:text-h3"
                 : block.look === "compact"
                   ? "text-body-m text-title"
-                  : "text-body-l-sm text-title tablet:text-body-l"
+                  : "text-title-s font-bold text-title"
             }
           >
             <Rich text={block.text} />
@@ -550,10 +563,13 @@ export function BlockView({ block }: { block: Block }) {
         </div>
       );
 
+    case "speech":
+      return <QuoteCarousel items={block.items} label={block.label} />;
+
     case "panel":
       return (
         <figure>
-          <div className="fit-2 grid grid-cols-2 gap-4">
+          <div className="stack-fit-2 grid grid-cols-1 gap-4 desktop:grid-cols-2">
             {block.columns.map((col) => (
               <div key={col.title} className="rounded-card bg-surface-subtle p-6">
                 <h3 className="font-jakarta text-title-xs font-bold">{col.title}</h3>
@@ -572,14 +588,14 @@ export function BlockView({ block }: { block: Block }) {
     case "cycle":
       return (
         <figure>
-          <ol className="fit-4 flex flex-row items-stretch gap-3">
+          <ol className="stack-fit-4 flex flex-col gap-3 desktop:flex-row desktop:items-stretch">
             {block.steps.map((step, i) => (
-              <li key={step.title} className="flex min-w-0 flex-1 flex-row items-center gap-3">
+              <li key={step.title} className="flex min-w-0 flex-1 flex-col gap-3 desktop:flex-row desktop:items-center">
                 <div className="flex-1 rounded-card bg-surface-subtle p-5">
                   <p className="font-jakarta text-title-xs font-bold">{step.title}</p>
                   <p className="mt-1 font-jakarta text-body-s text-caption">{step.body}</p>
                 </div>
-                <ArrowRightIcon size={20} className="size-[1em] shrink-0 self-center text-caption tablet:size-5" />
+                <ArrowRightIcon size={20} className="shrink-0 rotate-90 self-center text-caption desktop:rotate-0" />
                 {i === block.steps.length - 1 && <span className="sr-only">then back to the first step</span>}
               </li>
             ))}
@@ -618,7 +634,7 @@ export function BlockView({ block }: { block: Block }) {
       return (
         <figure>
           <div className={block.side ? "grid grid-cols-1 items-center gap-6 desktop:grid-cols-[minmax(0,752fr)_minmax(0,380fr)] desktop:gap-12" : undefined}>
-          <dl className="fit-3 grid grid-cols-3 gap-4">
+          <dl className="stack-fit-3 grid grid-cols-1 gap-4 desktop:grid-cols-3">
             {/* One number style on every case study (2026-10-29): a filled card. */}
             {block.items.map((s) => (
               // Figma 223:2793 finding card: Plus Jakarta Bold 40/48 number over a DM Sans SemiBold
@@ -653,7 +669,7 @@ export function BlockView({ block }: { block: Block }) {
       return (
         <div className="flex flex-col gap-4">
           <h3 className="font-jakarta text-title-xs font-bold">{block.heading}</h3>
-          <ol className="fit-4 grid grid-cols-4 gap-4">
+          <ol className="stack-fit-4 grid grid-cols-1 gap-4 desktop:grid-cols-4">
             {block.items.map((item, i) => (
               <li key={item} className="flex min-w-0 flex-col gap-2.5 rounded-media border border-line bg-surface p-6">
                 <Eyebrow>{String(i + 1).padStart(2, "0")}</Eyebrow>
@@ -667,7 +683,7 @@ export function BlockView({ block }: { block: Block }) {
     case "options": {
       const columns = block.columns ?? 2;
       const Title = block.heading ? "h4" : "h3";
-      const rowClass = columns === 3 ? "fit-3 grid grid-cols-3 gap-4" : columns === 2 ? "fit-2 grid grid-cols-2 gap-4" : "grid grid-cols-1 gap-4";
+      const rowClass = columns === 3 ? "stack-fit-3 grid grid-cols-1 gap-4 desktop:grid-cols-3" : columns === 2 ? "stack-fit-2 grid grid-cols-1 gap-4 desktop:grid-cols-2" : "grid grid-cols-1 gap-4";
       return (
         <div className="flex flex-col gap-4">
           {block.heading && <h3 className="font-jakarta text-title-xs font-bold">{block.heading}</h3>}
@@ -760,7 +776,7 @@ export function BlockView({ block }: { block: Block }) {
     case "lanes":
       return (
         <figure>
-          <ol className="fit-4 grid grid-cols-4 gap-4">
+          <ol className="stack-fit-4 grid grid-cols-1 gap-4 desktop:grid-cols-4">
             {block.lanes.map((lane) => (
               <li key={lane.title} className="flex flex-col gap-3 rounded-card bg-surface-subtle p-5">
                 <div>
@@ -783,7 +799,7 @@ export function BlockView({ block }: { block: Block }) {
             ))}
           </ol>
           {block.flags && (
-            <ul className="fit-2 mt-4 grid grid-cols-2 gap-3">
+            <ul className="stack-fit-2 mt-4 grid grid-cols-1 gap-3 desktop:grid-cols-2">
               {block.flags.map((f) => (
                 <li key={f} className="rounded-card border-2 border-dashed border-line p-4 font-jakarta text-body-s text-caption">
                   <Rich text={f} />
@@ -963,16 +979,16 @@ export function BlockView({ block }: { block: Block }) {
               ))}
               {block.steps && (
                 <figure className="flex w-full flex-col gap-3">
-                  <ol className="fit-3 grid grid-cols-3 gap-3">
+                  <ol className="stack-fit-3 grid grid-cols-1 gap-3 desktop:grid-cols-3">
                     {block.steps.map((st) => (
                       <li key={st.title} className="rounded-media border border-on-inverse/15 p-4">
-                        <p className="font-bold">{st.title}</p>
-                        <p className="mt-1 font-jakarta text-body-s text-on-inverse/70">{st.body}</p>
+                        <p className="text-title-s font-bold">{st.title}</p>
+                        <p className="mt-1 text-body-m text-on-inverse/70">{st.body}</p>
                       </li>
                     ))}
                   </ol>
                   {block.stepsCaption && (
-                    <figcaption className="max-w-[70ch] font-jakarta text-body-s text-on-inverse/70">{block.stepsCaption}</figcaption>
+                    <figcaption className="text-on-inverse/70">{block.stepsCaption}</figcaption>
                   )}
                 </figure>
               )}
@@ -984,15 +1000,15 @@ export function BlockView({ block }: { block: Block }) {
                   <li key={it.title} className="flex gap-3 py-3">
                     <CheckCircleIcon size={22} className="mt-0.5 shrink-0 text-on-inverse/80" />
                     <div>
-                      <p className="font-semibold">{it.title}</p>
-                      {it.body && <p className="font-jakarta text-body-s text-on-inverse/70">{it.body}</p>}
+                      <p className="text-title-s font-bold">{it.title}</p>
+                      {it.body && <p className="text-body-m text-on-inverse/70">{it.body}</p>}
                     </div>
                   </li>
                 ))}
               </ul>
             </div>
           </div>
-          <ul className="fit-2 grid grid-cols-2 gap-6">
+          <ul className="stack-fit-2 grid grid-cols-1 gap-6 desktop:grid-cols-2">
             {block.cards.map((c) => (
               <li key={c.title} className="flex flex-col gap-4 rounded-card border border-on-inverse/15 bg-on-inverse/5 p-4 tablet:p-5">
                 {c.image && (
@@ -1003,7 +1019,7 @@ export function BlockView({ block }: { block: Block }) {
                 <div className="flex flex-col gap-2">
                   {c.label && <p className="font-serif text-caption-m font-medium uppercase text-on-inverse/70">{c.label}</p>}
                   <h3 className="text-title-s font-bold">{c.title}</h3>
-                  {c.body && <p className="font-jakarta text-body-s text-on-inverse/70">{c.body}</p>}
+                  {c.body && <p className="text-body-m text-on-inverse/70">{c.body}</p>}
                 </div>
               </li>
             ))}

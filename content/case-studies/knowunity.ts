@@ -123,7 +123,6 @@ export const knowunity: CaseStudy = {
       id: "solution",
       stage: "Solution",
       chapter: { number: "02", title: "Solution" },
-      compactHeading: true,
       heading:
         "An AI-powered voice experience that turns passive studying into active recall. Students explain concepts aloud, receive progressive hints when needed, and get a personalized breakdown of their strengths and knowledge gaps, along with a targeted study plan to improve weaker areas and build exam confidence over time.",
       blocks: [
@@ -173,7 +172,6 @@ export const knowunity: CaseStudy = {
       id: "research",
       stage: "Problem",
       chapter: { number: "04", title: "Research" },
-      compactHeading: true,
       heading: "The beta graded students on the basis of answer but students lost track of the hint ladder",
       blocks: [
         {
@@ -188,7 +186,6 @@ export const knowunity: CaseStudy = {
         },
         {
           kind: "text",
-          wide: true,
           paragraphs: [
             "I audited Knowunity’s beta before designing anything. Its intro promised scores “up to 20% higher on exams”. It ended with a grade and listed missed terms under a red “Needs practice”.",
           ],
@@ -233,7 +230,6 @@ export const knowunity: CaseStudy = {
         },
         {
           kind: "text",
-          wide: true,
           paragraphs: [
             "Competitive analysis shows how four apps handle recall, misses, repetition and the summary. Drove the decision to show the student’s answer beside the model answer, as Anki and Quizlet do.",
           ],
@@ -256,7 +252,6 @@ export const knowunity: CaseStudy = {
       id: "exploration",
       stage: "Solution",
       chapter: { number: "05", title: "Exploration" },
-      compactHeading: true,
       heading: "I explored three interaction directions to increase Active Recall adoption, targeting 25% activation among students and 75% task completion among those who started.",
       blocks: [
         // Figma 286:337. Figma holds the board as a flat image; it is rebuilt here so the text is real
@@ -415,7 +410,6 @@ export const knowunity: CaseStudy = {
       id: "final-designs",
       stage: "Solution",
       chapter: { number: "08", title: "Final designs" },
-      compactHeading: true,
       heading: "Each screen answers one question, and every turn has a way out",
       blocks: [
         {
@@ -524,7 +518,6 @@ export const knowunity: CaseStudy = {
       id: "outcome",
       stage: "Impact",
       chapter: { number: "10", title: "Outcome" },
-      compactHeading: true,
       heading: "What I can claim: a tested, iterated prototype, not a shipped result",
       blocks: [
         {

@@ -19,6 +19,269 @@ from there.
   (Oct entry below). It is an unlicensed preview. The fix is the licensed download, under the same
   file name, or a different image. TODO: replace before launch.
 
+### 2026-11-03 — WTV: Solution comes right after The problem
+**Decided by:** Lumbini ("move the solution section after problem, then keep other content in a similar
+arrangement"). New order: My role, Overview, Users response, The problem, Solution, Strategic shift,
+Ideation, Design, Final screens, Component library, Impact, Lessons, Sticky notes. Only Solution moved;
+copy and layouts are unchanged. Claude's reading of "problem": the section titled The problem. The
+contents list follows the new order, and Solution is still labelled a Solution-stage section.
+
+### 2026-11-03 — Knowunity's dark panel follows the card scale
+**Decided by:** Lumbini ("make it follow Bloom's standard"). The panel's step, checklist and card text was
+16/24 Plus Jakarta. It is now the case-study card scale: titles Title 1 Bold (24/36, 22 tablet, 20 phone), body
+Body Regular M (20/30, 14 on phones), in DM Sans. Colours and layout are unchanged. This removes the last
+exception to the 20px card body, except Bloom's Discovery cards, which follow their own Figma frame.
+
+### 2026-11-03 — One chapter-heading rule across the case studies
+**Decided by:** Lumbini ("have you checked ... consistent type scale for all case studies? if not run and fix").
+A census of all five studies at 1440, 834 and 390 found one real inconsistency: chapter headings were 40px in
+some studies and 24px in others, and the size did not follow length (Knowunity's 90-character Research was 24,
+TDK's 91 to 94-character headings were 40). It came from a hand-set `compactHeading` flag copied from each
+Figma frame. The flag is gone. A chapter heading is H3 (40, 34, 20), and 24, 22, 20 if it is over 150
+characters. Sections without a chapter label keep the 24px sub-section heading. Visible changes: Knowunity's
+Research, Final designs and Outcome and WTV's Overview go from 24 to 40; WTV's The problem and Design,
+Bloom's Reflection and Knowunity's Exploration and Solution stay or go to 24. Two documented exceptions stay:
+Bloom's Discovery cards (Figma 443:2690) and Knowunity's dark panel.
+
+### 2026-11-03 — Type differences closed; tokens.json regenerated
+**Decided by:** Lumbini ("fix those"; "regenerate it").
+- **Figma:** new text styles H0 Tablet, H0 Mobile, H1 Tablet, H3 Tablet, Title 1 Bold Tablet, Title 1 Bold Mobile
+  and Body L Tablet, so every tablet and phone step in the code has a style. Names and values are Claude's,
+  taken from the code's existing steps.
+- **Display is removed.** Figma's "Let's talk." is H1, so the footer heading uses `text-h1` (56/80, and the
+  old tablet display step 48/56 is now H1 Tablet). The footer heading line height changes from 64 to 80 at 834
+  and up. `text-display` and `text-display-sm` are gone; nothing else used them.
+- **EYEBROW TEXT left as it is.** No Figma layer uses it and no code does. Binding it would change every
+  section label from Medium with 6% spacing to Bold with none, so it is Lumbini's call.
+- **Builds are always clean.** `npm run build` is now `rm -rf .next && next build`, and the two test scripts
+  call it. One incremental build served a stylesheet without a new class. The cause is not proven; a clean
+  build costs a few seconds and removes the risk.
+- **tokens.json type regenerated** from the Figma styles, 9 entries to 23. Line heights are pixel values, or
+  "normal" for Figma's auto. Letter spacing is in em. Colors, radii and spacing were not touched.
+
+### 2026-11-03 — Type definitions in design-system.md; H0 is the 72px heading
+**Decided by:** Lumbini. `design-system.md` gained a Type section: the three type breakpoints, the typefaces,
+every Figma text style with its code token, the size of each token at desktop, tablet and phone, the
+case-study type rules, rules for choosing, the exceptions to the size floor, and where the code differs from
+Figma. Lumbini changed Figma's H1 from 72 to 56 because no page uses 72, then asked for the 72px size as its
+own heading token. New: Figma text style **H0** (Plus Jakarta Bold 72/80, -2%) and code token `text-h0`, which
+takes over H1's old 72, 56 and 44 steps and is used by the 404 page, so nothing renders differently. `text-h1`
+is now 56/80 as in Figma, with no tablet or phone steps, and no page uses it. The name H0 is Claude's;
+rename it if you prefer. `tokens.json` was not changed; it is stale for type and the doc says so.
+
+### 2026-11-03 — Problem and Solution come first, then Overview
+**Decided by:** Lumbini ("make problem and solution first for all case studies and then overview including
+WTV"). **Replaces** the order in the entry below for WTV: My role, The problem, Solution, Overview, Users
+response, Strategic shift, Ideation, Design, Final screens, Component library, Impact, Lessons, Sticky
+notes. My role stays first, under the facts, as Lumbini placed it earlier. Bloom already ran Problem,
+Solution, Overview. Knowunity runs Context (the problem), Solution, then Role and approach, which is its
+overview. Anewvista and TDK have no separate Solution or Overview section; their text opens on the problem
+and the solution is spread across the design chapters. Giving them one would mean writing new copy, so
+they are unchanged. TODO: ask Lumbini whether to add a short Solution section to each.
+
+### 2026-11-03 — TDK sections are chapters like the other studies
+**Decided by:** Lumbini ("fix this to make it consistent with other case studies"). The census found 7 of
+TDK's 10 section headings at 24px with no label, because TDK had no chapter names and only the first
+section of each stage got one. All ten are now numbered chapters (01 The task, 02 Constraints, 03 The old
+wizard, 04 Mapping the paths, 05 Alignment, 06 Boundaries and zones, 07 Units, 08 Dashboard and summary,
+09 Accessibility, 10 Lessons), each a label over the 40px heading, and the contents list names them, as on
+Knowunity, Anewvista and Bloom. The chapter names are Claude's wording, taken from each heading; change
+any you prefer. Headings and copy are unchanged.
+
+### 2026-11-03 — Decision sections 32px, quotes 20px, full-size view
+**Decided by:** Lumbini.
+- **Reversal of** 48px: Anewvista's decision sections sit 32px between their text and the visual, like every
+  other section. Figma 284:290 draws 48.
+- **Reversal of** "quotes stay as they are", for size only: every quote is 20px (body-m; 14 on phones). Weight,
+  family and colour are unchanged, so Knowunity's is Plus Jakarta Bold, WTV's box quote Plus Jakarta
+  SemiBold, and Anewvista's and Bloom's regular. Anewvista's quote was 24px.
+- **Full-size view:** each Anewvista before-and-after visual opens at full viewport size when pressed
+  (native modal dialog: Escape, the close button or a click outside closes it, focus returns to the visual).
+  Below 834 the image is at least 960px wide inside a scrolling area so it can be read by panning.
+  Hover zoom stays. A visible "View larger" pill marks it, since touch has no zoom cursor.
+
+### 2026-11-03 — Captions are one size; WTV problem text is Regular 20
+**Decided by:** Lumbini ("captions below the 3 images in WTV have 2 different sizes ... below 834 use the
+mobile type scale I define in Figma"; "DM Sans Regular 20px for 1200px for solution and problem text").
+- **Cause of the two sizes:** the scale-with-screen rule for image rows used `100vw / 390`, so type inside a
+  row kept growing above 390: captions under the two-image row were 21.5px at 600px (about 30px at 833)
+  while the one under the wide image stayed 14. The unit is now capped at 390, so rows hold their phone size.
+- **Captions:** every caption is Body Semibold S (DM Sans SemiBold 14) from 834 and Mobile Body2 (DM Sans
+  SemiBold 10/16) below, whatever row they sit in. Claude's reading: Mobile Body2 is the only small SemiBold
+  mobile style in Figma; Mobile Body1 (14 Regular) is the alternative. New token `--text-mobile-body-2`.
+- **WTV Overview, Design challenge and Opportunity statements** are DM Sans Regular 20/30 (14 on phones),
+  not Title 1 Bold. The Design challenge sentence had its bold markers removed, since it was bold throughout.
+  Opportunity keeps its inline emphasis.
+
+### 2026-11-03 — Consistency decisions across the five case studies
+**Decided by:** Lumbini, after the style and typography census (critic-evidence/consistency-report.txt).
+- **At-a-glance values are 18px on every study.** Knowunity was 14. **Reversal of** the 14px Knowunity
+  scale from Figma 285:574, for this one role.
+- **Stat labels are 16px on every study** from 834 up (Knowunity was 14). Phones keep the 14px body style.
+- **Decision sections keep 48px** between their text and the before-and-after visual (Anewvista's four,
+  Figma 284:290). They already did; no other section changes.
+- **Cards: strokes are neutral everywhere.** Bloom drew its card lines in its own blue (the theme-line
+  token); no other study does. Bloom now uses the same neutral line. Filled cards keep each study's tint
+  (surface-subtle): WTV, TDK, Anewvista and Bloom use their own, Knowunity uses beige.
+- **Quotes are not restyled.** Knowunity's, WTV's and Anewvista's quotes come from usability tests and
+  stay as they are, so the Anewvista quote stays 24px regular (Lumbini had first asked for 20px) and
+  Bloom's speech bubbles are untouched. The four quote treatments remain; they differ by source.
+
+### 2026-11-03 — Fixes from the first critic run (Bloom & Heal)
+**Decided by:** Lumbini ("fix these"; "fix the touch target 44px for smaller device screens"). Three fixes,
+no design change:
+- **Touch targets:** footer text links have a 44px minimum width as well as height, so "Work" (was 33px)
+  and "About" (was 40px) pass at 390. Their text does not move; only the hit area grows.
+- **Pinned device, below 834:** every step's card shows its poster (and plays when active). Before, only
+  the active step's recording was visible and the others were empty blue cards; reduced motion showed no
+  posters for them. From 834 the pinned card is unchanged.
+- **Focus ring:** the ring colour is set on every element before focus, so it no longer fades in from
+  the link's text colour over 200ms.
+Left alone on purpose: the 45vh gaps between pinned steps from 834 up (the scroll distance in Figma's
+pinned frame), and the 9px phone eyebrows (Figma's Caption Mobile).
+
+### 2026-11-03 — Four critic subagents
+**Decided by:** Lumbini. `.claude/agents/` holds critic-craft, critic-ux, critic-system and critic-ambition.
+Each reads `eval/rubric.md`, has Read, Grep and Glob only (no Write, Edit or Bash), grades blind, cites a
+file and line or a screen and state for every finding, and returns scores, top findings with an exact fix,
+and one blind spot. The first three are adversarial; critic-ambition is not, obeys every rule in
+`design-system.md`, proposes one to three patterns from existing components, and its score is not in the
+total. Claude's assignment of the six dimensions: craft takes Craft and Structure; ux takes UX judgment and
+Accessibility; system takes System fidelity and Coherence. Gates: ux owns contrast and touch targets,
+system owns raw hex, craft owns identical states. Critics cannot render, so scores of 8 or more need
+screenshots and measurements the caller leaves for them. `design-system.md` predates some decisions, so
+the prompts say `decisions.md` wins on a conflict.
+
+### 2026-11-03 — Critique rubric
+**Decided by:** Lumbini. `eval/rubric.md` scores a page on six dimensions with her weights (system
+fidelity, coherence, craft and UX judgment High; accessibility Medium; structure Low), with 4, 6 and 9
+anchors written for this project from her principles. Rules: "looks good" is a 6; 8 or above only when
+verified by rendering, measuring or testing. Four hard gates fail a page on their own: body text
+contrast 4.5:1, 44pt touch targets, no raw hex in components, no two states that should differ
+rendering identically. The numeric weights (High 3, Medium 2, Low 1) are Claude's mapping; the rest is
+Lumbini's.
+
+### 2026-11-03 — WTV ships the Framer team photo
+**Decided by:** Lumbini ("replace this section with the image you have in Framer portfolio"). **Reversal
+of** the labelled placeholder: the high-five photo from the published Framer page (2048 × 1184) now sits
+in the Impact section. It is shipped as it is, Unsplash+ watermark included; the watermark was not
+removed. TODO (dev-only note on the page): an Unsplash+ licence and an unwatermarked copy before launch,
+and a source for the "10x faster" onboarding line baked into the image, or that line removed.
+
+### 2026-11-03 — Bloom hero is the Figma composition, with sliding and floating screens
+**Decided by:** Lumbini ("you did not use the hero image I used in Figma"; "make a slide floating
+animation for all the screens like Bobby did"). The opening follows 319:1009: a white band, the title
+column, and eight layers (the soft circle and seven screens) exported from the frame at 2x and placed at
+its coordinates on a 901x600 stage, right-anchored from 1200 and stacked under the text below 1200.
+Motion, studied on bobbyiscreative.com/work/venue (each device fades and slides in from the right, then
+floats about 8px): every screen slides 40px in over 900ms, staggered by 110ms, then floats in a 4.2-5.4s
+loop. Each screen is exported whole with its shadow and cut out from the export's background, so screens
+overlap cleanly and the stage crops them at the frame's edges. The two frame layers that sit fully below the
+frame are left out. A pause button (WCAG 2.2.2) stops the loop; reduced motion shows a still and hides
+the button. The old hero.png stays in the repo, unused.
+
+### 2026-11-03 — WTV Overview heading has no label
+**Decided by:** Lumbini ("remove the eyebrow OVERVIEW from the title The intranet existed"). The statement
+under the heading keeps its own "Overview" label, so the word no longer appears twice. The contents list
+still names the section Overview.
+
+### 2026-11-03 — Anewvista decisions stack, and before-and-after visuals grow on hover
+**Decided by:** Lumbini ("make all the before after design visuals increase size in hover animation";
+Figma 284:290 for the design decision section). **Reversal of** text beside the visual from 1200: each
+decision is its label, heading, text, trade-off, evidence and "Why it matters" first, then the visual at
+full width 48px below. On hover the visual scales to 103% over 300ms, ease-out, only on devices with hover
+and only when motion is allowed. The four Anewvista decisions are the only before-and-after visuals.
+
+### 2026-11-03 — Quote carousel: arrows either side, calmer bubble
+**Decided by:** Lumbini ("use these 2 arrows on 2 sides of the quote"; "make the quote bubble look more
+polished"), with the ui-designer and ux-designer skills. Previous and Next flank the bubble and stay put;
+every slide is as tall as the tallest, so nothing jumps between quotes. Three dots under it replace
+"1 / 3" and jump to a quote (each a 44px target; position also read out). The bubble uses the card
+radius (16), roomier padding, a small tail and the soft card shadow instead of the 40px radius and heavy
+drop shadow, so the bubble radius and bubble shadow tokens are gone. The photo is smaller (56) with a
+surface ring, set under the tail. The quote block is capped at 880 and centred, so lines stay a readable length
+and the arrows sit close to the quote; the tail is a rotated square with a softened corner; quote text
+is Body Regular M (20/30, 14 on phones).
+
+### 2026-11-03 — Cards are one per line below 1200
+**Decided by:** Lumbini.
+
+**Decision.** Adopt a single-column card layout for all screen widths below 1200px, replacing the
+two-column project grid. This principle applies consistently across all five case studies.
+
+**Rationale.**
+- Content legibility: cards contain meaningful descriptions, metadata, and large visual assets. A
+  two-column layout at narrower widths reduces available space and compromises readability.
+- Visual storytelling: each project deserves sufficient horizontal space to communicate its design
+  solution and visual identity. A single-column layout allows larger, more legible thumbnails.
+- Consistent browsing experience: applying the same layout principle across all five projects creates
+  predictable card proportions, alignment, and spacing.
+
+**What it covers.** Home's All projects grid (three from 1200, one below), and every card row in the five
+case studies: card rows, tiles, findings, options, stats, panels, lanes, flags, the steps in a cycle, and
+the dark panel's steps and cards. They keep their columns from 1200 and scale between 1200 and 1399.
+**Reversal of** the Nov 2 rule that card rows keep their columns and scale down at every width.
+**Not covered, on purpose:** rows of images or phone screens, the at-a-glance facts, and the Knowunity
+task flow board, which Lumbini asked to keep at four columns at every width.
+
+### 2026-11-03 — Bloom interview quotes are a carousel
+**Decided by:** Lumbini ("make the bubble part a carousel, so that each time only one bubble is visible").
+**Reversal of** the three-across row below: one bubble and its photo per slide at every width, with
+Previous and Next, a counter, swipe and arrow keys; no autoplay. Text is the normal 18px (14 on phones).
+
+### 2026-11-03 — Bloom Research quotes and tiles match Figma 211:1253
+**Decided by:** Lumbini ("make this section exactly look like the design"; "also make every section
+responsive"). The three interview quotes are real text in Secondary Blue speech bubbles, in full, each
+over its participant's photo (was metrics.png, which cut the quotes off and framed them in a border).
+Bubble height, tail, gaps and photo use the spacing scale, so the row shrinks with the screen and stays
+three across. The four tiles are soft filled (Bloom surface, 8px corners, 18px regular, 64 and 44 gaps).
+Body type stays DM Sans, as on every case study; the frame sets the tiles in Nunito Sans. Bubble radius
+and shadow have no Figma tokens.
+
+### 2026-11-03 — Bloom design decisions are horizontal cards again
+**Decided by:** Lumbini ("make this cards horizontal"). **Reversal of** three columns for the "rows" cards
+(Nov 2 columns rule): one full-width card per decision, number beside the title, as in 232:3004.
+
+### 2026-11-03 — Bloom & Heal copy follows Figma 211:1154
+**Decided by:** Lumbini ("use this design for bloom and heal"). Copy and placement follow the frame, every
+block keeps its layout. New: the opening label and its three pills as tags; "The gap no app closes" over
+the SWOT board; the SWOT paragraphs open Research under its new heading; the watch section has a visible
+heading; the watch visual is re-exported (323:1375) for its new overlay line; new step 2, design decision
+and Brand titles; the tile "Suppressed emotions don’t disappear, they resurface harder."
+Kept on purpose, where the frame differs: the page title keeps "Apple Watch" and "intervenes" (the frame
+has "Applewatch" and "intervene"); Testing keeps 90% (9 of 10), Lumbini's correction of the frame's 92%;
+the Health tab and Profile phone steps stay, although the frame shows two steps; Brand and Testing stay
+in the contents list.
+
+### 2026-11-03 — One type scale across the case studies
+**Decided by:** Lumbini ("check for typography and spacing consistency for all case studies"). A census
+at 1440 and 390 found section gaps (96 and 64) and block gaps (32) already equal everywhere. Type was
+not. From the Figma frames, every case study now uses: Plus Jakarta labels (Caption M, was Libre
+Baskerville outside Knowunity), Body Semibold S captions under images and screens, H3 with auto line
+height, Title 1 Bold for statements (WTV and Anewvista were 24 regular), body 20/30 for Bloom's intro
+paragraphs (were 24 semibold, the frame has them as Body Regular M), and a 20/30 contents list.
+At-a-glance values stay as each frame draws them: 14 on Knowunity, 18 on WTV.
+
+### 2026-11-03 — Bloom Discovery follows Figma 443:2690
+**Decided by:** Lumbini ("use this format for discovery"). **Replaces** the paragraph removal below: the
+frame keeps "I studied four apps…" as a bold Title 1 line under the label and drops "Each competitor…".
+The three cards are soft filled cards (Bloom surface, 8px corners, light shadow, 18px semibold titles).
+Body text is Greyscale/Text/Caption (#5d5955, 6.39:1), the closest Figma token that passes on the card;
+the frame’s Greyscale/Text/Body is 4.36:1 there (Lumbini: "use figma’s token to find closest match").
+
+### 2026-11-03 — Case-study text fills the column
+**Decided by:** Lumbini ("text width should fill container", consistent across case studies). Headings,
+paragraphs, leads, statements, quotes and captions no longer stop at 720, 820, 960 or 70ch; they run
+the full content column on every case study. Bloom's Discovery drops its first paragraph.
+
+### 2026-11-03 — Bloom & Heal order follows Figma 211:1182
+**Decided by:** Lumbini ("follow this problem, solution, overview, discovery, do not change any layout").
+Problem (with the problem photo) comes first, then Solution (with the demo film), then Overview
+holding the discovery work, then Research. The watch visual, the pinned watch steps and the design
+decisions follow Research under a screen-reader-only heading, because the frame gives them none.
+Every block keeps its layout; only order and placement changed. The contents list follows the page
+order, not the frame's older rail order.
+
 ### 2026-11-02 — Home: one Featured project, then All projects
 **Decided by:** Lumbini, structure and proportions from carmen-elena.space/work, measured at 1440, 834
 and 390. **Reversal of** the two featured blocks in 103:2944. A dark Featured panel holds Knowunity as

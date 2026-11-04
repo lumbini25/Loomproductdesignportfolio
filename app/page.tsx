@@ -61,7 +61,7 @@ export default function Home() {
             <h3 id="all-projects-heading" className="font-jakarta text-subtitle-s font-semibold text-title">
               {home.work.all}
             </h3>
-            <ul className="grid grid-cols-1 gap-6 tablet:grid-cols-2 desktop:grid-cols-3">
+            <ul className="grid grid-cols-1 gap-6 desktop:grid-cols-3">
               {rest.map((project) => (
                 <li key={project.slug}>
                   <ProjectCard project={project} />

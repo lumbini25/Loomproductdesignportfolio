@@ -36,14 +36,25 @@ export const bloom: CaseStudy = {
   motion: "carmen",
   theme: "bloom",
   opening: {
-    eyebrow: "Bloom & Heal · iOS and Apple Watch",
-    tags: ["UX research", "Cross platform design", "Brand design"],
-    image: img(
-      "hero.png",
-      1385,
-      1472,
-      "Bloom & Heal screens: the phone home \"Welcome, Julie\" with a mood picker and an Apple Watch setup prompt, a quick reset card (Breathe, Walk, Talk to Daisy), a therapist card for Dr. Laura Smith, and an AI chat reply.",
-    ),
+    // Figma 211:1154 hero: label and the three pills (Lumbini, 2026-11-03).
+    eyebrow: "Bloom & Heal · Apple Watch and iPhone concept",
+    tags: ["Notice stress", "Reset in minutes", "Get support"],
+    // Figma 319:1009: each screen exported whole at 2x with its shadow, cut out from the export's
+    // background, placed at its frame position minus the frame's 539px left edge. The stage crops them
+    // at the frame's edges, as Figma does.
+    layers: {
+      alt: "Bloom & Heal on iPhone and Apple Watch: the phone home asking Julie to connect her watch, with today's HRV and a thought; Daisy on a second phone; watch screens for a reset timer, an offer to talk to a therapist, and a therapist list ready to book on the phone; a quick reset card (Breathe, Walk, Talk to Daisy); and a card for Dr. Laura Smith, clinical psychologist.",
+      items: [
+        { src: `${v2}/hero/circle.png`, x: 0, y: -182, w: 1116, h: 1132, still: true },
+        { src: `${v2}/hero/phone-home.png`, x: 125, y: -132, w: 278, h: 619, float: -8 },
+        { src: `${v2}/hero/phone-daisy.png`, x: 125, y: 448, w: 278, h: 567, float: 8 },
+        { src: `${v2}/hero/watch-therapist.png`, x: 357, y: 224, w: 240, h: 417, float: -10 },
+        { src: `${v2}/hero/watch-talk.png`, x: 565, y: -106, w: 240, h: 374, float: 8 },
+        { src: `${v2}/hero/card-reset.png`, x: 595, y: 218, w: 262, h: 287, float: -10 },
+        { src: `${v2}/hero/card-doctor.png`, x: 602, y: 468, w: 246, h: 186, float: 8 },
+        { src: `${v2}/hero/watch-timer.png`, x: 365, y: -39, w: 240, h: 312, float: -8 },
+      ],
+    },
   },
   facts: [
     { label: "Role", value: "Sole designer" },
@@ -52,18 +63,19 @@ export const bloom: CaseStudy = {
     { label: "Status", value: "Academic Project" },
   ],
   sections: [
+    // Order and copy from Figma 211:1154 (Lumbini, 2026-11-03) and 211:1182 (Lumbini, 2026-11-03): Problem, Solution, Overview with the
+    // discovery work, Research, then the watch system with no heading of its own. Blocks keep their layouts.
     {
-      id: "overview",
-      nav: "Overview",
+      id: "problem",
+      nav: "Problem",
       stage: "Problem",
-      label: "Overview",
-      heading: "What if your watch could catch a stress spike before you did?",
+      label: "Problem",
+      heading: "When people are overwhelmed they do not know what to do",
       blocks: [
         {
           kind: "text",
-          look: "lead",
           paragraphs: [
-            "Bloom & Heal is designed to read heart rate variability (HRV) from Apple Watch. HRV is the small variation in time between heartbeats, and it usually drops when the body is under stress. When HRV falls below the user’s own average, the app suggests a short physical reset. If that is not enough, it offers an AI chat, then a therapist booking. Chat and booking move to the phone, where testing participants expected them.",
+            "People experiencing emotional overwhelm lose the ability to think straight. So they default to whatever demands no decision: doomscrolling, bed rotting, changing environment. The relief is real, however the feeling returns, the pattern repeats, and it affects people's emotional health.",
           ],
         },
         {
@@ -82,30 +94,53 @@ export const bloom: CaseStudy = {
       ],
     },
     {
-      id: "problem",
-      nav: "Problem",
-      stage: "Problem",
-      label: "Problem",
-      heading: "When people are overwhelmed they do not know what to do",
+      id: "solution",
+      nav: "Solution",
+      stage: "Solution",
+      label: "Solution",
+      heading: "Watch for quick resets, phone for chat and booking",
       blocks: [
         {
           kind: "text",
-          look: "lead",
           paragraphs: [
-            "People experiencing emotional overwhelm lose the ability to think straight. So they default to whatever demands no decision: doomscrolling, bed rotting, changing environment. The relief is real, however the feeling returns, the pattern repeats, and it affects people's emotional health.",
+            "Bloom & Heal is designed to catch the stress cycle earlier. The Apple Watch flags a drop in HRV, then guides the user through a short reset on the device that fits the moment. Whether it reduces stress was not tested.",
           ],
         },
         {
+          kind: "video",
+          video: clip(
+            "bloom-heal-demo",
+            1280,
+            720,
+            "Demo film, 40 seconds, with a soft soundtrack. An Apple Watch shows a low HRV notification and the user taps Continue to start a guided reset. The user then picks up their iPhone, opens Bloom & Heal from the lock screen, chooses a therapist, and books a session.",
+          ),
+          caption: "How the system works.",
+        },
+      ],
+    },
+    {
+      id: "overview",
+      nav: "Overview",
+      stage: "Problem",
+      label: "Overview",
+      heading: "What if your watch could catch a stress spike before you did?",
+      blocks: [
+        {
           kind: "text",
-          label: "Discovery",
           paragraphs: [
-            "I studied four apps that lead this space — Finch, Headspace, Calm, and Flourish — to understand when people reach for mental health tools, what they return to, and where these apps quietly lose them.",
-            "Each competitor has staked out a distinct lane — Finch for daily-task support during low mood, Calm/Headspace for focus and mindfulness, Flourish for CBT-based reflective chat — but none of them address the acute, physiologically-triggered overwhelm moment that Bloom & Heal targets.",
+            "Bloom & Heal is designed to read heart rate variability (HRV) from Apple Watch. HRV is the small variation in time between heartbeats, and it usually drops when the body is under stress. When HRV falls below the user’s own average, the app suggests a short physical reset. If that is not enough, it offers an AI chat, then a therapist booking. Chat and booking move to the phone, where testing participants expected them.",
           ],
+        },
+        // Figma 443:2690: the label over one bold line, then three soft filled cards.
+        {
+          kind: "statement",
+          look: "title",
+          label: "Discovery",
+          text: "I studied four apps that lead this space — Finch, Headspace, Calm, and Flourish — to understand when people reach for mental health tools, what they return to, and where these apps quietly lose them",
         },
         {
           kind: "cards",
-          look: "outline",
+          look: "soft",
           items: [
             { title: "More features didn't mean more support.", body: "Flourish and Calm can feel heavy in the exact moments that call for less." },
             { title: "Price caps who gets helped", body: "Calm, Headspace, and Flourish paywall the support that matters most." },
@@ -116,12 +151,8 @@ export const bloom: CaseStudy = {
           ],
         },
         {
-          kind: "text",
-          heading: "How this shaped my research",
-          paragraphs: [
-            "The SWOT gave me a working vocabulary before I spoke to anyone. Instead of asking \"how do you manage stress,\" I could test sharper hypotheses — When do you open an app like this, and when do you close it without using it? In a moment of overwhelm, what would \"help\" actually look like?",
-            "That's what made the interviews productive. I wasn't starting from zero — I was pressure-testing what I'd seen.",
-          ],
+          kind: "lead",
+          text: "The gap no app closes: a next step at the moment you need it most",
         },
         {
           kind: "wide",
@@ -142,19 +173,41 @@ export const bloom: CaseStudy = {
       nav: "Research",
       stage: "Problem",
       label: "Research",
-      heading: "What people do, what apps offer, and where the two diverge",
+      heading: "People know they’re overwhelmed, but without a next step they default to distraction",
       blocks: [
         {
-          kind: "wide",
-          bare: true,
-          images: [img("metrics.png", 2368, 800, "Three interview quotes in speech bubbles above each participant's photo, about wanting a therapist in their pocket, voicing a feeling then taking a walk, and procrastinating on big tasks.")],
+          kind: "text",
+          paragraphs: [
+            "The SWOT gave me a working vocabulary before I spoke to anyone. Instead of asking \"how do you manage stress,\" I could test sharper hypotheses — When do you open an app like this, and when do you close it without using it? In a moment of overwhelm, what would \"help\" actually look like?",
+            "That's what made the interviews productive. I wasn't starting from zero — I was pressure-testing what I'd seen.",
+          ],
+        },
+        // Figma 211:1257: three participant quotes as speech bubbles, each over its photo, shown one at a
+        // time (Lumbini, 2026-11-03).
+        {
+          kind: "speech",
+          label: "Interview quotes",
+          items: [
+            {
+              quote: "I honestly just wish I had a therapist in my pocket to just talk me through stuff. They're giving suggestions — do this, do that, have you considered this? I would love to just have my therapist on speed dial. That's what I would want.",
+              photo: `${v2}/participant-1.jpg`,
+            },
+            {
+              quote: "I vocalize what I was feeling — that's just something I do. If I feel something, I give it a voice. I say the feeling so I can tell myself: this is happening right now. And then I go for a walk. It gives me a change of environment. That doesn't necessarily mean the feeling goes away .",
+              photo: `${v2}/participant-2.jpg`,
+            },
+            {
+              quote: "If it's a big task, a big lift, I get stressed even thinking about it. So I procrastinate. I wish I was not that way.",
+              photo: `${v2}/participant-3.jpg`,
+            },
+          ],
         },
         {
           kind: "tiles",
           look: "sky",
           items: [
             "People know they're overwhelmed but don't know what to do",
-            "Suppressed emotions does not disappear-it resurfaces harder",
+            "Suppressed emotions don’t disappear, they resurface harder.",
             "Human connection only helps when the right person shows up",
             "Coping styles are too different to serve with a single solution",
           ],
@@ -162,29 +215,20 @@ export const bloom: CaseStudy = {
       ],
     },
     {
-      id: "solution",
-      nav: "Solution",
+      id: "system",
       stage: "Solution",
-      label: "Solution",
-      heading: "Watch for quick resets, phone for chat and booking",
+      heading: "When HRV drops, the watch prompts a reset that fits how you cope, and escalates to the right person only if it doesn’t help",
       blocks: [
-        {
-          kind: "text",
-          look: "lead",
-          paragraphs: [
-            "Bloom & Heal is designed to catch the stress cycle earlier. The Apple Watch flags a drop in HRV, then guides the user through a short reset on the device that fits the moment. Whether it reduces stress was not tested.",
-          ],
-        },
         {
           kind: "wide",
           bare: true,
           images: [
-            // Lumbini's export, ~/Desktop/Bloom and Heal case study/iwatch visuals.png (2026-10-29).
+            // Figma 323:1375, exported at 2x (2026-11-03).
             img(
-              "iwatch-visuals.png",
+              "iwatch-visuals-2.png",
               2368,
-              957,
-              "An Apple Watch on a wrist asking \"How are you feeling now?\", beside watch screens for a reset timer, an offer to talk to a therapist, and the therapist list. Overlay: \"Apple Watch tracks HRV and sends a notification when it drops, prompting a short coping exercise to reset\".",
+              1170,
+              "An Apple Watch on a wrist asking \"How are you feeling now?\", beside watch screens for a reset timer, an offer to talk to a therapist, and the therapist list ready to book on the phone. Overlay: \"When HRV drops, the watch offers a reset that fits how you cope, so you stay in control\".",
               true,
             ),
           ],
@@ -192,7 +236,7 @@ export const bloom: CaseStudy = {
         {
           kind: "text",
           paragraphs: [
-            "I designed the system which will help people reset in a busy day while the watch nudge them to complete tasks they pre-selected in the onboarding phase the mobile app is saved to complete tasks like AI-chat and booking a therapist.",
+            "I designed a system that helps people reset during a busy day. The watch nudges them toward a task they chose during onboarding, and the phone handles longer tasks like AI chat and booking a therapist.",
           ],
         },
         {
@@ -205,7 +249,7 @@ export const bloom: CaseStudy = {
               video: clip("watch-hrv", 596, 914, "On Apple Watch, a low HRV notification explains what the body is reacting to and offers a quick pause."),
             },
             {
-              title: "Personalized coping options",
+              title: "Options you already trust, for when you can’t think straight",
               body: "Personalized coping options are selected during onboarding and provided the users with options they rely most in a moment when they cannot think.",
               video: clip("watch-personalized", 670, 898, "On Apple Watch: \"It seems you are still not feeling well. Do you wanna complete another reset task?\", with options such as Call a friend and Walking."),
             },
@@ -217,20 +261,10 @@ export const bloom: CaseStudy = {
           ],
         },
         {
-          kind: "video",
-          video: clip(
-            "bloom-heal-demo",
-            1280,
-            720,
-            "Demo film, 40 seconds, with a soft soundtrack. An Apple Watch shows a low HRV notification and the user taps Continue to start a guided reset. The user then picks up their iPhone, opens Bloom & Heal from the lock screen, chooses a therapist, and books a session.",
-          ),
-          caption: "How the system works.",
-        },
-        {
           kind: "cards",
           look: "rows",
           label: "Design decisions",
-          heading: "Every pixel accounts for cognitive load",
+          heading: "Small design choices, because overwhelmed users have no attention to spare",
           items: [
             { title: "Why Nunito Sans on phone and SF Compact on watch?" },
             { title: "Why an 8px grid?" },
@@ -248,7 +282,7 @@ export const bloom: CaseStudy = {
       blocks: [
         {
           kind: "split",
-          title: "9 of 12 participants picked this logo",
+          title: "The lowercase wordmark with a small daisy felt the most human to 9 of 12 participants",
           paragraphs: [
             "I explored six logos, three script and three sans. Twelve participants chose the one that felt most welcoming. Nine picked option 3, a lowercase wordmark with a small daisy. Participants called the daisy friendly and human.",
           ],
@@ -257,13 +291,13 @@ export const bloom: CaseStudy = {
         },
         {
           kind: "split",
-          title: "One typeface per screen size",
-          paragraphs: ["The phone uses Nunito Sans. The watch uses SF Compact, Apple’s typeface for watchOS, so text matches the platform."],
+          title: "Each screen gets the typeface it reads best in",
+          paragraphs: ["The phone uses Nunito Sans and the watch uses SF Compact, Apple’s typeface for watchOS, so text matches the platform."],
           image: img("brand-type.png", 1552, 734, "Type scales side by side: phone in Nunito Sans (hero 30 bold, section title 22 bold, body 17 and 15, label 12) and watch in SF Compact (hero 32 bold, section header 15 bold, body 13, caption 11, button 13 bold)."),
         },
         {
           kind: "split",
-          title: "A daisy that reassures and never celebrates",
+          title: "Daisy reassures at a hard moment and never celebrates",
           paragraphs: [
             "Daisy appears in the logo and the AI chat. She uses five expressions and no confetti, because a finished reset should be confirmed, not congratulated. I chose a daisy over medical symbols to keep the app from feeling clinical.",
           ],

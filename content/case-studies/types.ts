@@ -33,7 +33,7 @@ export type Video = {
 
 export type Block =
   // `look: "lead"`: larger, semibold subtitle text (Bloom's Framer page, 26px).
-  | { kind: "text"; paragraphs: string[]; wide?: boolean; look?: "lead"; label?: string; heading?: string }
+  | { kind: "text"; paragraphs: string[]; look?: "lead"; label?: string; heading?: string }
   // Text in a narrow column beside a visual (Bloom Figma brand and testing rows).
   | { kind: "split"; title?: string; paragraphs: string[]; image: Img; caption?: string }
   // Carmen's pinned device: the device sticks while numbered steps scroll past, and its screen
@@ -102,7 +102,7 @@ export type Block =
       // "boxes" (Anewvista Figma 283:572): outlined cards in one row from 1200. Not numbered: the
       // title is the card's label over the body. Numbered: "01" over the title and body. With a
       // `label` ("Step"): "Step 1" over the title, set as body text.
-      look?: "quotes" | "list" | "outline" | "rows" | "boxes";
+      look?: "quotes" | "list" | "outline" | "rows" | "boxes" | "soft";
       label?: string;
     }
   // `look: "box"`: the quote on a filled box instead of beside a rule. "rules": large, centred
@@ -111,7 +111,7 @@ export type Block =
   // A small label over one large line, as the Framer pages set "Design challenge".
   // `look: "large"`: the line at heading size (40px), as the WTV Figma frame sets "Overview".
   // `look: "compact"`: the line at body size (20px), as Anewvista's decision rows set "Why it matters".
-  | { kind: "statement"; label: string; text: string; look?: "large" | "compact" }
+  | { kind: "statement"; label: string; text: string; look?: "large" | "compact" | "title" }
   // A row of screens at set widths (% of the column). Never stacks. They spread edge to edge, or
   // sit left with `gap` (% of the column) between them.
   | { kind: "screens"; images: Img[]; widths: number[]; gap?: number; caption?: string }
@@ -132,6 +132,8 @@ export type Block =
   | { kind: "lead"; text: string; muted?: boolean }
   // Images in equal columns, each with its caption under it. Never stacks.
   | { kind: "gallery"; columns: 2 | 3; images: Img[] }
+  // Interview quotes as speech bubbles over each participant's photo, one at a time (Bloom 211:1257).
+  | { kind: "speech"; label: string; items: { quote: string; photo: string }[] }
   | { kind: "panel"; columns: { title: string; items: string[] }[]; caption?: string }
   | { kind: "cycle"; steps: { title: string; body: string }[]; caption?: string }
   | { kind: "flow"; steps: string[]; notes: string[]; caption?: string }
@@ -179,6 +181,10 @@ export type Block =
   // Content not handed over yet. Shown everywhere, labelled, so it never reads as real.
   | { kind: "placeholder"; text: string };
 
+// One screen of a layered hero, in px on its 901x600 stage. `float` is the loop's travel (negative is up);
+// `still` layers (the background circle) do not move.
+export type HeroLayer = { src: string; x: number; y: number; w: number; h: number; float?: number; still?: boolean };
+
 export type FlowTone = "blue" | "purple" | "red" | "green";
 
 export type Stage = "Problem" | "Solution" | "Impact";
@@ -193,9 +199,9 @@ export type Section = {
   label?: string;
   // Replaces the usual header and blocks with a filled box: the heading and a /01 numbered list.
   role?: string[];
-  // Title 1 Bold (24) instead of the chapter's 40, for a heading that is a long sentence.
-  compactHeading?: boolean;
   heading: string;
+  // The heading is for screen readers and the page outline only (Bloom, Figma 211:1274 has none).
+  hideHeading?: boolean;
   // The section's name in the content navigation, from words already on the page. Used by
   // studies without chapters (WTV, Bloom); sections without it are left out of the navigation.
   nav?: string;
@@ -205,6 +211,9 @@ export type Section = {
   logoCloud?: { label: string };
   // From 1200, the label, heading and text sit in a 440 column beside the section's visuals (its
   // `wide` and `video` blocks) in a 696 column (Anewvista Figma 283:572 decision rows).
+  // No label over the heading, where the first block already carries the same one (WTV Overview).
+  hideEyebrow?: boolean;
+  // A decision section (Anewvista 284:290): text first, then its before-and-after visual, which grows on hover.
   aside?: boolean;
   blocks: Block[];
 };
@@ -229,7 +238,16 @@ export type CaseStudy = {
   // The visual is an image (Bloom) or a looping recording (Anewvista).
   // `screen`: the visual is a plain screenshot, so it sits in a monitor (MonitorFrame).
   // `clip`: the visual sits on the band's bottom edge and is cut there (Knowunity's phones).
-  opening?: { eyebrow: string; tags: string[]; image?: Img; video?: Video; screen?: boolean; clip?: boolean };
+  // `layers`: the visual is built from separate screens that slide in and float (Bloom, Figma 319:1009).
+  opening?: {
+    eyebrow: string;
+    tags: string[];
+    image?: Img;
+    video?: Video;
+    screen?: boolean;
+    clip?: boolean;
+    layers?: { alt: string; items: HeroLayer[] };
+  };
   // Carmen's Pilgrimz scroll effects on this page: sections slide up as they enter.
   motion?: "carmen";
   // The project's colours on cards, tiles and rules across the page (theme-* in globals.css).

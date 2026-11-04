@@ -62,19 +62,19 @@
   --breakpoint-desktop: 1200px;
 
   /* Type, from the Figma text styles. Letter spacing is Figma's percentage as em. */
-  --text-h1: 72px;
+  --text-h0: 72px; /* "H0": the 72px heading kept when Figma's H1 became 56 (Lumbini, 2026-11-03). 404 page. */
+  --text-h0--line-height: 80px;
+  --text-h0--letter-spacing: -0.02em;
+  --text-h1: 56px; /* "H1", and "Let's talk." in the footer. Phones use "H1 Mobile". */
   --text-h1--line-height: 80px;
   --text-h1--letter-spacing: -0.02em;
-  --text-display: 56px; /* TODO: no Figma style; hero headline and "Let's talk." */
-  --text-display--line-height: 64px;
-  --text-display--letter-spacing: -0.015em;
   --text-h3: 40px;
   --text-h3--line-height: 48px;
   --text-h3--letter-spacing: -0.01em;
   /* Sizes without a Figma style (28, 26 and 22) snap to "Title 1 Bold", 24/36, the Prototype
      page's type scale (Lumbini, 2026-10-27). The names stay so pages need no edits. */
-  /* Figma's phone text styles. Mobile Body2 (10px) is not used: body text is Mobile Body1, 14px
-     (Lumbini, 2026-11-01). "normal" is Figma's auto line height. */
+  /* Figma's phone text styles. Body text is Mobile Body1, 14px (Lumbini, 2026-11-01); Mobile Body2 (10px)
+     is the case-study caption below 834 (2026-11-03). "normal" is Figma's auto line height. */
   --text-h1-mobile: 20px; /* "H1 Mobile" */
   --text-h1-mobile--line-height: normal;
   --text-h1-mobile--letter-spacing: -0.01em;
@@ -84,6 +84,8 @@
   --text-title-mobile--line-height: 36px;
   --text-mobile-body-1: 14px; /* "Mobile Body1": DM Sans Regular */
   --text-mobile-body-1--line-height: normal;
+  --text-mobile-body-2: 10px; /* "Mobile Body2": DM Sans SemiBold, the phone caption (Lumbini, 2026-11-03) */
+  --text-mobile-body-2--line-height: 16px;
   --text-body-semibold-s: 14px; /* "Body Semibold S": DM Sans SemiBold */
   --text-body-semibold-s--line-height: normal;
   --text-mobile-caption: 9px; /* "Caption Mobile": Plus Jakarta SemiBold */
@@ -117,9 +119,6 @@
   --text-h1-sm: 44px;
   --text-h1-sm--line-height: 52px;
   --text-h1-sm--letter-spacing: -0.02em;
-  --text-display-sm: 36px;
-  --text-display-sm--line-height: 44px;
-  --text-display-sm--letter-spacing: -0.015em;
   --text-h3-sm: 30px;
   --text-h3-sm--line-height: 38px;
   --text-h3-sm--letter-spacing: -0.01em;
@@ -146,6 +145,7 @@
   --spacing-section-sm: 4rem;
   --spacing-section: 6rem;
 
+  --shadow-card: 0 2px 6px rgb(26 38 77 / 0.12); /* TODO: no Figma token; soft card, Bloom 443:2690 */
   --shadow-card-hover: 0 16px 32px -8px rgb(26 38 77 / 0.18); /* TODO: no Figma token */
   --shadow-mockup: 0 28px 48px rgb(26 8 77 / 0.6); /* TODO: no Figma token; phone drop shadow in the Knowunity thumbnail (112:104) */
 }
@@ -212,6 +212,13 @@
   :focus-visible {
     outline: 2px solid var(--color-focus);
     outline-offset: 2px;
+  }
+
+  /* The ring colour is set before focus, so a link that fades its colour (Tailwind's
+     transition-colors also animates outline-color) does not fade its ring in from the text
+     colour. Without this the ring is dark for 200ms and then turns Rust500. */
+  * {
+    outline-color: var(--color-focus);
   }
 
   [id] {
@@ -305,10 +312,10 @@
    page edits. Body text never drops below 16px. */
 @media (max-width: 1199px) {
   :root {
-    --text-h1: 56px;
-    --text-h1--line-height: 64px;
-    --text-display: 48px;
-    --text-display--line-height: 56px;
+    --text-h0: 56px;
+    --text-h0--line-height: 64px;
+    --text-h1: 48px; /* "H1 Tablet" */
+    --text-h1--line-height: 56px;
     --text-h3: 34px;
     --text-h3--line-height: 42px;
     --text-citation: 24px;
@@ -327,10 +334,8 @@
 }
 @media (max-width: 833px) {
   :root {
-    --text-h1: 44px;
-    --text-h1--line-height: 52px;
-    --text-display: 36px;
-    --text-display--line-height: 44px;
+    --text-h0: 44px;
+    --text-h0--line-height: 52px;
     --text-h3: 20px; /* "H1 Mobile" */
     --text-h3--line-height: normal;
     --text-h3-sm: 20px;
@@ -416,7 +421,7 @@
 }
 
 /* A row of like items keeps its columns at every width and scales down (Lumbini, 2026-11-02).
-   .fit-N is on a row of N columns. Below 1400 it re-points the type, radius and spacing tokens for
+   .fit-N is on a row of N columns of images or screens; card rows use .stack-fit-N below. Below 1400 it re-points the type, radius and spacing tokens for
    everything inside it, so a block needs no phone styles of its own. Sizes follow the screen below
    834, measured at 390. The column only reaches its full 1096px at 1400. */
 @media (max-width: 1399px) {
@@ -464,12 +469,60 @@
   }
 }
 
+/* Card rows (.stack-fit-N) are one card per line below 1200 (Lumbini, 2026-11-03), so they only
+   scale between 1200 and 1399, where N columns are tight. */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .stack-fit-3,
+  .stack-fit-4,
+  .stack-fit-5 {
+    --radius-card: 12px;
+    --radius-media: 8px;
+    --radius-control: 6px;
+    overflow-wrap: anywhere;
+    --text-body-m: var(--fit-body);
+    --text-body-m--line-height: 1.35;
+    --text-body-s: var(--fit-body);
+    --text-body-s--line-height: 1.35;
+    --text-mobile-body-1: var(--fit-body);
+    --text-mobile-body-1--line-height: 1.35;
+    --text-body-semibold-s: var(--fit-body);
+    --text-body-semibold-s--line-height: 1.35;
+    --text-subtitle-s: var(--fit-body);
+    --text-subtitle-s--line-height: 1.35;
+    --text-title-xs: var(--fit-title);
+    --text-title-xs--line-height: 1.3;
+    --text-title-s: var(--fit-title);
+    --text-title-s--line-height: 1.3;
+    --text-title-m: var(--fit-title);
+    --text-title-m--line-height: 1.3;
+    --text-h3-sm: var(--fit-title);
+    --text-h3-sm--line-height: 1.3;
+    --text-h3: var(--fit-title);
+    --text-h3--line-height: 1.3;
+    --text-caption-m: var(--fit-label);
+    --text-caption-m--line-height: 1.3;
+  }
+  .stack-fit-3 {
+    --fit-body: 16px;
+    --fit-title: 18px;
+    --fit-label: 12px;
+  }
+  .stack-fit-4,
+  .stack-fit-5 {
+    --fit-body: 14px;
+    --fit-title: 16px;
+    --fit-label: 10px;
+    --spacing: 3px;
+  }
+}
+
 @media (max-width: 833px) {
   .fit-2,
   .fit-3,
   .fit-4,
   .fit-5 {
-    --fit-unit: calc(100vw / 390);
+    /* 1px at 390 and above, so rows never grow past their phone size between 390 and 833; below 390 they shrink with the screen. */
+    --fit-unit: calc(min(100vw, 390px) / 390);
     --radius-card: 12px;
     --radius-media: 8px;
     --radius-control: 6px;
@@ -520,6 +573,47 @@
     --fit-title: calc(8 * var(--fit-unit));
     --fit-label: calc(5.5 * var(--fit-unit));
     --spacing: calc(0.8 * var(--fit-unit));
+  }
+}
+
+/* Bloom's layered hero (HeroLayers): each screen slides in from the right, staggered, then floats in
+   a slow loop on its own timing. `translate` carries the float so it never fights the slide-in transform.
+   Paused by its button; still with reduced motion (Lumbini, 2026-11-03). */
+@keyframes hero-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 var(--float);
+  }
+}
+
+.hero-layer {
+  animation:
+    hero-slide-in 900ms cubic-bezier(0.22, 1, 0.36, 1) both,
+    hero-float var(--dur) ease-in-out infinite;
+  animation-delay: var(--d), calc(var(--d) + 900ms);
+}
+
+.hero-layers.is-paused .hero-layer {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-layer {
+    animation: none;
   }
 }
 
@@ -633,7 +727,6 @@
   --theme-surface-subtle: var(--bloom-50);
   --theme-surface-sky: var(--bloom-50);
   --theme-band: var(--bloom-50);
-  --theme-line: var(--bloom-100);
 }
 /* Anewvista: no card stroke in Figma, so rules stay beige. */
 .theme-anewvista {
@@ -649,25 +742,41 @@
   --theme-surface-subtle: var(--beige-500);
   --theme-surface-sky: var(--knowunity-500);
   --theme-band: var(--knowunity-25);
+}
+
+/* One case-study type scale, from the Figma case-study frames (Knowunity 285:574, Bloom 211:1182;
+   Lumbini, 2026-11-03): Caption M labels in Plus Jakarta, Body Semibold S captions, H3 with auto
+   line height, a 20/30 contents list. At-a-glance values are 18 and stat labels 16 on every study (Lumbini, 2026-11-03). */
+.case-study {
   --text-h3--line-height: normal;
 }
 
-/* Knowunity's own type scale, from Figma 285:574 (Lumbini, 2026-11-02): Plus Jakarta labels, 14
-   SemiBold captions and at-a-glance values, and a 20/30 contents list. */
-.theme-knowunity .font-serif {
+.case-study .font-serif {
   font-family: var(--font-heading);
 }
 
-.theme-knowunity figcaption,
-.theme-knowunity dd.text-subtitle-s,
-.theme-knowunity dt.font-dm {
-  font-size: var(--text-body-semibold-s);
-  line-height: var(--text-body-semibold-s--line-height);
+/* Captions use their own sizes, not the row-scaled body tokens, so every caption on a page is one size:
+   Body Semibold S (14) from 834 and Mobile Body2 (10/16) below (Lumbini, 2026-11-03). */
+.case-study {
+  --caption-size: 14px;
+  --caption-line: normal;
+}
+
+@media (max-width: 833px) {
+  .case-study {
+    --caption-size: var(--text-mobile-body-2);
+    --caption-line: var(--text-mobile-body-2--line-height);
+  }
+}
+
+.case-study :is(figcaption, .caption):not(.font-bold) {
+  font-size: var(--caption-size);
+  line-height: var(--caption-line);
   font-weight: 600;
 }
 
 @media (min-width: 834px) {
-  .theme-knowunity nav a {
+  .case-study nav a {
     padding-block: 7px;
     font-size: var(--text-body-m);
     line-height: var(--text-body-m--line-height);

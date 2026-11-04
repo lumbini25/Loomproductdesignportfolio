@@ -5,7 +5,7 @@ import { contact, nav, site } from "@/content/site";
 
 // Figma "footer" (103:3062); below 834, 338:1644. The nav Contact button jumps to the contact block.
 export function SiteFooter() {
-  const textLink = "inline-flex min-h-11 items-center hover:text-accent motion-safe:transition-colors";
+  const textLink = "inline-flex min-h-11 min-w-11 items-center hover:text-accent motion-safe:transition-colors";
 
   return (
     <footer
@@ -16,7 +16,7 @@ export function SiteFooter() {
       <Container className="flex flex-col gap-10">
         <div className="flex items-start justify-between gap-8 tablet:gap-10">
           <div className="flex min-w-0 flex-col gap-5">
-            <h2 id="contact-heading" className="font-jakarta text-h1-mobile font-bold tablet:font-sans tablet:text-display tablet:font-extrabold">
+            <h2 id="contact-heading" className="font-jakarta text-h1-mobile font-bold tablet:font-sans tablet:text-h1 tablet:font-extrabold">
               {contact.heading}
             </h2>
             <div className="flex flex-col items-start gap-4 tablet:flex-row tablet:items-center">
@@ -30,7 +30,7 @@ export function SiteFooter() {
                 </a>
               </li>
               <li>
-                <a href={site.xUrl} target="_blank" rel="noopener noreferrer" className={`${textLink} min-w-11 justify-center underline`}>
+                <a href={site.xUrl} target="_blank" rel="noopener noreferrer" className={`${textLink} justify-center underline`}>
                   X<span className="sr-only"> profile (opens in a new tab)</span>
                 </a>
               </li>

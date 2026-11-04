@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlockView, Picture, Rich } from "@/components/case-study/Blocks";
+import { ExpandableVisual } from "@/components/case-study/ExpandableVisual";
+import { HeroLayers } from "@/components/case-study/HeroLayers";
 import { LogoCloud } from "@/components/case-study/LogoCloud";
 import { MonitorFrame } from "@/components/case-study/MonitorFrame";
 import { HeroMedia, heroSizes } from "@/components/case-study/MediaFrames";
@@ -52,6 +54,10 @@ function RoleBox({ id, title, items }: { id?: string; title: string; items: stri
     </div>
   );
 }
+
+// A chapter heading is H3 (40; 34 on tablet; 20 on phones). One longer than this is paragraph-length and takes
+// Title 1 Bold (24; 22; 20) instead, on every case study (Lumbini, 2026-11-03).
+const LONG_HEADING = 150;
 
 export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]">) {
   const { slug } = await params;
@@ -116,33 +122,46 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
       );
     }
     const chapter = chapterName.get(s.id);
-    const eyebrow = chapter ?? s.label;
-    const header = (
-      <div className={`flex flex-col gap-3 ${chapter ? "max-w-[968px]" : "max-w-[820px]"}`}>
+    const eyebrow = s.hideEyebrow ? undefined : (chapter ?? s.label);
+    const header = s.hideHeading ? (
+      <h2 id={s.id} className="sr-only">
+        {s.heading}
+      </h2>
+    ) : (
+      <div className="flex flex-col gap-3">
         {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-        <h2 id={s.id} className={chapter ? (s.compactHeading ? "text-h1-mobile font-bold tablet:text-title-l" : "text-h3-sm font-bold tablet:text-h3") : "text-title-m font-bold tablet:text-title-l"}>
+        <h2 id={s.id} className={chapter ? (s.heading.length > LONG_HEADING ? "text-h1-mobile font-bold tablet:text-title-l" : "text-h3-sm font-bold tablet:text-h3") : "text-title-m font-bold tablet:text-title-l"}>
           {s.heading}
         </h2>
       </div>
     );
     if (s.aside) {
-      // Decision rows: label, heading and text beside the visuals from 1200; stacked below.
+      // Decision sections (Anewvista, Figma 284:290): label, heading and text first, then the
+      // before-and-after visual at full width, 32px below (Lumbini, 2026-11-03; the frame has 48). The visual grows slightly on hover
+      // (Lumbini, 2026-11-03), only where hover exists and motion is allowed.
       const isVisual = (b: Section["blocks"][number]) => b.kind === "wide" || b.kind === "video";
       return (
-        <section key={s.id} aria-labelledby={s.id} className={study.motion === "carmen" ? "reveal" : undefined}>
-          <div className="grid grid-cols-1 gap-8 desktop:grid-cols-[minmax(0,440fr)_minmax(0,696fr)] desktop:items-start desktop:gap-12">
-            <div className="flex flex-col gap-4">
-              {header}
-              {s.blocks.filter((b) => !isVisual(b)).map((block, i) => (
-                <BlockView key={i} block={block} />
-              ))}
-            </div>
-            <div className="flex flex-col gap-8">
-              {s.blocks.filter(isVisual).map((block, i) => (
-                <BlockView key={i} block={block} />
-              ))}
-            </div>
+        <section key={s.id} aria-labelledby={s.id} className={`flex flex-col gap-8 ${study.motion === "carmen" ? "reveal" : ""}`}>
+          <div className="flex flex-col gap-3.5">
+            {header}
+            {s.blocks.filter((b) => !isVisual(b)).map((block, i) => (
+              <BlockView key={i} block={block} />
+            ))}
           </div>
+          {s.blocks.filter(isVisual).map((block, i) => (
+            <div
+              key={i}
+              className="motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out [@media(hover:hover)]:hover:scale-[1.03]"
+            >
+              {block.kind === "wide" && block.images.length === 1 ? (
+                <ExpandableVisual image={block.images[0]}>
+                  <BlockView block={block} />
+                </ExpandableVisual>
+              ) : (
+                <BlockView block={block} />
+              )}
+            </div>
+          ))}
         </section>
       );
     }
@@ -190,7 +209,39 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
 
       {study.motion === "carmen" && <ScrollReveal />}
       <header>
-        {study.opening ? (
+        {study.opening?.layers ? (
+          // Figma 319:1009: a white band, the title column on the left, and the layered screens on a
+          // 901x600 stage anchored to the right edge from 1200 (stacked below the text under 1200).
+          <>
+            <div className="relative overflow-hidden bg-surface desktop:min-h-[min(41.67vw,600px)]">
+              <Container className="relative z-10 py-10 desktop:flex desktop:min-h-[min(41.67vw,600px)] desktop:items-center desktop:py-12">
+                <div className="flex flex-col gap-6 desktop:max-w-[min(560px,36vw)]">
+                  <Eyebrow>{study.opening.eyebrow}</Eyebrow>
+                  <h1 className="text-h3 font-bold text-title">{study.title}</h1>
+                  <p className="text-body-m text-caption">{study.summary}</p>
+                  <Tags items={study.opening.tags} label={`Skills: ${project.title}`} />
+                </div>
+              </Container>
+              <HeroLayers
+                layers={study.opening.layers.items}
+                alt={study.opening.layers.alt}
+                className="w-full desktop:absolute desktop:top-0 desktop:right-0 desktop:w-[min(62.57vw,901px)]"
+              />
+            </div>
+            <Container>
+              <dl
+                className={`grid grid-cols-2 gap-x-8 gap-y-5 border-y border-line py-6 ${study.facts.length === 3 ? "desktop:grid-cols-3" : "desktop:grid-cols-4"}`}
+              >
+                {study.facts.map((f) => (
+                  <div key={f.label} className="flex flex-col gap-1.5">
+                    <dt className="font-jakarta text-caption-m font-medium uppercase text-caption">{f.label}</dt>
+                    <dd className="text-subtitle-s font-semibold text-subtitle max-tablet:text-body-semibold-s">{f.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </Container>
+          </>
+        ) : study.opening ? (
           // Figma 211:1164: a project-coloured opening, title column beside the product visual,
           // then the facts row (221:2779). At 1440: a 600px text column, 64px gap, the 462px
           // composition, 32px top and bottom; the composition grows to 560 into the room the back link
@@ -306,7 +357,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
             <div className="flex flex-col gap-10 desktop:flex-row desktop:items-center desktop:gap-12">
               <div className="flex max-w-[820px] flex-col gap-4 desktop:flex-1">
                 <Eyebrow>{project.title}</Eyebrow>
-                <h1 className="text-h1-sm font-extrabold tablet:text-h1">{study.title}</h1>
+                <h1 className="text-h1-sm font-extrabold tablet:text-h0">{study.title}</h1>
                 <p className="text-body-m text-body">{study.summary}</p>
                 <p className="text-body-s text-caption">{labels.byline}</p>
               </div>

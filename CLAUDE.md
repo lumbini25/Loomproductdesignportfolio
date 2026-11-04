@@ -72,6 +72,7 @@ A clean result covers only what was run. Not run is not clean — say which.
 | `visual-inspiration.md` | Styling or writing. Tone, colour, type, case-study structure. |
 | `decisions.md` | Before proposing anything. It may already be decided, or rejected. |
 | `component-gaps.md` | Before building a page. Things built inline because no component existed. |
+| `eval/rubric.md` | Critiquing a page or a change. Six weighted dimensions, anchors, scoring rules, four hard gates. |
 | `.claude/skills/build-page/` | Loaded automatically when a page is built. |
 | `reference/` | Matching a layout. Inspiration and screenshots. Never shipped. |
 | Figma `Uu1a2kCZL3M4y86CtPcmqR` | Home (`19:1496`) and About. Screenshot before trusting layer names. |
@@ -79,7 +80,6 @@ A clean result covers only what was run. Not run is not clean — say which.
 ## Later — when X, add Y
 
 - When the **tokens are settled in Figma**, add the token file and a check that fails on raw hex.
-- When the **first page is built**, add `eval/rubric.md` with critics.
 - When there are **three or more components**, consider Storybook and its MCP.
 - When a **finding repeats across two reviews**, write it here as a rule, with the count.
 - When a **decision is reversed**, label it as a reversal in `decisions.md`; never edit the old entry.

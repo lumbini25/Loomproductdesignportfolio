@@ -13,7 +13,9 @@ import type { Video } from "@/content/case-studies/types";
 
 type Step = { title: string; body?: string; video: Video };
 
-function Screen({ video, active }: { video: Video; active: boolean }) {
+// `active` plays the recording. `shown` is whether it is visible: the pinned card shows only the active one,
+// but below 834 every step has its own card, which must show its poster even before it plays.
+function Screen({ video, active, shown = active }: { video: Video; active: boolean; shown?: boolean }) {
   const ref = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     const el = ref.current;
@@ -30,8 +32,8 @@ function Screen({ video, active }: { video: Video; active: boolean }) {
       loop
       playsInline
       preload={active ? "auto" : "metadata"}
-      aria-hidden={!active}
-      className={`absolute inset-0 h-full w-full object-contain mix-blend-multiply motion-safe:transition-opacity motion-safe:duration-500 ${active ? "opacity-100" : "opacity-0"}`}
+      aria-hidden={!shown}
+      className={`absolute inset-0 h-full w-full object-contain mix-blend-multiply motion-safe:transition-opacity motion-safe:duration-500 ${shown ? "opacity-100" : "opacity-0"}`}
     >
       <source src={video.src} type="video/mp4" />
     </video>
@@ -88,7 +90,7 @@ export function PinnedDevice({ device, steps }: { device: "phone" | "watch"; ste
             {/* Below 834 every step carries its own recording. */}
             <div className="flex justify-center rounded-card bg-surface-sky p-6 tablet:hidden">
               <div className={`relative ${ratio} ${deviceWidth}`}>
-                <Screen video={s.video} active={i === active} />
+                <Screen video={s.video} active={i === active} shown />
               </div>
             </div>
             <span
