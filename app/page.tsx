@@ -48,7 +48,7 @@ export default function Home() {
         <PhotoStack photos={home.sketches} />
       </Container>
 
-      <section aria-labelledby="work-heading" id="work" className="pt-section-sm pb-section-sm desktop:pt-section">
+      <section aria-labelledby="work-heading" id="work" className="pt-section-sm pb-section-sm">
         <Container className="flex flex-col gap-6">
           <SectionHeading id="work-heading" title={home.work.heading} />
           <section aria-labelledby="featured-heading" className="flex flex-col gap-4 rounded-featured bg-surface-inverse p-4 tablet:p-6">

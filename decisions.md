@@ -26,6 +26,115 @@ Ideation, Design, Final screens, Component library, Impact, Lessons, Sticky note
 copy and layouts are unchanged. Claude's reading of "problem": the section titled The problem. The
 contents list follows the new order, and Solution is still labelled a Solution-stage section.
 
+### 2026-11-04 — Fun cards and About panels tidied (design review items 4 and 5)
+**Decided by:** Lumbini (review items; "I re-exported the talk image in Figma"). The Figma re-export (103:3108) still carries
+a 3px black line on its right edge and an 18px black strip on top, so `talk.png` is trimmed to 1033x1292 without them;
+the card crop is unchanged. Fun cards: the link is pinned to the card bottom, descriptions are Body S 16px regular
+(14 on phones, as on Home), titles stay Title 1 Bold 24/36 as in Figma (the third wraps to three lines, as drawn), and links are DM Sans SemiBold 14
+in Primary/Text/Body rust, not blue. The Talk card text is Figma's new shorter copy (re-edited by Lumbini, 103:3112);
+the description keeps the darker Caption colour, because Figma's Body grey is 4.1:1 on the card's grey. About: the photo card now has the same 28px padding as the beliefs card, and the two photo rows
+share the card's height (both cards 444px at 1440). The first belief was already open by default. The photos still drift;
+they now clip at the padded edge with rounded corners.
+
+### 2026-11-04 — Fun cards get the Home card hover
+**Decided by:** Lumbini ("the fun and experiment cards had no hover effect"). Fun cards now show the same 2px blue border and
+lifted shadow on hover as Home's project cards (an inset ring, so the layout does not shift), and the same border when a
+link inside has keyboard focus. The cards themselves are not links; the Motion card has no link at all.
+
+### 2026-11-04 — Dense diagrams open in the lightbox; About stacks below 1200 (design review items)
+**Decided by:** Lumbini ("reuse the lightbox for all"; "fix it ... you can do the same for any screen below 1200px").
+Every diagram whose text is too small to read in place now opens full size, with the same "View larger" button, focus trap
+and Escape as Anewvista's visuals: WTV (old intranet, copy-paste diagram, both sitemaps, three dashboards, component library,
+affinity map), TDK (stepper before/after, two dashboards), Knowunity (storyboard), Bloom (competitor matrix, colour system).
+It is a new `expand` flag on an image in the content files. From 834 the lightbox image now scales up to fill the screen, not
+only down. Not covered: Knowunity's HTML flow boards and Storybook showcase (they are not images), and a diagram's source file
+is still low resolution (the WTV "before" sitemap is 708px wide), so enlarging it shows more but not sharper text.
+About: below 1200 the portrait sits above the story (square at 358px on phones, 4:3 at most 480px wide from 834), and the
+Writing note and each article's type, year, title and link stack in one column. From 1200 it is unchanged.
+
+### 2026-11-04 — Phone captions are 12px, eyebrows are Plus Jakarta, and every opening is the same (review items 1 and 4)
+**Decided by:** Lumbini ("make the minimum mobile caption 12px"; "I have used Plus Jakarta Sans in Figma, use that"; "fix it").
+Caption Mobile (eyebrows, at-a-glance labels) goes from 9px to 12px, and Mobile Body2 (captions under images) from 10/16 to
+12/18. They are tokens, so every page follows; `tokens.json` and `design-system.md` are updated, and the Figma styles should
+be changed to match. The scaled card rows (`.fit-N`) keep their labels at 12px at every width. Every eyebrow and at-a-glance
+label is now Plus Jakarta Sans, including Home, About and inside case studies, where `font-jakarta` had been remapped to
+DM Sans; Libre Baskerville is no longer used for labels. Openings: from 1200 every case study's opening band is 600px
+(500 at 1200) with the eyebrow 64px below the band top and the text top-aligned; Bloom's is 9px taller because its text is
+longer. Below 1200 they are unchanged. Not fixed: the Knowunity task-flow board is a drawn replica of an app and still
+scales its text down to 6 and 7px on phones, and some body text in scaled two-column rows is 10px.
+
+### 2026-11-04 — WTV ideation logo cloud: fewer logos, centred, slower
+**Decided by:** Lumbini ("centred, slower, remove the JS, V, purple and orange logos, spacing like the rest of the case study").
+The four tool logos below the cloud are removed (JavaScript and the three `tool-a/b/c` images; the files stay in
+`public/case-studies/wtv/logos/`, unused). The frame is cropped to the remaining logos (291x267), sits centred in the text
+column under the heading, 32px below it as in every other section (it was beside the heading with 146px of empty frame above
+the first logo). The loop is 4.5s per cycle, a 2.5s turn then a 2s pause (was 1s and 0.8s). Pause and reduced motion are as before.
+
+### 2026-11-04 — WTV logo cloud: no pause control
+**Decided by:** Lumbini ("I don't need the pause button, just make it autoplay without any control"). The Pause button is
+removed; the cloud loops on its own and is still under reduced motion. Known trade-off: WCAG 2.2.2 (Level A) asks for a way to
+pause moving content that runs over 5 seconds beside other content, and this loop has none. If that matters, the lowest-cost
+fix is to stop it after a few cycles (about 5 seconds of motion), not to bring the button back.
+
+### 2026-11-04 — Lightbox: no visible "View larger" button
+**Decided by:** Lumbini ("remove the view larger button"). The pill over every expandable visual is removed (WTV, TDK,
+Knowunity, Bloom and Anewvista). The whole visual is still one button that opens the lightbox, with the zoom cursor on
+desktop and "View larger" as its screen-reader label. Cost: on touch screens nothing shows that a diagram can be opened.
+
+### 2026-11-04 — Knowunity: order and copy follow Figma 285:574; AI-native process after Role and approach
+**Decided by:** Lumbini ("implement this content change and arrangement ... keep the design you have"). Order is now
+Problem, Solution, Context (Overview and Users, moved out of Problem), Role and approach, AI-native process, Research,
+Exploration, Usability test, Key decision, Final designs, Outcome, Reflection; chapter numbers follow this order (Figma's own
+numbers repeat). Copy from Figma: the H1 ("Replaced vague progress feedback with a progressive hint ladder ..."), the
+Problem statement and three problems, the first problem screen's longer caption, and the Solution statement, with the film
+captioned "How the solution works." (the old 71-second caption is gone). The hint ladder clip leaves the Key decision and
+autoplays in the hero in place of the phones image (the register already lets it autoplay; it has a poster, pause control and
+reduced-motion still). The eight usability findings sit in a native accordion, closed by default. The design system link is a
+full-width light button under the AI-native steps. Status is now "Shipped. Prototype" as in Figma, "Prototype" linking to the live prototype (Lumbini corrected me; the
+Outcome heading still says "not a shipped result", which now contradicts it and is for Lumbini to reword). Not taken from Figma: its second marker on the first problem screen (the
+block supports one marker per screen, so the summary screen's marker still reads 2, not 3).
+
+### 2026-11-04 — Knowunity Outcome: the links row is removed
+**Decided by:** Lumbini ("remove this section"). The row of three links under the Outcome numbers (full-quality film, the
+prototype, the Storybook) is gone, along with the dev-only TODO about checking them. The prototype is still linked from
+Status and the Storybook from the AI-native process; the 1080p film download is no longer linked anywhere.
+
+### 2026-11-04 — Knowunity Outcome and Reflection follow Figma 287:334 and 287:337
+**Decided by:** Lumbini ("implement the outcome and reflection section as it appears in Figma"; the link opened the whole
+Prototype page, so I took it to mean Knowunity, the page being worked on). Outcome: a 24px heading "Placed where students
+already speak, with success defined up front", one paragraph (the 15.2% entry point and the 25% and 70% success criteria
+agreed with Knowunity), the three counts, and the source line. Reflection: one eyebrow, then three short parts at 24px
+("The two targets pulled against each other ...", "Students check their own recording first ...", "What I would test first ...").
+The old "What I can claim: a tested, iterated prototype, not a shipped result" and "I built the whole loop before testing it"
+lines are replaced. New section options: `smallHeading` (24px heading, not the 40px chapter size), `eyebrowOnly` (eyebrow
+visible, heading for screen readers only) and `lede` (paragraphs in the heading group), plus `tight` on a text block (12px
+gaps, as Figma). The "agreed with Knowunity" success criteria are Lumbini's wording; I have no source for them.
+
+### 2026-11-04 — Home: less space between the hero and Selected work
+**Decided by:** Lumbini (hero review: "decrease the spacing between the 1st card and the hero"). From 1200 the gap above
+Selected work was 96px (`pt-section`); it is now 64px (`pt-section-sm`) at every width, so the work starts higher.
+The other hero items from the review (a "See selected work" button, darker subcopy, stacking the drawing on phones)
+were not part of this change.
+
+### 2026-11-04 — WTV and Anewvista card thumbnails are fitted, not cropped
+**Decided by:** Lumbini ("in Anewvista thumbnail top part is cut off ... same is true for WTV"; then "can you do
+it without making the cards taller? just adjusting the size of the mockups"). The cards keep the 366:200 image
+band. Those two thumbnails have a flat background, so the whole thumbnail is scaled to the band's height and
+centred, with its own background colour filling the sides: WTV #003f6c and Anewvista #e8d7ff, sampled from the
+images. Both colours are new tokens marked TODO (no Figma token). The images' baked white rounded-corner squares (56px) were filled with the flat
+colour in the PNGs, so the box is exactly the band's height. Bloom's and TDK's thumbnails are unchanged: Bloom is centred and
+cropped, TDK's recording fills the band. The thumbnails are about 20% smaller inside their cards.
+
+### 2026-11-04 — WTV: Strategic Shift images share one left edge
+**Decided by:** Lumbini ("these 2 images are not aligned in larger screen"). A portrait image in a `wide` block with
+other images was centred in its column; it now sits at the column's left edge, like the wide image above it.
+
+### 2026-11-04 — WTV: the intranet heading sits above The problem
+**Decided by:** Lumbini ("the heading should be above the Problem section"). "The intranet existed — employees
+just stopped using it." was Overview's heading. It is now its own heading section between My role and The
+problem, at the chapter size (40). Overview keeps its statement, images and a screen-reader-only heading, and
+stays after Solution. Claude's reading: she meant the heading alone, not the whole Overview section.
+
 ### 2026-11-03 — Knowunity's dark panel follows the card scale
 **Decided by:** Lumbini ("make it follow Bloom's standard"). The panel's step, checklist and card text was
 16/24 Plus Jakarta. It is now the case-study card scale: titles Title 1 Bold (24/36, 22 tablet, 20 phone), body

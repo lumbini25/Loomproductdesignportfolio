@@ -15,6 +15,8 @@ export type Img = {
   fit?: "contain" | "center";
   // Carmen's banner effect: the image settles from 108% to 100% as it scrolls into view.
   zoom?: boolean;
+  // A diagram too dense to read at page size: it opens full size in the lightbox.
+  expand?: boolean;
 };
 
 export type Video = {
@@ -33,7 +35,7 @@ export type Video = {
 
 export type Block =
   // `look: "lead"`: larger, semibold subtitle text (Bloom's Framer page, 26px).
-  | { kind: "text"; paragraphs: string[]; look?: "lead"; label?: string; heading?: string }
+  | { kind: "text"; paragraphs: string[]; look?: "lead"; label?: string; heading?: string; tight?: boolean }
   // Text in a narrow column beside a visual (Bloom Figma brand and testing rows).
   | { kind: "split"; title?: string; paragraphs: string[]; image: Img; caption?: string }
   // Carmen's pinned device: the device sticks while numbered steps scroll past, and its screen
@@ -116,7 +118,7 @@ export type Block =
   // sit left with `gap` (% of the column) between them.
   | { kind: "screens"; images: Img[]; widths: number[]; gap?: number; caption?: string }
   // Numbered outlined cards in rows of four, body text only (Knowunity, Figma 287:176).
-  | { kind: "findings"; heading: string; items: string[] }
+  | { kind: "findings"; heading?: string; items: string[] }
   // Outlined cards side by side: label, title, then a line or bullets (Knowunity, Figma 286:348).
   // `columns` defaults to 2; `strong`: body text in the title colour.
   | {
@@ -165,6 +167,8 @@ export type Block =
       intro: string[];
       steps?: { title: string; body: string }[];
       stepsCaption?: string;
+      // A prominent link under the steps (Knowunity: the design system and documentation).
+      link?: { label: string; href: string };
       kit: { title: string; items: { title: string; body?: string }[] };
       cards: { image?: Img; label?: string; title: string; body?: string }[];
     }
@@ -213,6 +217,12 @@ export type Section = {
   // `wide` and `video` blocks) in a 696 column (Anewvista Figma 283:572 decision rows).
   // No label over the heading, where the first block already carries the same one (WTV Overview).
   hideEyebrow?: boolean;
+  // The heading is 24px Title 1 Bold, as in Knowunity's Outcome (Figma 287:334), not the 40px chapter size.
+  smallHeading?: boolean;
+  // Only the eyebrow shows; the heading stays for screen readers (Knowunity's Reflection, Figma 287:337).
+  eyebrowOnly?: boolean;
+  // Paragraphs in the heading group, 12px under the heading, before the blocks.
+  lede?: string[];
   // A decision section (Anewvista 284:290): text first, then its before-and-after visual, which grows on hover.
   aside?: boolean;
   blocks: Block[];
@@ -222,7 +232,8 @@ export type CaseStudy = {
   slug: string;
   title: string;
   summary: string;
-  facts: { label: string; value: string }[];
+  // `link`: a word after the value that opens a page (Knowunity's Status: "Shipped. Prototype").
+  facts: { label: string; value: string; link?: { label: string; href: string } }[];
   // "My role" list under the facts, where the source has one.
   contributions?: string[];
   cover?: Img;

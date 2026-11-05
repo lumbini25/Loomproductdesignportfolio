@@ -99,7 +99,7 @@ Filled in as we go. Nothing autoplays until it is marked "Yes" here.
 | Bloom and Heal daisy motion (`motion-daisy.mp4`) | Fun and experiments, motion card | Yes (Oct 20, reconfirmed Oct 22) | Muted, looping, poster, pause control. Reduced motion shows the poster. |
 | Bloom and Heal: full phone flow, 3 watch feature clips (from the Framer page, all silent) | Bloom and Heal case study | No | Added Oct 26. Start only when pressed; poster first. |
 | Bloom and Heal demo film (`bloom-heal-demo.mp4`, 40 s, 1280x720, 8.3 MB, has a soundtrack) | Bloom and Heal case study, hero | No | Nov 2: stays press-to-play, with sound; poster first. |
-| TDK demos (`demo-1` to `demo-3`), WTV solution clips (3), Knowunity hint ladder clip | Their case studies | Yes (Nov 2, Lumbini: "all the videos") | All silent. Muted, looping, poster, pause control; pause off screen; reduced motion shows the poster. |
+| TDK demos (`demo-1` to `demo-3`), WTV solution clips (3), Knowunity hint ladder clip (in the Knowunity hero since Nov 4) | Their case studies | Yes (Nov 2, Lumbini: "all the videos") | All silent. Muted, looping, poster, pause control; pause off screen; reduced motion shows the poster. |
 | Bloom and Heal pinned device clips | Bloom and Heal case study | Yes | The active step plays, muted. |
 | All other media | | Open | Not yet reviewed. I need the files and what each one shows |
 

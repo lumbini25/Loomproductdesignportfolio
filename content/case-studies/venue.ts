@@ -107,6 +107,7 @@ export const venue: CaseStudy = {
           images: [
             {
               src: `${dir}/before-after-stepper.png`,
+              expand: true,
               width: 1160,
               height: 719,
               alt: "Left: the old five-step wizard with name and address on separate pages. Right: the new four-step flow with name and location combined, form beside a map. Caption in image: \"Combining first two steps into one more intuitive Step\".",
@@ -256,6 +257,7 @@ export const venue: CaseStudy = {
           images: [
             {
               src: `${dir}/dashboard-lidar-tracking.png`,
+              expand: true,
               width: 2400,
               height: 2330,
               alt: "Venue Overview: summary tiles, a live floor map with zone density and sensor status, alerts, zone coverage, and a table of floors.",
@@ -263,6 +265,7 @@ export const venue: CaseStudy = {
             {
               // Drafted from the screen; the manifest left this alt text open.
               src: `${dir}/summary-page.png`,
+              expand: true,
               width: 2400,
               height: 2093,
               alt: "The Summary and Launch step: venue name, address and ID, a floor overview of 5 of 6 floors configured, and Floor 1 with zones grouped by type, above Back, Skip it for now and Launch.",

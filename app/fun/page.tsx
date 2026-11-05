@@ -23,7 +23,7 @@ export default function FunPage() {
       <Container className="flex flex-col gap-8 py-6 tablet:pb-18">
         <ul className="grid grid-cols-1 gap-4 tablet:grid-cols-3">
           {fun.experiments.map((item) => (
-            <li key={item.title} className="flex min-w-0 flex-col gap-5 rounded-card bg-surface-subtle p-4 tablet:pb-7 desktop:min-h-[610px]">
+            <li key={item.title} className="flex min-w-0 flex-col gap-5 rounded-card bg-surface-subtle p-4 ring-2 ring-transparent ring-inset hover:shadow-card-hover hover:ring-secondary has-[:focus-visible]:ring-secondary motion-safe:transition-shadow tablet:pb-7 desktop:min-h-[610px]">
               {"video" in item && item.video ? (
                 // Figma "motion tile": a phone-width video cropped inside a 395×300 panel.
                 <VideoPlayer
@@ -42,16 +42,16 @@ export default function FunPage() {
                   className={`h-[300px] w-full rounded-media object-cover tablet:aspect-[395/300] tablet:h-auto desktop:aspect-auto desktop:h-[300px] ${item.image.crop ?? ""}`}
                 />
               )}
-              <div className="flex flex-col gap-2.5 px-3">
-                <Eyebrow className="font-jakarta!">{item.type}</Eyebrow>
+              <div className="flex flex-1 flex-col gap-2.5 px-3">
+                <Eyebrow>{item.type}</Eyebrow>
                 <h2 className="font-jakarta text-h3-mobile font-bold tablet:text-title-m">{item.title}</h2>
-                <p className="font-dm text-mobile-body-1 text-caption tablet:text-body-semibold-s tablet:font-semibold">{item.body}</p>
+                <p className="font-dm text-body-s text-caption">{item.body}</p>
                 {item.link && (
                   <a
                     href={item.link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-11 items-center self-start font-dm text-body-semibold-s font-semibold text-secondary-strong hover:underline"
+                    className="mt-auto inline-flex min-h-11 items-center self-start font-dm text-body-semibold-s font-semibold text-accent hover:underline"
                   >
                     {item.link.label} (opens in a new tab)
                   </a>

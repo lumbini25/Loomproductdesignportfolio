@@ -87,7 +87,7 @@ the code differs from Figma". Do not pick a size that is not in these tables.
 | Plus Jakarta Sans | Headings, titles, numbers, labels (Caption styles) | Home, About, Fun, and every case study heading |
 | DM Sans | Body text, captions, buttons | About and Fun body, all case study body text |
 | Nunito Sans | Site shell body, and Home's headings from 834 | `font-sans`. In case studies it is replaced by DM Sans |
-| Libre Baskerville | Editorial accent only: the Home headline and the labels on Home and About | `font-serif`. In case studies labels use Plus Jakarta |
+| Libre Baskerville | Retired for labels (2026-11-04); eyebrows are Plus Jakarta everywhere | `font-serif` is kept only if a headline needs it |
 
 Case studies set one pair: Plus Jakarta Sans for headings and numbers, DM Sans for everything else. This
 is one rule on the `.case-study` wrapper in `globals.css`, not a per-block choice.
@@ -119,8 +119,8 @@ Tablet and Mobile styles were added on 2026-11-03 so that every step the code us
 | H1 Mobile | Plus Jakarta Sans Bold | 20 / auto | -1% | Phone | `text-h1-mobile`, and `text-h3` below 834 |
 | H3 Mobile | Plus Jakarta Sans Bold | 16 / 24 | 0 | Phone | `text-h3-mobile` |
 | Mobile Body1 | DM Sans Regular | 14 / auto | 0 | Phone | `text-mobile-body-1`, and `text-body-m` below 834 |
-| Mobile Body2 | DM Sans SemiBold | 10 / 16 | 0 | Phone | `text-mobile-body-2` (case study captions) |
-| Caption Mobile | Plus Jakarta Sans SemiBold | 9 / auto | 6% | Phone | `text-mobile-caption`, and `text-caption-m` below 834 |
+| Mobile Body2 | DM Sans SemiBold | 12 / 18 | 0 | Phone | `text-mobile-body-2` (case study captions) |
+| Caption Mobile | Plus Jakarta Sans SemiBold | 12 / auto | 6% | Phone | `text-mobile-caption`, and `text-caption-m` below 834 |
 | Button Mobile | DM Sans SemiBold | 14 / 20 | 0 | Phone | `text-mobile-button` |
 
 ### Size by breakpoint
@@ -140,7 +140,7 @@ Each row is one code token, with the Figma style it follows. Size / line height,
 | `text-body-m` | Body Regular M, then Mobile Body1 | 20 / 30 | 20 / 30 | 14 / auto |
 | `text-body-s` | no style | 16 / 24 | 16 / 24 | 14 / auto |
 | `text-body-semibold-s` | Body Semibold S | 14 / auto | 14 / auto | 14 / auto |
-| `text-caption-m` | Caption M, then Caption Mobile | 12 / 16, 6% | 12 / 16, 6% | 9 / auto, 6% |
+| `text-caption-m` | Caption M, then Caption Mobile | 12 / 16, 6% | 12 / 16, 6% | 12 / auto, 6% |
 
 Only Tailwind's `tablet` (834) and `desktop` (1200) screens are used. Never the default breakpoints.
 
@@ -150,13 +150,13 @@ These rules sit on the `.case-study` wrapper and apply to all five case studies.
 
 | Role | Desktop and Tablet | Phone |
 | --- | --- | --- |
-| Section label (eyebrow) | Plus Jakarta Medium 12, uppercase, 6% | Plus Jakarta SemiBold 9 (Caption Mobile) |
+| Section label (eyebrow) | Plus Jakarta Medium 12, uppercase, 6% | Plus Jakarta SemiBold 12 (Caption Mobile) |
 | Chapter heading, up to 150 characters | Plus Jakarta Bold 40 desktop, 34 tablet (H3) | Plus Jakarta Bold 20 (H1 Mobile) |
 | Chapter heading over 150 characters, sub-section heading, and card titles | Plus Jakarta Bold 24 desktop, 22 tablet (Title 1 Bold) | Plus Jakarta Bold 16 / 24 (H3 Mobile) |
 | Body text | DM Sans Regular 20 / 30 | DM Sans Regular 14 (Mobile Body1) |
 | Statements | DM Sans Regular 20 / 30 | DM Sans Regular 14 |
 | Quotes | 20, weight and colour per study | 14 |
-| Captions under images and screens | DM Sans SemiBold 14 (Body Semibold S) | DM Sans SemiBold 10 / 16 (Mobile Body2) |
+| Captions under images and screens | DM Sans SemiBold 14 (Body Semibold S) | DM Sans SemiBold 12 / 18 (Mobile Body2) |
 | At-a-glance values | DM Sans SemiBold 18 | DM Sans SemiBold 14 |
 | Stat labels | DM Sans SemiBold 16 | DM Sans SemiBold 14 |
 | Contents list | DM Sans Regular 20 / 30 | 18 (Subtitle) |
@@ -177,13 +177,13 @@ Every caption on a page is one size, whatever row it sits in. Caption size has i
 
 These use type smaller than the 14px phone body size, on purpose.
 
-- **Captions on phones** are 10 / 16 (Mobile Body2).
+- **Captions on phones** are 12 / 18 (Mobile Body2, scaled up from 10 by Lumbini on 2026-11-04).
 - **Rows of images and screens** (`fit-2` to `fit-5`) scale their text with the screen below 834: 14 down to
   7px, from a base of 390. This keeps columns side by side on phones. It is the only place type is
   computed from the width.
 - **Knowunity's task flow board** is four columns at every width, so its text scales from 14px at 562
   wide down to 7px at 358.
-- **The 9px phone label** is Figma's Caption Mobile style.
+- **The phone label is 12px** (Caption Mobile, scaled up from 9px by Lumbini on 2026-11-04). Every eyebrow is Plus Jakarta Sans, including Home and About; Libre Baskerville is no longer used for labels.
 
 ### Exceptions inside the case studies
 

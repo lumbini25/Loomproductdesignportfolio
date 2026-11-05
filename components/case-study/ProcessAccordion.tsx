@@ -19,7 +19,7 @@ export function ProcessAccordion({ id, label, title, children }: { id?: string; 
         onClick={() => setOpen((o) => !o)}
         className="flex w-full flex-col items-start gap-3 rounded-card bg-secondary px-6 py-10 text-left text-on-inverse hover:bg-secondary-strong motion-safe:transition-colors tablet:px-10 tablet:py-16"
       >
-        <span className="font-serif text-caption-m font-medium uppercase">{label}</span>
+        <span className="font-(family-name:--font-heading) text-caption-m font-medium uppercase">{label}</span>
         <span className="flex items-center gap-6 text-title-m font-bold tablet:text-h3">
           {title}
           <ArrowRightIcon

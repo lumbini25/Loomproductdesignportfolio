@@ -4,6 +4,7 @@ import { Eyebrow } from "@/components/Eyebrow";
 import { ArrowCounterClockwiseIcon, ArrowRightIcon, CheckCircleIcon } from "@/components/icons";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { Carousel } from "@/components/case-study/Carousel";
+import { ExpandableVisual } from "@/components/case-study/ExpandableVisual";
 import { QuoteCarousel } from "@/components/case-study/QuoteCarousel";
 import { PinnedDevice } from "@/components/case-study/PinnedDevice";
 import { ScrollBanner } from "@/components/case-study/ScrollBanner";
@@ -166,7 +167,7 @@ export function BlockView({ block }: { block: Block }) {
   switch (block.kind) {
     case "text":
       return (
-        <div className="flex flex-col gap-4">
+        <div className={`flex flex-col ${block.tight ? "gap-3" : "gap-4"}`}>
           {block.label && <Eyebrow>{block.label}</Eyebrow>}
           {block.heading && <h3 className="text-title-s font-bold text-title">{block.heading}</h3>}
           {block.paragraphs.map((p) => (
@@ -333,8 +334,14 @@ export function BlockView({ block }: { block: Block }) {
               <div className={`grid gap-6 ${wideCols[columns]}`}>
                 {block.images.map((img) =>
                   !img.crop && isPortrait(img) ? (
-                    <div key={img.src} className="flex justify-center">
-                      <PortraitImage image={img} frame={frame(img)} />
+                    <div key={img.src} className="flex justify-start">
+                      {img.expand ? (
+                        <ExpandableVisual image={img}>
+                          <PortraitImage image={img} frame={frame(img)} />
+                        </ExpandableVisual>
+                      ) : (
+                        <PortraitImage image={img} frame={frame(img)} />
+                      )}
                     </div>
                   ) : (
                     <div key={img.src}>
@@ -343,15 +350,20 @@ export function BlockView({ block }: { block: Block }) {
                           a box with 32px padding (16px below 834); a `bare` image (a photo
                           banner) keeps its plain edge (Lumbini, 2026-10-29). A narrower image keeps
                           to the column's left edge, like the text above it. */}
-                      <div style={{ maxWidth: `calc(80svh * ${img.width / img.height})` }}>
-                        {block.bare || img.fit === "contain" ? (
-                          <Picture image={img} sizes={wideSizes[columns]} className={frame(img)} />
-                        ) : (
-                          <div className="rounded-card border border-line bg-surface p-4 tablet:p-8">
-                            <Picture image={img} sizes={wideSizes[columns]} />
+                      {(() => {
+                        const picture = (
+                          <div style={{ maxWidth: `calc(80svh * ${img.width / img.height})` }}>
+                            {block.bare || img.fit === "contain" ? (
+                              <Picture image={img} sizes={wideSizes[columns]} className={frame(img)} />
+                            ) : (
+                              <div className="rounded-card border border-line bg-surface p-4 tablet:p-8">
+                                <Picture image={img} sizes={wideSizes[columns]} />
+                              </div>
+                            )}
                           </div>
-                        )}
-                      </div>
+                        );
+                        return img.expand ? <ExpandableVisual image={img}>{picture}</ExpandableVisual> : picture;
+                      })()}
                       {img.caption && <p className="caption mt-3 font-jakarta text-body-s text-caption">{img.caption}</p>}
                     </div>
                   ),
@@ -668,7 +680,7 @@ export function BlockView({ block }: { block: Block }) {
     case "findings":
       return (
         <div className="flex flex-col gap-4">
-          <h3 className="font-jakarta text-title-xs font-bold">{block.heading}</h3>
+          {block.heading && <h3 className="font-jakarta text-title-xs font-bold">{block.heading}</h3>}
           <ol className="stack-fit-4 grid grid-cols-1 gap-4 desktop:grid-cols-4">
             {block.items.map((item, i) => (
               <li key={item} className="flex min-w-0 flex-col gap-2.5 rounded-media border border-line bg-surface p-6">
@@ -969,7 +981,7 @@ export function BlockView({ block }: { block: Block }) {
         <div className="flex flex-col gap-8 rounded-featured bg-surface-inverse p-5 text-on-inverse tablet:p-10">
           <div className="grid grid-cols-1 gap-8 desktop:grid-cols-[minmax(0,1fr)_minmax(0,400px)] desktop:gap-12">
             <div className="flex flex-col items-start gap-5">
-              <p className="rounded-pill bg-on-inverse/10 px-3 py-1.5 font-serif text-caption-m font-medium uppercase">
+              <p className="rounded-pill bg-on-inverse/10 px-3 py-1.5 font-(family-name:--font-heading) text-caption-m font-medium uppercase">
                 {block.label}
               </p>
               {block.intro.map((p) => (
@@ -991,6 +1003,20 @@ export function BlockView({ block }: { block: Block }) {
                     <figcaption className="text-on-inverse/70">{block.stepsCaption}</figcaption>
                   )}
                 </figure>
+              )}
+              {block.link && (
+                <a
+                  href={block.link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex min-h-11 w-full items-center justify-between gap-4 rounded-card bg-on-inverse p-5 text-title-s font-bold text-title hover:bg-on-inverse/90"
+                >
+                  <span>
+                    {block.link.label}
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </span>
+                  <ArrowRightIcon size={22} className="shrink-0" />
+                </a>
               )}
             </div>
             <div className="rounded-card border border-on-inverse/15 bg-on-inverse/5 p-6">
@@ -1017,7 +1043,7 @@ export function BlockView({ block }: { block: Block }) {
                   </div>
                 )}
                 <div className="flex flex-col gap-2">
-                  {c.label && <p className="font-serif text-caption-m font-medium uppercase text-on-inverse/70">{c.label}</p>}
+                  {c.label && <p className="font-(family-name:--font-heading) text-caption-m font-medium uppercase text-on-inverse/70">{c.label}</p>}
                   <h3 className="text-title-s font-bold">{c.title}</h3>
                   {c.body && <p className="text-body-m text-on-inverse/70">{c.body}</p>}
                 </div>

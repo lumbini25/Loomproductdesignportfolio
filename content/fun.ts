@@ -58,12 +58,12 @@ export const fun = {
     {
       type: "Talk · Event note on Medium",
       title: "Where does AI actually help in UX research, and where does it fall short?",
-      body: "From the Designers Exploring AI, Live event by LTUX Taipei and IxDF Taipei. Helped: competitor research, brainstorming, scenario visuals. Fell short: interview questions, repeated behavior, ambiguous card sorts.",
+      body: "I presented my UX Research method in a conference, organized by LTUX Taipei and IxDF Taipei.",
       image: {
         src: "/images/fun/talk.png",
         alt: "Event card for Designers Exploring AI, Live, by IxDF and Ladies that UX Taipei, showing Lumbini Sharma as guest speaker.",
-        width: 1036,
-        height: 1310,
+        width: 1033,
+        height: 1292,
         // Centred on phones (408:2391); higher from 834, keeping the logos in (103:3108).
         crop: "tablet:object-[50%_11.7%]",
       },

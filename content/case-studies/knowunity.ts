@@ -16,7 +16,8 @@ const phone = (file: string, alt: string, caption?: string, width = 1170, height
 export const knowunity: CaseStudy = {
   slug: "knowunity",
   theme: "knowunity",
-  title: "Proof, not praise: voice recall for Knowunity",
+  title:
+    "Replaced vague progress feedback with a progressive hint ladder and actionable next steps after every Speak Out Loud round.",
   // Draft hook from the log; Lumbini can reword.
   summary: "Knowunity's recall feature ended at a score. I designed what happens next.",
   // Opening and at-a-glance row from Figma Uu1a2kCZL3M4y86CtPcmqR 285:584 and 285:597
@@ -25,38 +26,42 @@ export const knowunity: CaseStudy = {
     { label: "Role", value: "UX designer" },
     { label: "Timeline", value: "2.5 weeks, September 2026" },
     { label: "Tools", value: "Figma, Claude Code, Next.js, Storybook" },
-    { label: "Status", value: "Course project. Not shipped." },
+    // Status as written in Figma 285:574 (Lumbini, 2026-11-04); "Prototype" links to the live prototype.
+    { label: "Status", value: "Shipped.", link: { label: "Prototype", href: "https://knowunity-sprint-one.vercel.app/entry" } },
   ],
   opening: {
     eyebrow: "Active recall for Knowunity · iOS",
     tags: ["Usability testing", "Coded prototype", "AI-native process"],
-    // Figma 299:865, exported at 2x with its placeholder text and slot outlines removed, on a
-    // transparent background, cut at the frame's bottom edge: the middle phone runs off the
-    // band, as in Figma (Lumbini, 2026-10-30: "clip the phone mockup in the middle").
-    clip: true,
-    image: {
-      src: `${dir}/hero-phones.png`,
-      width: 1081,
-      height: 852,
-      alt: "Three screens from the Knowunity active recall prototype: a summary reading 6 of 10 recalled with hinted, perfect and missed counts; a previous-mistake review of Germany's rapid-war strategy with the correct answer and the student's own answer; and the home screen, “Evening, Harry. Ready to test what stuck?”",
+    // The hint ladder clip autoplays here, in place of the phones image and out of the key decision
+    // (Lumbini, 2026-11-04). Muted, looping, poster and pause control, per the autoplay register.
+    video: {
+      src: `${dir}/hint-ladder-clip.mp4`,
+      autoplay: true,
+      poster: `${dir}/hint-ladder-clip-poster.jpg`,
+      width: 1280,
+      height: 720,
+      description:
+        "Clip from the product film: a student gives a partial answer to \"What was appeasement, and why did it fail?\", scores 65% with Hint 1 inside the verdict card, answers again, and climbs to 75% with Hint 2 as the next rung lights up.",
     },
   },
   sections: [
-    // Sections follow Figma 285:574 (Lumbini, 2026-11-02).
+    // Sections follow Figma 285:574 (Lumbini, 2026-11-02; the order, problem statement and AI-native
+    // placement updated 2026-11-04).
     {
       id: "hook",
       stage: "Problem",
-      chapter: { number: "01", title: "Context" },
+      chapter: { number: "01", title: "Problem" },
       heading:
-        "Students revise, then can’t retrieve it in the exam, and nothing in the app tells them which is which",
+        "Students lacked visibility into their progress and hint usage during Speak Out Loud sessions, couldn’t tell when their responses were misheard, and had no clear guidance on what to do after completing each round.",
       blocks: [
         {
           kind: "options",
-          columns: 2,
+          columns: 3,
           strong: true,
           items: [
-            { label: "Problem 1", body: "‘Almost there’ cannot tell whether students were misheard" },
-            { label: "Problem 2", body: "The Summary screen names perfection and time to complete without giving a next step" },
+            { label: "Problem 1", body: "Students had no clear way to track their progress or recognize when their responses were misheard during Speak Out Loud sessions." },
+            { label: "Problem 2", body: "Students do not know when their responses were misheard during Speak Out Loud sessions." },
+            { label: "Problem 3", body: "The Summary screen names perfection and time to complete without giving a next step." },
           ],
         },
         // Figma "problem section" 203:1646 (Lumbini, 2026-10-27); copy and screens verbatim from it.
@@ -71,7 +76,8 @@ export const knowunity: CaseStudy = {
                 width: 1179,
                 height: 2556,
                 alt: "The beta's verdict: \"Almost there\" above a hint about historical thinking, with only a Reveal answer button. Nothing shows what the student said.",
-                caption: "‘Almost there’ cannot tell whether students were misheard",
+                caption:
+                  "‘Almost there’ cannot tell whether students were misheard. It also cannot help the students to know how far they are from answering rightly.",
               },
               marker: { x: 78.9, y: 26.4 },
             },
@@ -87,21 +93,6 @@ export const knowunity: CaseStudy = {
             },
           ],
         },
-        {
-          kind: "options",
-          columns: 2,
-          muted: true,
-          items: [
-            {
-              label: "Overview",
-              body: "Knowunity is a study app with 30M+ downloads. Its practice tools test recognition, like multiple choice and flashcards. None of them ask a student to pull an idea from memory and say it.",
-            },
-            {
-              label: "Users",
-              body: "Secondary school students and college students before exams. Flattering feedback sends them in over-confident, and punishing hints stops them asking for help.",
-            },
-          ],
-        },
         // Lumbini's "Problem storyboard.png" (~/Desktop/Knowunity case study), after the core problem.
         {
           kind: "wide",
@@ -109,6 +100,7 @@ export const knowunity: CaseStudy = {
           images: [
             {
               src: `${dir}/problem-storyboard.png`,
+              expand: true,
               width: 2400,
               height: 420,
               alt: "A five-panel storyboard with Knowie at a desk. 1, preparing for an exam. 2, using speak out loud: the key term \"Triple Entente\" with a mic prompt. 3, there is no way the student knows the next step: a hint card reads \"Think three powers. Britain, France, and one more.\" 4, a side-by-side comparison is shown. 5, a plan to improve the weaker area: \"Came naturally\", \"Worth revisiting: Triple Entente\", and \"Back tomorrow\".",
@@ -124,7 +116,7 @@ export const knowunity: CaseStudy = {
       stage: "Solution",
       chapter: { number: "02", title: "Solution" },
       heading:
-        "An AI-powered voice experience that turns passive studying into active recall. Students explain concepts aloud, receive progressive hints when needed, and get a personalized breakdown of their strengths and knowledge gaps, along with a targeted study plan to improve weaker areas and build exam confidence over time.",
+        "Students explain concepts aloud, receive progressive hints when needed, get a reviewable speech transcript, and a personalized breakdown of their strengths and knowledge gaps, along with a targeted study plan, giving students greater control over their responses and helping them move confidently through each round.",
       blocks: [
         {
           kind: "video",
@@ -137,8 +129,33 @@ export const knowunity: CaseStudy = {
             description:
               "Product film: a student allows the mic, answers aloud, climbs two hints, reviews their take, sees 'You explained 2 of 4 without help', then retries the topic they missed.",
           },
-          caption:
-            "71-second product film of the prototype: iOS, 390px, dark mode. Every frame on the phone is the real prototype, rendered from its own components.",
+          caption: "How the solution works.",
+        },
+      ],
+    },
+
+    // Overview and Users, after the solution, as in Figma 285:574 (Lumbini, 2026-11-04).
+    {
+      id: "context",
+      stage: "Problem",
+      chapter: { number: "03", title: "Context" },
+      heading: "Context",
+      hideHeading: true,
+      blocks: [
+        {
+          kind: "options",
+          columns: 2,
+          muted: true,
+          items: [
+            {
+              label: "Overview",
+              body: "Knowunity is a study app with 30M+ downloads. Its practice tools test recognition, like multiple choice and flashcards. None of them ask a student to pull an idea from memory and say it.",
+            },
+            {
+              label: "Users",
+              body: "Secondary school students and college students before exams. Flattering feedback sends them in over-confident, and punishing hints stops them asking for help.",
+            },
+          ],
         },
       ],
     },
@@ -146,7 +163,7 @@ export const knowunity: CaseStudy = {
     {
       id: "approach",
       stage: "Problem",
-      chapter: { number: "03", title: "Role and approach" },
+      chapter: { number: "04", title: "Role and approach" },
       heading: "I owned the whole feature as the solo designer, from audit to coded prototype",
       blocks: [
         {
@@ -169,9 +186,82 @@ export const knowunity: CaseStudy = {
     },
 
     {
+      id: "ai-native",
+      stage: "Solution",
+      chapter: { number: "05", title: "AI-native process" },
+      heading: "I used AI to build and audit the prototype, and kept the design decisions myself",
+      blocks: [
+        // Laid out like Carmen's Pilgrimz "Claude Design OS" section (Lumbini, 2026-10-27). All copy is
+        // the section's existing text; the image captions are split into a title and a line.
+        {
+          kind: "showcase",
+          label: "What stayed mine",
+          intro: [
+            "Every product decision came from me, the tests or the brief. I accepted or rejected each critic finding myself.",
+          ],
+          steps: [
+            { title: "I decide", body: "Brief, decisions log, rules" },
+            { title: "Claude Code builds", body: "Screens from my Figma and the component library" },
+            { title: "Critic agents grade", body: "11 scorecards, hard gates" },
+          ],
+          stepsCaption: "AI built and checked against my rules, and the decisions stayed with me.",
+          // The design system and documentation link, made prominent (Lumbini, 2026-11-04). It is the
+          // same Storybook as the one linked in the Outcome.
+          link: {
+            label: "See the Design System and Documentation I created.",
+            href: "https://6aa836309aea888aed9def73-dezjpygccw.chromatic.com/",
+          },
+          kit: {
+            title: "The system I set up",
+            items: [
+              {
+                title: "Project rules",
+                body: "Every value from the design tokens, only components from the Storybook library, sentence case, Knowie never speaks, and every screen keeps a way out.",
+              },
+              { title: "Coded prototype", body: "I built a Next.js prototype of 22 recall states from my Figma screens, with Claude Code in VS Code." },
+              { title: "Component library", body: "32 components in Storybook. Every screen uses them." },
+              { title: "Critic agents", body: "Four critic agents (craft, UX, design system, ambition) and a spec reviewer." },
+              { title: "Rubric and hard gates", body: "Six dimensions and four hard gates, such as 48 px tap targets and 4.5:1 contrast." },
+              {
+                title: "Product film",
+                body: "Claude Code rendered the film from the real components. It can't show anything the prototype doesn't do.",
+              },
+            ],
+          },
+          cards: [
+            {
+              image: {
+                src: `${dir}/storybook-semantic-colors.png`,
+                width: 1600,
+                height: 1000,
+                alt: "Storybook, Colors / semantic: background tokens such as page, surface, input and contrast, each with its value, the primitive it aliases, and a one-line note on where it is used.",
+              },
+              title: "Semantic colour tokens in Storybook",
+              body: "Each with a note on the job it does.",
+            },
+            {
+              image: {
+                src: `${dir}/storybook-hint-ladder.png`,
+                width: 1600,
+                height: 1000,
+                alt: "Storybook, HintLadder docs: the Figma node it comes from, why the active step is taller as well as brighter, its one departure from Figma, and a rung control from attempt 1 to reveal.",
+              },
+              title: "The HintLadder component",
+              body: "Its Figma source, the reason for each state, and where it departs from Figma.",
+            },
+          ],
+        },
+        {
+          kind: "todo",
+          text: "Did you also use Claude in Cowork, Figma's AI, or another tool in the research or synthesis phase? Add it here only if you did.",
+        },
+      ],
+    },
+
+    {
       id: "research",
       stage: "Problem",
-      chapter: { number: "04", title: "Research" },
+      chapter: { number: "06", title: "Research" },
       heading: "The beta graded students on the basis of answer but students lost track of the hint ladder",
       blocks: [
         {
@@ -251,7 +341,7 @@ export const knowunity: CaseStudy = {
     {
       id: "exploration",
       stage: "Solution",
-      chapter: { number: "05", title: "Exploration" },
+      chapter: { number: "07", title: "Exploration" },
       heading: "I explored three interaction directions to increase Active Recall adoption, targeting 25% activation among students and 75% task completion among those who started.",
       blocks: [
         // Figma 286:337. Figma holds the board as a flat image; it is rebuilt here so the text is real
@@ -320,7 +410,7 @@ export const knowunity: CaseStudy = {
     {
       id: "usability-test",
       stage: "Problem",
-      chapter: { number: "06", title: "Usability test" },
+      chapter: { number: "08", title: "Usability test" },
       heading: "A think-aloud usability test surfaced eight problems",
       blocks: [
         {
@@ -341,9 +431,12 @@ export const knowunity: CaseStudy = {
         },
         { kind: "text", paragraphs: ["Entry point, Recall loop and summary screen."] },
         {
-          kind: "findings",
-          heading: "All eight things the test surfaced",
-          items: [
+          kind: "details",
+          summary: "All eight things the test surfaced",
+          blocks: [
+            {
+              kind: "findings",
+              items: [
             "The reveal screen lacked hierarchy. Participants didn’t know it was the final step.",
             "The next action was unclear: retry, continue or submit, especially after the reveal.",
             "Hints needed a visible progression, so a student knows how much help they’ve had and what comes next.",
@@ -352,6 +445,8 @@ export const knowunity: CaseStudy = {
             "The summary should say what to do next, per topic, not only list concepts to review.",
             "Participants wanted to compare with other students’ answers, to find a better way to explain it.",
             "Half-remembered concepts should come back, asked a new way, like Duolingo, with a note on why.",
+              ],
+            },
           ],
         },
         {
@@ -365,7 +460,7 @@ export const knowunity: CaseStudy = {
     {
       id: "key-decision",
       stage: "Solution",
-      chapter: { number: "07", title: "Key decision" },
+      chapter: { number: "09", title: "Key decision" },
       heading: "I rebuilt the hint ladder so every rung looks like the step it is",
       blocks: [
         {
@@ -389,19 +484,6 @@ export const knowunity: CaseStudy = {
           ],
           caption: "Participants lost track of the ladder in Option A. One said: “I do not know from the reveal question that it was distinct from the other hint.”",
         },
-        {
-          kind: "video",
-          video: {
-            src: `${dir}/hint-ladder-clip.mp4`,
-            autoplay: true,
-            poster: `${dir}/hint-ladder-clip-poster.jpg`,
-            width: 1280,
-            height: 720,
-            description:
-              "Clip from the product film: a student gives a partial answer to \"What was appeasement, and why did it fail?\", scores 65% with Hint 1 inside the verdict card, answers again, and climbs to 75% with Hint 2 as the next rung lights up.",
-          },
-          caption: "Option B in the prototype: each partial answer climbs one rung on its own.",
-        },
       ],
     },
 
@@ -409,7 +491,7 @@ export const knowunity: CaseStudy = {
     {
       id: "final-designs",
       stage: "Solution",
-      chapter: { number: "08", title: "Final designs" },
+      chapter: { number: "10", title: "Final designs" },
       heading: "Each screen answers one question, and every turn has a way out",
       blocks: [
         {
@@ -447,78 +529,18 @@ export const knowunity: CaseStudy = {
       ],
     },
 
-    {
-      id: "ai-native",
-      stage: "Solution",
-      chapter: { number: "09", title: "AI-native process" },
-      heading: "I used AI to build and audit the prototype, and kept the design decisions myself",
-      blocks: [
-        // Laid out like Carmen's Pilgrimz "Claude Design OS" section (Lumbini, 2026-10-27). All copy is
-        // the section's existing text; the image captions are split into a title and a line.
-        {
-          kind: "showcase",
-          label: "What stayed mine",
-          intro: [
-            "Every product decision came from me, the tests or the brief. I accepted or rejected each critic finding myself.",
-          ],
-          steps: [
-            { title: "I decide", body: "Brief, decisions log, rules" },
-            { title: "Claude Code builds", body: "Screens from my Figma and the component library" },
-            { title: "Critic agents grade", body: "11 scorecards, hard gates" },
-          ],
-          stepsCaption: "AI built and checked against my rules, and the decisions stayed with me.",
-          kit: {
-            title: "The system I set up",
-            items: [
-              {
-                title: "Project rules",
-                body: "Every value from the design tokens, only components from the Storybook library, sentence case, Knowie never speaks, and every screen keeps a way out.",
-              },
-              { title: "Coded prototype", body: "I built a Next.js prototype of 22 recall states from my Figma screens, with Claude Code in VS Code." },
-              { title: "Component library", body: "32 components in Storybook. Every screen uses them." },
-              { title: "Critic agents", body: "Four critic agents (craft, UX, design system, ambition) and a spec reviewer." },
-              { title: "Rubric and hard gates", body: "Six dimensions and four hard gates, such as 48 px tap targets and 4.5:1 contrast." },
-              {
-                title: "Product film",
-                body: "Claude Code rendered the film from the real components. It can't show anything the prototype doesn't do.",
-              },
-            ],
-          },
-          cards: [
-            {
-              image: {
-                src: `${dir}/storybook-semantic-colors.png`,
-                width: 1600,
-                height: 1000,
-                alt: "Storybook, Colors / semantic: background tokens such as page, surface, input and contrast, each with its value, the primitive it aliases, and a one-line note on where it is used.",
-              },
-              title: "Semantic colour tokens in Storybook",
-              body: "Each with a note on the job it does.",
-            },
-            {
-              image: {
-                src: `${dir}/storybook-hint-ladder.png`,
-                width: 1600,
-                height: 1000,
-                alt: "Storybook, HintLadder docs: the Figma node it comes from, why the active step is taller as well as brighter, its one departure from Figma, and a rung control from attempt 1 to reveal.",
-              },
-              title: "The HintLadder component",
-              body: "Its Figma source, the reason for each state, and where it departs from Figma.",
-            },
-          ],
-        },
-        {
-          kind: "todo",
-          text: "Did you also use Claude in Cowork, Figma's AI, or another tool in the research or synthesis phase? Add it here only if you did.",
-        },
-      ],
-    },
 
+    // Outcome and Reflection as in Figma 287:334 and 287:337 (Lumbini, 2026-11-04): 24px headings, the
+    // reflection in three short parts under one eyebrow.
     {
       id: "outcome",
       stage: "Impact",
-      chapter: { number: "10", title: "Outcome" },
-      heading: "What I can claim: a tested, iterated prototype, not a shipped result",
+      chapter: { number: "11", title: "Outcome" },
+      heading: "Placed where students already speak, with success defined up front",
+      smallHeading: true,
+      lede: [
+        "The entry sits in AI Chat, where 15.2% of active users already send voice messages. Success criteria agreed with Knowunity: 25% of students who see the feature start it, and 70% of those finish.",
+      ],
       blocks: [
         {
           kind: "stats",
@@ -527,31 +549,48 @@ export const knowunity: CaseStudy = {
             { value: "32", label: "Components in the Storybook library" },
             { value: "11", label: "Critique rounds by critic agents" },
           ],
-          side: "What exists today. Nothing shipped, so I don’t claim a metric. A pilot would measure Knowunity’s targets: 25% of students who see the feature start it, and 70% of those finish it. These are targets, not results.",
           source: "I placed the entry in AI Chat, where 15.2% of active users already send voice messages.",
-        },
-        {
-          kind: "links",
-          items: [
-            { label: "Watch the film in full quality (1080p, 49 MB)", href: `${dir}/knowunity-active-recall.mp4` },
-            { label: "Try the prototype", href: "https://knowunity-sprint-one.vercel.app/entry" },
-            { label: "Component library (Storybook)", href: "https://6aa836309aea888aed9def73-dezjpygccw.chromatic.com/" },
-          ],
-        },
-        {
-          kind: "todo",
-          text: "Confirm both links show the latest build. They answered on 15 Oct 2026, but the Storybook was last published 19 Sep.",
         },
       ],
     },
 
-    // Block 6: reflection, one sentence.
     {
       id: "reflection",
       stage: "Impact",
-      chapter: { number: "11", title: "Reflection" },
-      heading: "I built the whole loop before testing it, so the fixes meant reworking finished screens.",
-      blocks: [],
+      chapter: { number: "12", title: "Reflection" },
+      heading: "Reflection",
+      eyebrowOnly: true,
+      blocks: [
+        {
+          kind: "text",
+          tight: true,
+          heading: "The two targets pulled against each other, so I chose which one each screen served",
+          paragraphs: [
+            "A choice that helps students start can hurt them finish, and the reverse.",
+            "Type Instead served activation. I kept it on the idle and hint screens, so a student who cannot speak aloud has a way to start.",
+            "The beta’s exit sheet lists “I can’t speak out loud right now” and “I feel awkward talking to the app” as reasons to stop. Those are answer options, not counts, so I treat them as a risk, not a measurement.",
+            "The four-round cap served completion. With generous judging, a student who struggles reaches the answer without feeling punished.",
+          ],
+        },
+        {
+          kind: "text",
+          tight: true,
+          heading: "Students check their own recording first, and the transcript stays read-only",
+          paragraphs: [
+            "Before they submit, students replay their answer and re-record if it sounds wrong. After they submit, Knowie shows what it heard while it evaluates.",
+            "I made the transcript read-only. The cost is that fixing one wrong word means re-recording the whole answer.",
+          ],
+        },
+        {
+          kind: "text",
+          tight: true,
+          heading: "What I would test first: whether students speak at all",
+          paragraphs: [
+            "I walked the flow as two students: a 16-year-old comfortable speaking aloud, and one self-conscious in a shared space. A walkthrough tests my assumptions, not students.",
+            "A pilot would measure the start rate against the 25% target, with the share who switch to Type Instead beside it. It would also check whether students read the percentage as a grade. The ring shows how much of the model answer they covered.",
+          ],
+        },
+      ],
     },
   ],
 };

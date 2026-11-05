@@ -1,14 +1,12 @@
-"use client";
-
 import Image from "next/image";
-import { useState } from "react";
-import { PauseIcon, PlayIcon } from "@/components/icons";
 
 // WTV's ideation logo cloud, rebuilt from the Framer page /wtv-2 (frame ncgD5_cXB, 327x390;
 // its logos run below the frame, to y 464). Positions, sizes and radii are Framer's. The motion is
 // Framer's loop effect on every layer: one full turn in 1s (linear), then a 0.8s pause, repeating
 // (.logo-spin in globals.css). Layers nested in a white circle turn with it as well, as on Framer.
-// Reduced motion shows it still; the Pause button stops it for everyone else (WCAG 2.2.2).
+// Reduced motion shows it still. There is no pause control (Lumbini, 2026-11-04).
+// 2026-11-04 (Lumbini): the four tool logos below the cloud (JavaScript and three others) are removed, the
+// frame is cropped to the logos that remain (8px margin), and the loop is slower (2.5s turn, 2s pause).
 
 const dir = "/case-studies/wtv/logos";
 
@@ -44,16 +42,12 @@ const items: Item[] = [
   { left: 110, top: 224, w: 82, h: 85, inner: { src: "claude.png", size: 45, left: 20, top: 19, radius: 50 } },
   { left: 117, top: 146, w: 39, h: 39, radius: 50, src: "chatgpt.webp" },
   { left: 73, top: 303, w: 43, h: 43, radius: 50, src: "figma.png" },
-  { left: 186, top: 386, w: 72, h: 78, inner: { src: "tool-a.png", size: 40, left: 14, top: 19, radius: 40 } },
   { left: 178, top: 151, w: 44, h: 44, radius: 44, white: true, inner: { src: "gemini.webp", size: 42, left: 0, top: 0, radius: 3 } },
   { left: 82, top: 219, w: 45, h: 45, radius: 44, white: true, inner: { src: "gemini.webp", size: 34, top: 6, radius: 3 } },
-  { left: 151, top: 398, w: 57, h: 65, ring: { size: 33, left: 10, top: 16, inner: { src: "tool-b.png", size: 25, top: 4, radius: 3 } } },
   { left: 231, top: 181, w: 46, h: 46, radius: 44, white: true, inner: { src: "chatgpt.webp", size: 34, top: 6, radius: 3 } },
   { left: 119, top: 196, w: 42, h: 42, radius: 44, white: true, inner: { src: "gemini.webp", size: 32, top: 5, radius: 3 } },
-  { left: 100, top: 385, w: 73, h: 78, ring: { size: 41, left: 14, top: 18, inner: { src: "tool-c.png", size: 31, top: 5, radius: 3 } } },
   { left: 255, top: 221, w: 41, h: 41, radius: 40, src: "claude.png" },
   { left: 163, top: 196, w: 39, h: 39, radius: 40, src: "claude.png" },
-  { left: 73, top: 381, w: 45, h: 45, radius: 40, src: "javascript.png" },
 ];
 
 function Logo({ src, size, radius, style, spin }: { src: string; size: number; radius: number; style?: React.CSSProperties; spin?: boolean }) {
@@ -77,15 +71,14 @@ const innerStyle = (box: number, i: Inner): React.CSSProperties => ({
 });
 
 export function LogoCloud({ label }: { label: string }) {
-  const [paused, setPaused] = useState(false);
   return (
-    <div className="relative w-[327px] max-w-full shrink-0">
+    <div className="relative w-[291px] max-w-full shrink-0">
       <div
         role="img"
         aria-label={label}
-        data-paused={paused || undefined}
-        className="relative h-[464px] w-[327px] max-w-full overflow-hidden rounded-control bg-surface"
+        className="relative h-[267px] w-[291px] max-w-full overflow-hidden rounded-control bg-surface"
       >
+        <div className="absolute" style={{ left: -13, top: -138 }}>
         {items.map((it, k) => (
           <div
             key={k}
@@ -111,16 +104,8 @@ export function LogoCloud({ label }: { label: string }) {
             )}
           </div>
         ))}
+        </div>
       </div>
-      <button
-        type="button"
-        onClick={() => setPaused((p) => !p)}
-        className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-pill bg-surface-inverse px-4 text-body-s font-semibold text-on-inverse hover:bg-surface-inverse-hover motion-reduce:hidden"
-      >
-        {paused ? <PlayIcon size={18} /> : <PauseIcon size={18} />}
-        {paused ? "Play" : "Pause"}
-        <span className="sr-only"> animation</span>
-      </button>
     </div>
   );
 }

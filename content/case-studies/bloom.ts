@@ -19,6 +19,9 @@ const img = (file: string, width: number, height: number, alt: string, zoom?: bo
   zoom,
 });
 
+// A diagram with text too small to read in place: it opens full size in the lightbox (2026-11-04).
+const expandable = (...args: Parameters<typeof img>): Img => ({ ...img(...args), expand: true });
+
 const clip = (file: string, width: number, height: number, description: string): Video => ({
   src: `${dir}/${file}.mp4`,
   poster: `${dir}/${file}-poster.jpg`,
@@ -158,7 +161,7 @@ export const bloom: CaseStudy = {
           kind: "wide",
           bare: true,
           images: [
-            img(
+            expandable(
               "swot-logos.png",
               2368,
               1410,
@@ -313,7 +316,7 @@ export const bloom: CaseStudy = {
           kind: "wide",
           bare: true,
           images: [
-            img("brand-color.png", 2368, 1872, "The Bloom & Heal colour system: primary blue #4473B3, error #EF4444 and green #02AA41 with their contrast ratios, neutrals, status colours and core tokens."),
+            expandable("brand-color.png", 2368, 1872, "The Bloom & Heal colour system: primary blue #4473B3, error #EF4444 and green #02AA41 with their contrast ratios, neutrals, status colours and core tokens."),
           ],
         },
       ],

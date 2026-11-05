@@ -130,9 +130,27 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
     ) : (
       <div className="flex flex-col gap-3">
         {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-        <h2 id={s.id} className={chapter ? (s.heading.length > LONG_HEADING ? "text-h1-mobile font-bold tablet:text-title-l" : "text-h3-sm font-bold tablet:text-h3") : "text-title-m font-bold tablet:text-title-l"}>
+        <h2
+          id={s.id}
+          className={
+            s.eyebrowOnly
+              ? "sr-only"
+              : s.smallHeading
+                ? "text-title-s font-bold"
+                : chapter || s.hideEyebrow
+                  ? s.heading.length > LONG_HEADING
+                    ? "text-h1-mobile font-bold tablet:text-title-l"
+                    : "text-h3-sm font-bold tablet:text-h3"
+                  : "text-title-m font-bold tablet:text-title-l"
+          }
+        >
           {s.heading}
         </h2>
+        {s.lede?.map((p) => (
+          <p key={p.slice(0, 40)} className="text-body-m text-body">
+            {p}
+          </p>
+        ))}
       </div>
     );
     if (s.aside) {
@@ -169,13 +187,12 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
       <section key={s.id} aria-labelledby={s.id} className={`flex flex-col gap-8 ${study.motion === "carmen" ? "reveal" : ""}`}>
         <div
           className={
-            s.media || s.logoCloud
+            s.media
               ? "flex flex-col gap-6 tablet:flex-row tablet:items-center tablet:justify-between tablet:gap-10"
               : ""
           }
         >
           {header}
-          {s.logoCloud && <LogoCloud label={s.logoCloud.label} />}
           {s.media && (
             <Picture
               image={s.media}
@@ -184,6 +201,12 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
             />
           )}
         </div>
+        {/* The logo cloud sits centred under the heading, one section gap below it (Lumbini, 2026-11-04). */}
+        {s.logoCloud && (
+          <div className="flex justify-center">
+            <LogoCloud label={s.logoCloud.label} />
+          </div>
+        )}
         {s.blocks.map((block, i) => (
           <BlockView key={i} block={block} />
         ))}
@@ -214,7 +237,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
           // 901x600 stage anchored to the right edge from 1200 (stacked below the text under 1200).
           <>
             <div className="relative overflow-hidden bg-surface desktop:min-h-[min(41.67vw,600px)]">
-              <Container className="relative z-10 py-10 desktop:flex desktop:min-h-[min(41.67vw,600px)] desktop:items-center desktop:py-12">
+              <Container className="relative z-10 py-10 desktop:flex desktop:min-h-[min(41.67vw,600px)] desktop:items-start desktop:pt-16 desktop:pb-12">
                 <div className="flex flex-col gap-6 desktop:max-w-[min(560px,36vw)]">
                   <Eyebrow>{study.opening.eyebrow}</Eyebrow>
                   <h1 className="text-h3 font-bold text-title">{study.title}</h1>
@@ -234,8 +257,19 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
               >
                 {study.facts.map((f) => (
                   <div key={f.label} className="flex flex-col gap-1.5">
-                    <dt className="font-jakarta text-caption-m font-medium uppercase text-caption">{f.label}</dt>
-                    <dd className="text-subtitle-s font-semibold text-subtitle max-tablet:text-body-semibold-s">{f.value}</dd>
+                    <dt className="font-(family-name:--font-heading) text-caption-m font-medium uppercase text-caption">{f.label}</dt>
+                    <dd className="text-subtitle-s font-semibold text-subtitle max-tablet:text-body-semibold-s">
+                      {f.value}
+                      {f.link && (
+                        <>
+                          {" "}
+                          <a href={f.link.href} target="_blank" rel="noopener noreferrer" className="text-accent underline">
+                            {f.link.label}
+                            <span className="sr-only"> (opens in a new tab)</span>
+                          </a>
+                        </>
+                      )}
+                    </dd>
                   </div>
                 ))}
               </dl>
@@ -245,13 +279,14 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
           // Figma 211:1164: a project-coloured opening, title column beside the product visual,
           // then the facts row (221:2779). At 1440: a 600px text column, 64px gap, the 462px
           // composition, 32px top and bottom; the composition grows to 560 into the room the back link
-          // left (Lumbini, 2026-10-28). Side by side from 834, stacked below. The band takes the
+          // left (Lumbini, 2026-10-28). Side by side from 834, stacked below. From 1200 every opening
+          // is the same height, as the layered-screens one, and its eyebrow sits 64px below the band top (2026-11-04). The band takes the
           // study's project colour (`band` inside its theme); Anewvista's opening (Figma
           // 275:582) puts its laptop recording where Bloom has an image.
           <>
             <div className="bg-band">
-              <Container className="grid grid-cols-1 items-center gap-10 py-8 tablet:grid-cols-[minmax(0,600fr)_minmax(0,462fr)] desktop:grid-cols-[minmax(0,600px)_minmax(0,1fr)] desktop:gap-16">
-                <div className="flex flex-col gap-6">
+              <Container className="grid grid-cols-1 items-center gap-10 py-8 tablet:grid-cols-[minmax(0,600fr)_minmax(0,462fr)] desktop:min-h-[min(41.67vw,600px)] desktop:grid-cols-[minmax(0,600px)_minmax(0,1fr)] desktop:gap-16">
+                <div className="flex flex-col gap-6 desktop:self-start desktop:pt-8">
                   <Eyebrow>{study.opening.eyebrow}</Eyebrow>
                   <h1 className="text-h3 font-bold text-title">{study.title}</h1>
                   <p className="text-body-m text-caption">{study.summary}</p>
@@ -304,8 +339,19 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
               >
                 {study.facts.map((f) => (
                   <div key={f.label} className="flex flex-col gap-1.5">
-                    <dt className="font-jakarta text-caption-m font-medium uppercase text-caption">{f.label}</dt>
-                    <dd className="text-subtitle-s font-semibold text-subtitle max-tablet:text-body-semibold-s">{f.value}</dd>
+                    <dt className="font-(family-name:--font-heading) text-caption-m font-medium uppercase text-caption">{f.label}</dt>
+                    <dd className="text-subtitle-s font-semibold text-subtitle max-tablet:text-body-semibold-s">
+                      {f.value}
+                      {f.link && (
+                        <>
+                          {" "}
+                          <a href={f.link.href} target="_blank" rel="noopener noreferrer" className="text-accent underline">
+                            {f.link.label}
+                            <span className="sr-only"> (opens in a new tab)</span>
+                          </a>
+                        </>
+                      )}
+                    </dd>
                   </div>
                 ))}
               </dl>
@@ -383,7 +429,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
               <dl className="fit-4 grid grid-cols-4 gap-x-8 gap-y-5 rounded-card bg-surface-subtle p-6">
                 {study.facts.map((f) => (
                   <div key={f.label} className="flex flex-col gap-1">
-                    <dt className="font-serif text-caption-m font-medium uppercase text-accent">{f.label}</dt>
+                    <dt className="font-(family-name:--font-heading) text-caption-m font-medium uppercase text-accent">{f.label}</dt>
                     <dd className="font-jakarta text-body-s text-title">{f.value}</dd>
                   </div>
                 ))}

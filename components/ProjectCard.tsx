@@ -8,13 +8,22 @@ import type { Project } from "@/content/projects";
 
 // Figma "Project card" (43:166), Default and Hover. The whole card is clickable through the
 // button's stretched link; keyboard focus gets the same blue treatment as hover. Always image over
-// text. The image band is 366:200 (carmen-elena.space/work, Lumbini 2026-11-02), so thumbnails crop.
+// text. The image band is 366:200 (carmen-elena.space/work, Lumbini 2026-11-02). Bloom's thumbnail is
+// centred and cropped to it. WTV's and Anewvista's have a flat background, so the whole thumbnail is
+// scaled to the band's height with that colour filling the sides, and nothing is cropped (Lumbini,
+// 2026-11-04: their tops were cut off).
+// `FIT`: the card's slug, then the token class for its thumbnail's own background colour.
+const FIT: Record<string, string> = {
+  "wtv-consulting": "bg-thumb-wtv",
+  anewvista: "bg-thumb-anewvista",
+};
 export function ProjectCard({ project }: { project: Project }) {
   const hover = "group-hover:text-secondary group-has-[:focus-visible]:text-secondary";
+  const fitBg = FIT[project.slug];
   return (
     <article className="group relative flex h-full flex-col overflow-hidden rounded-card border-2 border-transparent bg-surface-subtle hover:border-secondary hover:shadow-card-hover has-[:focus-visible]:border-secondary motion-safe:transition-[border-color,box-shadow]">
       {/* One wrapper zooms on hover, so an image and the recording laid over it move together. */}
-      <div className="relative aspect-[366/200] overflow-hidden rounded-card">
+      <div className={`relative aspect-[366/200] overflow-hidden rounded-card ${fitBg ?? ""}`}>
         <div className="absolute inset-0 motion-safe:transition-transform motion-safe:duration-300 group-hover:scale-[1.06]">
           {project.thumbnailVideo?.fill ? (
             // The recording is the whole thumbnail: rendered once, filling the frame. Clicks pass
@@ -29,8 +38,15 @@ export function ProjectCard({ project }: { project: Project }) {
             </div>
           ) : (
             // The image and its recording keep the thumbnail's own shape and crop together, so the
-            // recording stays on the mockup's screen.
-            <div className="absolute inset-x-0 top-1/2 aspect-[416/303] -translate-y-1/2">
+            // recording stays on the mockup's screen. The fitted box is 8% taller than the band, so the
+            // image's baked rounded corners fall outside it, and its flat edge colour matches the band.
+            <div
+              className={
+                fitBg
+                  ? "absolute top-1/2 left-1/2 aspect-[416/303] h-full -translate-x-1/2 -translate-y-1/2 overflow-hidden"
+                  : "absolute inset-x-0 top-1/2 aspect-[416/303] -translate-y-1/2"
+              }
+            >
               <Image
                 src={project.thumbnail.src}
                 alt={project.thumbnail.alt}

@@ -18,17 +18,18 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      {/* On phones the story wraps around the portrait and under it; from 834 they are two columns,
-          the portrait staying in view past the longer text; from 1200 both edges line up. */}
-      <Container className="flow-root pt-3 pb-2.5 tablet:flex tablet:items-start tablet:gap-8 tablet:py-18">
+      {/* On phones the portrait sits above the story at full width, so the text keeps one left edge
+          (Lumbini, 2026-11-04) and below 1200 too; from 1200 they are two columns and both edges line
+          up. */}
+      <Container className="flex flex-col gap-5 pt-3 pb-2.5 tablet:gap-8 tablet:py-18 desktop:flex-row desktop:items-start">
         <Image
           src={about.photo.src}
           alt={about.photo.alt}
           width={about.photo.width}
           height={about.photo.height}
-          sizes="(min-width: 834px) 34vw, 141px"
+          sizes="(min-width: 1200px) 34vw, 100vw"
           preload
-          className="float-left mr-4 mb-2 h-[290px] w-[141px] rounded-control object-cover tablet:sticky tablet:top-6 tablet:float-none tablet:m-0 tablet:h-auto tablet:w-[calc(100%*440/1312)] tablet:shrink-0 tablet:rounded-portrait desktop:static desktop:self-stretch"
+          className="aspect-square w-full rounded-control object-cover object-top tablet:aspect-[4/3] tablet:max-w-120 tablet:rounded-portrait desktop:aspect-auto desktop:max-w-none desktop:h-auto desktop:w-[calc(100%*440/1312)] desktop:shrink-0 desktop:self-stretch"
         />
         <div className="min-w-0 space-y-2 tablet:flex tablet:flex-col tablet:items-start tablet:gap-6 tablet:space-y-0 desktop:self-stretch">
           <h1 className="font-jakarta text-h1-mobile font-bold tablet:text-h3">{about.title}</h1>
@@ -72,7 +73,7 @@ export default function AboutPage() {
 
       <section aria-labelledby="writing-heading">
         <Container className="flex flex-col gap-8 pb-4 tablet:pt-10 tablet:pb-section-sm desktop:pb-section">
-          <div className="flex items-center justify-between gap-4 tablet:flex-col tablet:items-start tablet:gap-2 desktop:flex-row desktop:items-end desktop:justify-between desktop:gap-8">
+          <div className="flex flex-col items-start gap-2 desktop:flex-row desktop:items-end desktop:justify-between desktop:gap-8">
             <h2 id="writing-heading" className="font-jakarta text-h1-mobile font-bold tablet:text-title-s">
               {about.writing.heading}
             </h2>
@@ -80,9 +81,9 @@ export default function AboutPage() {
           </div>
           <ul className="flex flex-col border-t border-line">
             {about.writing.entries.map((entry) => (
-              <li key={entry.title} className="flex gap-12 border-b border-line py-8 tablet:pt-10">
-                <div className="flex w-32 shrink-0 flex-col gap-2 tablet:w-60">
-                  <Eyebrow className="max-tablet:whitespace-nowrap">{entry.type}</Eyebrow>
+              <li key={entry.title} className="flex flex-col gap-3 border-b border-line py-8 tablet:pt-10 desktop:flex-row desktop:gap-12">
+                <div className="flex shrink-0 items-baseline gap-3 desktop:w-60 desktop:flex-col desktop:items-stretch desktop:gap-2">
+                  <Eyebrow>{entry.type}</Eyebrow>
                   <p className="font-dm text-mobile-body-1 text-caption tablet:text-body-s tablet:font-semibold">{entry.year}</p>
                 </div>
                 <div className="flex min-w-0 flex-col gap-3">
@@ -148,8 +149,8 @@ export default function AboutPage() {
             </div>
           </section>
 
-          <section aria-labelledby="photos-heading" className="flex min-w-0 flex-col overflow-hidden rounded-portrait border border-line bg-surface">
-            <h2 id="photos-heading" className="px-7 pt-7 pb-5 font-jakarta text-h1-mobile font-bold text-title tablet:text-title-s">
+          <section aria-labelledby="photos-heading" className="flex min-w-0 flex-col gap-5 rounded-portrait border border-line bg-surface p-7">
+            <h2 id="photos-heading" className="font-jakarta text-h1-mobile font-bold text-title tablet:text-title-s">
               {about.photos.heading}
             </h2>
             <PhotoMarquee rows={about.photos.rows} />

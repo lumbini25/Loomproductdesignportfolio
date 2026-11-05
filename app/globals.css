@@ -42,6 +42,8 @@
   --flow-green: #00c386;
   --knowunity-500: #9178e6; /* "Knowunity/500" */
   --wtv-50: #e6f2f9; /* "WTV/50" */
+  --wtv-thumb: #003f6c; /* TODO: no Figma token; the flat background of the WTV card thumbnail */
+  --anewvista-thumb: #e8d7ff; /* TODO: no Figma token; the flat background of the Anewvista card thumbnail */
   --wtv-300: #a1cfe9; /* "WTV/300" */
   --tdk-50: #eef3fa; /* "TDK/50" */
   --tdk-200: #ccdaef; /* "TDK/200" */
@@ -84,11 +86,11 @@
   --text-title-mobile--line-height: 36px;
   --text-mobile-body-1: 14px; /* "Mobile Body1": DM Sans Regular */
   --text-mobile-body-1--line-height: normal;
-  --text-mobile-body-2: 10px; /* "Mobile Body2": DM Sans SemiBold, the phone caption (Lumbini, 2026-11-03) */
-  --text-mobile-body-2--line-height: 16px;
+  --text-mobile-body-2: 12px; /* "Mobile Body2": DM Sans SemiBold, the phone caption; 12px since 2026-11-04, was 10 (Lumbini) */
+  --text-mobile-body-2--line-height: 18px;
   --text-body-semibold-s: 14px; /* "Body Semibold S": DM Sans SemiBold */
   --text-body-semibold-s--line-height: normal;
-  --text-mobile-caption: 9px; /* "Caption Mobile": Plus Jakarta SemiBold */
+  --text-mobile-caption: 12px; /* "Caption Mobile": Plus Jakarta SemiBold */
   --text-mobile-caption--line-height: normal;
   --text-mobile-caption--letter-spacing: 0.06em;
   --text-mobile-button: 14px; /* "Button Mobile" */
@@ -170,6 +172,8 @@
   --color-line: var(--theme-line); /* TODO: no semantic token; tags and rules */
   --color-surface-sky: var(--theme-surface-sky); /* TODO: no semantic token; motion tile on Fun */
   --color-surface-bloom: var(--bloom-50); /* Project/Bloom/surface */
+  --color-thumb-wtv: var(--wtv-thumb); /* TODO: no Figma token; fills beside the WTV thumbnail */
+  --color-thumb-anewvista: var(--anewvista-thumb); /* TODO: no Figma token; fills beside the Anewvista thumbnail */
   --color-surface-motion: var(--motion-tile);
   --color-device-stand: var(--beige-700); /* TODO: no semantic token; the monitor stand around a screenshot */
   --color-band: var(--theme-band); /* Project/<name>/band: the opening band behind the title */
@@ -260,8 +264,8 @@
   }
 }
 
-/* WTV logo cloud (components/case-study/LogoCloud.tsx): Framer's loop effect, one turn in 1s,
-   linear, then a 0.8s pause. Still under reduced motion. */
+/* WTV logo cloud (components/case-study/LogoCloud.tsx): Framer's loop effect, one turn, linear,
+   then a pause; slowed from 1s + 0.8s to 2.5s + 2s (Lumbini, 2026-11-04). Still under reduced motion. */
 @keyframes logo-spin {
   0% {
     rotate: 0deg;
@@ -274,13 +278,8 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .logo-spin {
-    animation: logo-spin 1.8s linear infinite;
+    animation: logo-spin 4.5s linear infinite;
   }
-}
-
-/* The logo cloud's Pause button. */
-[data-paused] .logo-spin {
-  animation-play-state: paused;
 }
 
 /* About photo rows (2026-11-01): a slow loop, half the track at a time, opposite ways. Each row
@@ -358,7 +357,7 @@
     --text-body-s--line-height: normal;
     --text-body-l-sm: 14px;
     --text-body-l-sm--line-height: normal;
-    --text-caption-m: 9px; /* "Caption Mobile" */
+    --text-caption-m: 12px; /* "Caption Mobile", 12px since 2026-11-04 (was 9) */
     --text-caption-m--line-height: normal;
   }
 }
@@ -464,7 +463,7 @@
   .fit-5 {
     --fit-body: 14px;
     --fit-title: 16px;
-    --fit-label: 10px;
+    --fit-label: 12px;
     --spacing: 3px;
   }
 }
@@ -511,7 +510,7 @@
   .stack-fit-5 {
     --fit-body: 14px;
     --fit-title: 16px;
-    --fit-label: 10px;
+    --fit-label: 12px;
     --spacing: 3px;
   }
 }
@@ -553,25 +552,25 @@
   .fit-2 {
     --fit-body: calc(14 * var(--fit-unit));
     --fit-title: calc(16 * var(--fit-unit));
-    --fit-label: calc(9 * var(--fit-unit));
+    --fit-label: 12px;
     --spacing: calc(2 * var(--fit-unit));
   }
   .fit-3 {
     --fit-body: calc(10 * var(--fit-unit));
     --fit-title: calc(11 * var(--fit-unit));
-    --fit-label: calc(7 * var(--fit-unit));
+    --fit-label: 12px;
     --spacing: calc(1.5 * var(--fit-unit));
   }
   .fit-4 {
     --fit-body: calc(8 * var(--fit-unit));
     --fit-title: calc(9 * var(--fit-unit));
-    --fit-label: calc(6 * var(--fit-unit));
+    --fit-label: 12px;
     --spacing: var(--fit-unit);
   }
   .fit-5 {
     --fit-body: calc(7 * var(--fit-unit));
     --fit-title: calc(8 * var(--fit-unit));
-    --fit-label: calc(5.5 * var(--fit-unit));
+    --fit-label: 12px;
     --spacing: calc(0.8 * var(--fit-unit));
   }
 }

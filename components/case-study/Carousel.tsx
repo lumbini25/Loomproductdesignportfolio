@@ -75,7 +75,7 @@ export function Carousel({ images, label, frame }: { images: Img[]; label: strin
           <span className="sr-only">Previous screen</span>
         </button>
         <p aria-live="polite" className="caption min-w-0 flex-1 font-jakarta text-body-s text-caption">
-          <span className="font-serif text-caption-m font-medium text-title">
+          <span className="font-(family-name:--font-heading) text-caption-m font-medium text-title">
             {index + 1} / {images.length}
           </span>
           {images[index]?.caption && (

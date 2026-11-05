@@ -58,7 +58,7 @@ export function CaseStudyNav({
       aria-label={label}
       className={`${hideBelowTablet ? "hidden tablet:block" : ""} tablet:sticky tablet:top-6 tablet:order-last tablet:w-44 tablet:shrink-0 desktop:w-max tablet:self-start tablet:bg-surface tablet:py-2 desktop:w-30`}
     >
-      <p className="font-serif text-caption-m font-medium uppercase text-accent">{label}</p>
+      <p className="font-(family-name:--font-heading) text-caption-m font-medium uppercase text-accent">{label}</p>
       <ul className="flex flex-wrap gap-x-6 tablet:mt-2 tablet:flex-col">
         {items.map((item) => {
           const on = item.id === active;

@@ -54,6 +54,14 @@ export const wtv: CaseStudy = {
       ],
       blocks: [],
     },
+    // The heading above The problem (Lumbini, 2026-11-04). It was Overview's heading.
+    {
+      id: "intranet-existed",
+      stage: "Problem",
+      hideEyebrow: true,
+      heading: "The intranet existed — employees just stopped using it.",
+      blocks: [],
+    },
     {
       id: "the-problem",
       nav: "The problem",
@@ -68,6 +76,7 @@ export const wtv: CaseStudy = {
           images: [
             {
               src: `${dir}/current-intranet-annotated.png`,
+              expand: true,
               width: 2400,
               height: 1090,
               alt: "The old intranet, annotated: navigation overload in a long sidebar; a role-blind interface where all roles see the same screen; no search anywhere; and no actionable entry point, since the main area is a full-bleed brand splash with no tasks, files or tools.",
@@ -140,8 +149,8 @@ export const wtv: CaseStudy = {
       id: "overview",
       nav: "Overview",
       stage: "Problem",
-      hideEyebrow: true,
-      heading: "The intranet existed — employees just stopped using it.",
+      hideHeading: true,
+      heading: "Overview",
       blocks: [
         {
           kind: "statement",
@@ -179,6 +188,7 @@ export const wtv: CaseStudy = {
           images: [
             {
               src: `${dir}/problem-brand-copy-paste.png`,
+              expand: true,
               width: 2400,
               height: 1516,
               crop: 1312 / 740,
@@ -230,6 +240,7 @@ export const wtv: CaseStudy = {
           images: [
             {
               src: `${dir}/sitemap-before.png`,
+              expand: true,
               width: 708,
               height: 512,
               alt: "Before: the old sitemap, a long row of navigation items each branching into deep lists of pages.",
@@ -237,6 +248,7 @@ export const wtv: CaseStudy = {
             },
             {
               src: `${dir}/sitemap-after.png`,
+              expand: true,
               width: 2020,
               height: 2400,
               alt: "After: the new sitemap, with a homepage dashboard holding global actions (search, profile, quick create) above four pillars: Operations, Growth & Clients, All Projects, and People & Culture.",
@@ -274,6 +286,7 @@ export const wtv: CaseStudy = {
           images: [
             {
               src: `${dir}/dashboard-employee.png`,
+              expand: true,
               width: 1600,
               height: 2865,
               alt: "Internal employee dashboard: company news and announcements, quick access to the handbook, store and benefits, Quick Links, Resources, a calendar, active project boards and My Tasks.",
@@ -281,6 +294,7 @@ export const wtv: CaseStudy = {
             },
             {
               src: `${dir}/dashboard-contractor.png`,
+              expand: true,
               width: 1600,
               height: 2932,
               alt: "Contractor dashboard greeting \"Good morning, Damien!\", with a training video library, quick access, Quick Links, Resources, a calendar, project boards, My Tasks and What's New.",
@@ -288,6 +302,7 @@ export const wtv: CaseStudy = {
             },
             {
               src: `${dir}/dashboard-ceo.png`,
+              expand: true,
               width: 1600,
               height: 2778,
               alt: "CEO dashboard: What's New, Quick Links, Resources, a calendar, active project boards, My Tasks, and Revenue Target and Goals with sales performance, the yearly financial goal and the client pipeline.",
@@ -359,6 +374,7 @@ export const wtv: CaseStudy = {
           images: [
             {
               src: `${dir}/component-library.png`,
+              expand: true,
               width: 2400,
               height: 2127,
               alt: "Components exported from Figma: Company Update Cards and Document Grid View, three variants each, and a Template List View.",
@@ -452,6 +468,7 @@ export const wtv: CaseStudy = {
           images: [
             {
               src: `${dir}/affinity-map.png`,
+              expand: true,
               width: 2400,
               height: 1237,
               alt: "An affinity map of sticky notes in four clusters: feedback and confirmation clarity, visual hierarchy and information prioritization, balance visibility and clarity, and navigation structure and wayfinding.",
