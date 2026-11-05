@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Libre_Baskerville, Nunito_Sans, Plus_Jakarta_Sans } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -59,6 +60,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
+        {/* Vercel Web Analytics (Lumbini, 2026-11-05): page views only, no cookies. */}
+        <Analytics />
       </body>
     </html>
   );
