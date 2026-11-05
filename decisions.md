@@ -110,6 +110,24 @@ lines are replaced. New section options: `smallHeading` (24px heading, not the 4
 visible, heading for screen readers only) and `lede` (paragraphs in the heading group), plus `tight` on a text block (12px
 gaps, as Figma). The "agreed with Knowunity" success criteria are Lumbini's wording; I have no source for them.
 
+### 2026-11-05 — Knowunity problem rings corrected to Figma 331:1490 (replaces the positions in the entry below)
+**Decided by:** Lumbini ("the places you highlight are not the right ones"). I had used the numbered circles of the older
+frame; the right frame has three screens, each with its own ellipse: the "Almost there" chip and first line (screen 1), the
+revealed answer card (a new third screen, `problem-reveal.png`, exported from Figma) and the XP, Perfect and Time row on
+the Summary (screen 3). Ring sizes and centres are those ellipses (503:3135, 503:3141, 503:3147) scaled to the drawing space.
+Captions are Figma's: the first is now only "'Almost there' cannot tell whether students were misheard.", and the new screen
+reads "The revealed answer screen cannot help the students to know how far they were from answering rightly."
+
+### 2026-11-05 — Knowunity problem screens: a pen draws a ring round each of three problems
+**Decided by:** Lumbini (brief: hand-drawn rings drawn one after another, each followed by its problem text; no numbers).
+Positions are the centres of Figma's three circles on the problem screens (331:1497, 480:3028, 331:1502), including the third,
+which was missing; each ring is about 90px wide on the 272px Figma screen, so it encircles the area the circle pointed at.
+The three problem cards moved into the same block and appear one by one, each when its ring is finished. Each ring is one
+irregular path (about one and a half turns, wobbling, finishing past its start), revealed by its dash offset with its own
+speed curve, in the red used for pen marks on dark screens (`flow-red`, 3:1 or better; Figma's rust is about 2.6:1 on that
+dark). It starts when a quarter of the block is on screen, runs once (about 7.5 seconds in all) and rests finished.
+Reduced motion, and a browser without JavaScript, show the finished state with no animation. The numbered markers are gone.
+
 ### 2026-11-04 — Home: less space between the hero and Selected work
 **Decided by:** Lumbini (hero review: "decrease the spacing between the 1st card and the hero"). From 1200 the gap above
 Selected work was 96px (`pt-section`); it is now 64px (`pt-section-sm`) at every width, so the work starts higher.

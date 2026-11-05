@@ -54,21 +54,18 @@ export const knowunity: CaseStudy = {
       heading:
         "Students lacked visibility into their progress and hint usage during Speak Out Loud sessions, couldn’t tell when their responses were misheard, and had no clear guidance on what to do after completing each round.",
       blocks: [
+        // Figma "problem section" 203:1646 (Lumbini, 2026-10-27); copy and screens verbatim from it.
         {
-          kind: "options",
-          columns: 3,
-          strong: true,
-          items: [
+          kind: "annotated",
+          problems: [
             { label: "Problem 1", body: "Students had no clear way to track their progress or recognize when their responses were misheard during Speak Out Loud sessions." },
             { label: "Problem 2", body: "Students do not know when their responses were misheard during Speak Out Loud sessions." },
             { label: "Problem 3", body: "The Summary screen names perfection and time to complete without giving a next step." },
           ],
-        },
-        // Figma "problem section" 203:1646 (Lumbini, 2026-10-27); copy and screens verbatim from it.
-        {
-          kind: "annotated",
           label: "Problem",
           text: "Knowunity’s beta shows a verdict and a hint but never what the app heard, so a student who gets “Almost there” can’t tell whether they were misheard or genuinely partial, and a fair result can feel unfair. Its summary then names perfection and time to complete without giving a next step, so the student leaves with a judgment they can neither verify nor act on.",
+          // Three screens, each with the ring from Figma 331:1490 (ellipses 503:3135, 503:3141, 503:3147),
+          // scaled from its 178x387 frame to the 272x590 space the rings are drawn in (Lumbini, 2026-11-05).
           screens: [
             {
               image: {
@@ -76,10 +73,19 @@ export const knowunity: CaseStudy = {
                 width: 1179,
                 height: 2556,
                 alt: "The beta's verdict: \"Almost there\" above a hint about historical thinking, with only a Reveal answer button. Nothing shows what the student said.",
-                caption:
-                  "‘Almost there’ cannot tell whether students were misheard. It also cannot help the students to know how far they are from answering rightly.",
+                caption: "‘Almost there’ cannot tell whether students were misheard.",
               },
-              marker: { x: 78.9, y: 26.4 },
+              rings: [{ cx: 66.5, cy: 173.6, rx: 57.5, ry: 39.5 }],
+            },
+            {
+              image: {
+                src: `${dir}/problem-reveal.png`,
+                width: 1179,
+                height: 2556,
+                alt: "The revealed answer: Historical thinking is the process of critically analyzing evidence to understand the past, in a dark card, with a mic under \"Try it yourself after reading\" and a Next question label. Nothing shows how much of the answer the student had right.",
+                caption: "The revealed answer screen cannot help the students to know how far they were from answering rightly.",
+              },
+              rings: [{ cx: 125.4, cy: 231, rx: 115.2, ry: 79.3 }],
             },
             {
               image: {
@@ -89,7 +95,7 @@ export const knowunity: CaseStudy = {
                 alt: "The beta's summary: \"Amazing job! Impressive! You've mastered this content! You're on fire!\", with XP +14, Perfect 100% and a time of 1:45, then Continue.",
                 caption: "The Summary screen names perfection and time to complete without giving a next step",
               },
-              marker: { x: 8.5, y: 60.1 },
+              rings: [{ cx: 146, cy: 418.7, rx: 139, ry: 56 }],
             },
           ],
         },

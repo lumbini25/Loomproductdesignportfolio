@@ -57,7 +57,7 @@ export default function Home() {
             </h3>
             <FeaturedProject project={featured} preload />
           </section>
-          <section aria-labelledby="all-projects-heading" className="flex flex-col gap-3">
+          <section aria-labelledby="all-projects-heading" className="mt-6 flex flex-col gap-3">
             <h3 id="all-projects-heading" className="font-jakarta text-subtitle-s font-semibold text-title">
               {home.work.all}
             </h3>

@@ -173,12 +173,15 @@ export type Block =
       cards: { image?: Img; label?: string; title: string; body?: string }[];
     }
   // Figma "problem section" (203:1646): a labelled statement beside phone screens, each with a
-  // numbered marker (x, y as % of the screen) and a caption under it. Stacks below 1200.
+  // hand-drawn ring around each problem and a caption under it. Stacks below 1200.
   | {
       kind: "annotated";
       label: string;
       text: string;
-      screens: { image: Img; marker: { x: number; y: number } }[];
+      // Drawn on in order as a hand-drawn ring (Knowunity, 2026-11-05); each problem's card appears when
+      // its ring is finished. Rings are centres and radii in px on the Figma 272x590 screen frame.
+      problems?: { label: string; body: string }[];
+      screens: { image: Img; rings: { cx: number; cy: number; rx: number; ry: number }[] }[];
     }
   // An open question for Lumbini. Rendered in local dev only, never in a production build.
   | { kind: "todo"; text: string }

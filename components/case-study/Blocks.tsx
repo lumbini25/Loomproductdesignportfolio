@@ -4,7 +4,9 @@ import { Eyebrow } from "@/components/Eyebrow";
 import { ArrowCounterClockwiseIcon, ArrowRightIcon, CheckCircleIcon } from "@/components/icons";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { Carousel } from "@/components/case-study/Carousel";
+import { DrawOnView } from "@/components/case-study/DrawOnView";
 import { ExpandableVisual } from "@/components/case-study/ExpandableVisual";
+import { penPath } from "@/components/case-study/penPath";
 import { QuoteCarousel } from "@/components/case-study/QuoteCarousel";
 import { PinnedDevice } from "@/components/case-study/PinnedDevice";
 import { ScrollBanner } from "@/components/case-study/ScrollBanner";
@@ -942,37 +944,81 @@ export function BlockView({ block }: { block: Block }) {
         </ul>
       );
 
-    case "annotated":
-      // Markers are Primary/background circles with white numerals (Figma: 60px on a 402px screen).
+    case "annotated": {
+      // Hand-drawn rings in place of Figma's numbered circles (Lumbini, 2026-11-05): one pen goes round
+      // each problem in turn, and that problem's card appears when its ring is done. `penPath` makes the
+      // ring, `.pen-ring` and `.pen-card` in globals.css time it, DrawOnView starts it on scroll.
+      const timing = [
+        { start: 0.3, dur: 1.9 },
+        { start: 2.9, dur: 1.9 },
+        { start: 5.5, dur: 1.9 },
+      ];
+      const looks = [
+        { seed: 3, startDeg: -125, tilt: -8 },
+        { seed: 7, startDeg: 200, tilt: 10 },
+        { seed: 11, startDeg: 40, tilt: -4 },
+      ];
+      let ring = 0;
       return (
-        <div className="flex flex-col gap-10 desktop:flex-row desktop:items-center desktop:gap-16">
-          <div className="flex flex-col gap-3 desktop:w-[calc(100%*640/1324)] desktop:shrink-0">
-            <Eyebrow>{block.label}</Eyebrow>
-            <p className="text-title-s font-bold text-title">{block.text}</p>
-          </div>
-          <PhoneFrame className="min-w-0 flex-1">
-            {block.screens.map(({ image, marker }, i) => (
-              <PortraitItem key={image.src} media={image} frame="relative" caption={image.caption}>
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  width={image.width}
-                  height={image.height}
-                  sizes={phoneSizes(image)}
-                  className="h-full w-full object-contain"
-                />
-                <span
-                  aria-hidden="true"
-                  className="absolute flex aspect-square w-[15%] items-center justify-center rounded-pill bg-primary text-title-s font-bold text-on-inverse"
-                  style={{ left: `${marker.x}%`, top: `${marker.y}%` }}
+        <DrawOnView className="flex flex-col gap-10">
+          {block.problems && (
+            <ul className="stack-fit-3 grid grid-cols-1 gap-4 desktop:grid-cols-3">
+              {block.problems.map((item, n) => (
+                <li
+                  key={item.label}
+                  className="pen-card flex min-w-0 flex-col gap-2.5 rounded-card border border-line bg-surface p-6"
+                  style={{ "--delay": `${timing[n].start + timing[n].dur + 0.05}s` } as React.CSSProperties}
                 >
-                  {i + 1}
-                </span>
-              </PortraitItem>
-            ))}
-          </PhoneFrame>
-        </div>
+                  <Eyebrow>{item.label}</Eyebrow>
+                  <p className="text-body-m text-title">{item.body}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+          <div className="flex flex-col gap-10 desktop:flex-row desktop:items-center desktop:gap-16">
+            <div className="flex flex-col gap-3 desktop:w-[calc(100%*640/1324)] desktop:shrink-0">
+              <Eyebrow>{block.label}</Eyebrow>
+              <p className="text-title-s font-bold text-title">{block.text}</p>
+            </div>
+            <PhoneFrame className="min-w-0 flex-1">
+              {block.screens.map(({ image, rings }) => (
+                <PortraitItem key={image.src} media={image} frame="relative" caption={image.caption}>
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    width={image.width}
+                    height={image.height}
+                    sizes={phoneSizes(image)}
+                    className="h-full w-full object-contain"
+                  />
+                  <svg viewBox="0 0 272 590" aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full overflow-visible text-flow-red">
+                    {rings.map((r) => {
+                      const n = ring++;
+                      const look = looks[n % looks.length];
+                      const t = timing[n % timing.length];
+                      return (
+                        <path
+                          key={n}
+                          d={penPath(r, look.seed, look.startDeg, 1.65, look.tilt)}
+                          pathLength={1}
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={3.2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className={`pen-ring pen-ring-${(n % 3) + 1}`}
+                          style={{ "--delay": `${t.start}s`, "--dur": `${t.dur}s` } as React.CSSProperties}
+                        />
+                      );
+                    })}
+                  </svg>
+                </PortraitItem>
+              ))}
+            </PhoneFrame>
+          </div>
+        </DrawOnView>
       );
+    }
 
     case "showcase":
       // Light text on the inverse surface; muted lines use the inverse text at 70%, which stays
