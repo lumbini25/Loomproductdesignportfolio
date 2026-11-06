@@ -14,6 +14,19 @@ export type ThumbnailLayers = {
   phones: { src: string; x: number; y: number; width: number; height: number; radius: number; z: number; rest: string; hover: string }[];
 };
 
+// One scene of the short film a card plays over its thumbnail when it first scrolls into view
+// (components/CardSequence.tsx; after "Case study card animation.mov", Lumbini 2026-11-06).
+// `zoom` settles in from slightly larger, `circle` opens from the top-right corner, `rise` grows
+// from a small card at the bottom to fill the frame, `fan` deals its screens out from a stack.
+// `zoom`, `circle` and `rise` show the first image filling the frame (`position` is its
+// object-position); `fan` shows every image as a tile on the `surface` colour.
+export type Scene = {
+  kind: "zoom" | "circle" | "rise" | "fan";
+  images: { src: string; width: number; height: number }[];
+  position?: string;
+  surface?: "inverse" | "subtle";
+};
+
 export type Project = {
   slug: string;
   eyebrow: string;
@@ -25,6 +38,8 @@ export type Project = {
   // `screen` is the screen's box in % of the thumbnail.
   // The thumbnail rebuilt from its Figma layers, for the Sierra Hopkins hover (Knowunity).
   thumbnailLayers?: ThumbnailLayers;
+  // Real case-study screens, played once over the thumbnail before it settles (see `Scene`).
+  sequence?: Scene[];
   // `fill`: the recording is the whole thumbnail, with no mockup image under it (TDK, 2026-10-29:
   // its PNG already held a screenshot of the same screen, so the overlay showed it twice).
   thumbnailVideo?: {
@@ -52,6 +67,11 @@ export const projects: Project[] = [
       width: 1400,
       height: 1080,
     },
+    sequence: [
+      { kind: "zoom", images: [{ src: "/case-studies/knowunity/knowunity-hero-poster.jpg", width: 1600, height: 900 }], position: "left center" },
+      { kind: "circle", images: [{ src: "/case-studies/knowunity/storybook-hint-ladder.png", width: 1600, height: 1000 }], position: "left top" },
+      { kind: "fan", images: [{ src: "/case-studies/knowunity/hints-after.png", width: 1170, height: 2532 }, { src: "/case-studies/knowunity/reveal-after.png", width: 1170, height: 2532 }, { src: "/case-studies/knowunity/beta-summary-after.png", width: 1170, height: 2532 }], surface: "inverse" },
+    ],
     // Figma 112:101's layers (glow and gradient; phones 112:104, 112:106, 112:105), exported at 2x
     // (2026-10-29). At rest the side phones turn in towards the centre; on hover all three ease
     // straight, the sides fan out and the centre lifts, as on sierrahopkins.com.
@@ -92,6 +112,11 @@ export const projects: Project[] = [
       width: 1362,
       height: 1080,
     },
+    sequence: [
+      { kind: "zoom", images: [{ src: "/case-studies/bloom/bloom-heal-demo-poster.jpg", width: 1280, height: 720 }] },
+      { kind: "circle", images: [{ src: "/case-studies/bloom/v2/iwatch-visuals-2.png", width: 2368, height: 1170 }] },
+      { kind: "fan", images: [{ src: "/case-studies/bloom/phone-home.png", width: 860, height: 2728 }, { src: "/case-studies/bloom/phone-mood.png", width: 860, height: 1864 }, { src: "/case-studies/bloom/phone-metrics.png", width: 860, height: 1864 }], surface: "subtle" },
+    ],
   },
   {
     slug: "wtv-consulting",
@@ -106,6 +131,11 @@ export const projects: Project[] = [
       width: 832,
       height: 606,
     },
+    sequence: [
+      { kind: "zoom", images: [{ src: "/case-studies/wtv/solution-brand-assets-poster.jpg", width: 1184, height: 1080 }], position: "center top" },
+      { kind: "circle", images: [{ src: "/case-studies/wtv/screen-case-study-archive.png", width: 1269, height: 1140 }], position: "center top" },
+      { kind: "rise", images: [{ src: "/case-studies/wtv/dashboard-employee.png", width: 1600, height: 2865 }], position: "center top" },
+    ],
   },
   {
     slug: "tdk-trusted-positioning",
@@ -120,6 +150,11 @@ export const projects: Project[] = [
       width: 832,
       height: 606,
     },
+    sequence: [
+      { kind: "zoom", images: [{ src: "/case-studies/venue/demo-1-poster.jpg", width: 1920, height: 1080 }] },
+      { kind: "circle", images: [{ src: "/case-studies/venue/hero-dashboard.png", width: 3204, height: 2618 }], position: "center top" },
+      { kind: "fan", images: [{ src: "/case-studies/venue/manage-properties.png", width: 2125, height: 2400 }, { src: "/case-studies/venue/summary-page.png", width: 2400, height: 2092 }, { src: "/case-studies/venue/dashboard-lidar-tracking.png", width: 2400, height: 2329 }], surface: "subtle" },
+    ],
     thumbnailVideo: {
       src: "/images/work/tdk-card.mp4",
       poster: "/images/work/tdk-card-poster.jpg",
@@ -142,6 +177,11 @@ export const projects: Project[] = [
       width: 832,
       height: 606,
     },
+    sequence: [
+      { kind: "zoom", images: [{ src: "/case-studies/anewvista/navigating-booking.jpg", width: 1672, height: 941 }] },
+      { kind: "circle", images: [{ src: "/case-studies/anewvista/class-booking-flow-poster.jpg", width: 1600, height: 900 }] },
+      { kind: "rise", images: [{ src: "/case-studies/anewvista/decision-4-confirmation.png", width: 1512, height: 1340 }], position: "center top" },
+    ],
     thumbnailVideo: {
       src: "/images/work/anewvista-card.mp4",
       poster: "/images/work/anewvista-card-poster.jpg",

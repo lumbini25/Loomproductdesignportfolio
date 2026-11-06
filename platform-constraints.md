@@ -101,6 +101,7 @@ Filled in as we go. Nothing autoplays until it is marked "Yes" here.
 | Bloom and Heal demo film (`bloom-heal-demo.mp4`, 40 s, 1280x720, 8.3 MB, has a soundtrack) | Bloom and Heal case study, hero | No | Nov 2: stays press-to-play, with sound; poster first. |
 | TDK demos (`demo-1` to `demo-3`), WTV solution clips (3), Knowunity hint ladder clip (in the Knowunity hero since Nov 4) | Their case studies | Yes (Nov 2, Lumbini: "all the videos") | All silent. Muted, looping, poster, pause control; pause off screen; reduced motion shows the poster. |
 | Bloom and Heal pinned device clips | Bloom and Heal case study | Yes | The active step plays, muted. |
+| Home card films (`CardSequence`, three case-study screens per card, about 4 s) | Home, over every card thumbnail | Yes, once (Nov 6, Lumbini: "once on scroll, then rest") | Not video. Plays once when half the card is on screen, again on pointer hover. Under 5 s, so no pause control. Reduced motion and no JavaScript show the thumbnail only. |
 | All other media | | Open | Not yet reviewed. I need the files and what each one shows |
 
 ---

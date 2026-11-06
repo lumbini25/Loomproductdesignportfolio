@@ -71,7 +71,7 @@ export function PhotoStack({ photos }: { photos: { src: string; alt: string }[] 
               cards.current[i] = el;
             }}
             data-place={place}
-            className="absolute inset-0 overflow-hidden rounded-media shadow-card-hover motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-out"
+            className="absolute inset-0 overflow-hidden rounded-media shadow-card-warm motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-out"
             style={{ transform: places[place], zIndex: photos.length - place }}
           >
             <Image

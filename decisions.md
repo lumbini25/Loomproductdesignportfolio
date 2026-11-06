@@ -110,6 +110,34 @@ lines are replaced. New section options: `smallHeading` (24px heading, not the 4
 visible, heading for screen readers only) and `lede` (paragraphs in the heading group), plus `tight` on a text block (12px
 gaps, as Figma). The "agreed with Knowunity" success criteria are Lumbini's wording; I have no source for them.
 
+### 2026-11-06 — Blue removed from Home, Fun and About; case studies keep theirs
+**Decided by:** Lumbini ("only case studies get to keep their blue").
+Card hover on Home and Fun is now rust: Rust 500 border and ring, title and button (white on Rust
+500, 5.9:1), and a shadow tinted Neutral 0 (`--shadow-card-warm`) in place of the navy one, also on
+the Home photo stack. The Fun motion tile is Beige 600, not light blue (`--motion-tile` removed).
+`--color-secondary` (blue) and `--shadow-card-hover` stay for the case studies. The WTV card's navy
+fill is WTV's own thumbnail colour, so it stays.
+**Because:** the site's own colours are beige and rust; blue now appears only inside case studies.
+
+### 2026-11-06 — Bloom watch visual re-exported from Figma 323:1375
+**Decided by:** Lumbini (the watch was not aligned). `bloom/v2/iwatch-visuals-2.png` re-exported at
+2x from the current frame; the Bloom card film's circle scene uses it too, in place of `watch-wrist.jpg`.
+
+### 2026-11-06 — Home cards play a short film of their case study when they scroll into view
+**Decided by:** Lumbini (after "Case study card animation.mov"; chose all five cards, existing
+case-study images, and once on scroll).
+Each card plays three real screens from its own case study over its thumbnail: a zoom-in, a circle
+wipe from the top-right corner, then either three screens dealt out from a stack (`fan`) or one
+screen growing from a small card to fill the frame (`rise`). At 3.4 s the film fades and the
+thumbnail rests, so TDK's and ANVCS's recordings and Knowunity's layered hover are unchanged.
+Pointing at the card plays it again. Scenes are listed per project in `content/projects.ts`
+(`sequence`); `components/CardSequence.tsx`; `.card-film` in `globals.css`.
+**Because:** it shows more of each project in the 60-second scan without adding a control. About
+4 s, so no pause button is needed (WCAG 2.2.2). The layer is decorative (`aria-hidden`; the
+thumbnail alt describes the card), lets clicks through, and is not drawn under reduced motion or
+without JavaScript.
+TODO: the screens are Claude's pick from `public/case-studies`; Lumbini to confirm each card's three.
+
 ### 2026-11-05 — Knowunity problem rings corrected to Figma 331:1490 (replaces the positions in the entry below)
 **Decided by:** Lumbini ("the places you highlight are not the right ones"). I had used the numbered circles of the older
 frame; the right frame has three screens, each with its own ellipse: the "Almost there" chip and first line (screen 1), the

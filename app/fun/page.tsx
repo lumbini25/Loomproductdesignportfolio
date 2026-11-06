@@ -23,13 +23,13 @@ export default function FunPage() {
       <Container className="flex flex-col gap-8 py-6 tablet:pb-18">
         <ul className="grid grid-cols-1 gap-4 tablet:grid-cols-3">
           {fun.experiments.map((item) => (
-            <li key={item.title} className="flex min-w-0 flex-col gap-5 rounded-card bg-surface-subtle p-4 ring-2 ring-transparent ring-inset hover:shadow-card-hover hover:ring-secondary has-[:focus-visible]:ring-secondary motion-safe:transition-shadow tablet:pb-7 desktop:min-h-[610px]">
+            <li key={item.title} className="flex min-w-0 flex-col gap-5 rounded-card bg-surface-subtle p-4 ring-2 ring-transparent ring-inset hover:shadow-card-warm hover:ring-accent has-[:focus-visible]:ring-accent motion-safe:transition-shadow tablet:pb-7 desktop:min-h-[610px]">
               {"video" in item && item.video ? (
                 // Figma "motion tile": a phone-width video cropped inside a 395×300 panel.
                 <VideoPlayer
                   video={item.video}
                   className="h-[300px] w-full rounded-media bg-surface-motion tablet:aspect-[395/300] tablet:h-auto desktop:aspect-auto desktop:h-[300px]"
-                  videoClassName="absolute top-[13.3%] left-[29.9%] h-auto w-[61.3%] rounded-t-card shadow-card-hover tablet:left-[24.7%] tablet:w-[50.6%]"
+                  videoClassName="absolute top-[13.3%] left-[29.9%] h-auto w-[61.3%] rounded-t-card shadow-card-warm tablet:left-[24.7%] tablet:w-[50.6%]"
                   compact
                 />
               ) : (

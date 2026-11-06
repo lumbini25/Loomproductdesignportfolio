@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { buttonClasses } from "@/components/Button";
+import { CardSequence } from "@/components/CardSequence";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Tags } from "@/components/Tags";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import type { Project } from "@/content/projects";
 
 // Figma "Project card" (43:166), Default and Hover. The whole card is clickable through the
-// button's stretched link; keyboard focus gets the same blue treatment as hover. Always image over
+// button's stretched link; keyboard focus gets the same rust treatment as hover (blue until 2026-11-06). Always image over
 // text. The image band is 366:200 (carmen-elena.space/work, Lumbini 2026-11-02). Bloom's thumbnail is
 // centred and cropped to it. WTV's and Anewvista's have a flat background, so the whole thumbnail is
 // scaled to the band's height with that colour filling the sides, and nothing is cropped (Lumbini,
@@ -18,10 +19,10 @@ const FIT: Record<string, string> = {
   anewvista: "bg-thumb-anewvista",
 };
 export function ProjectCard({ project }: { project: Project }) {
-  const hover = "group-hover:text-secondary group-has-[:focus-visible]:text-secondary";
+  const hover = "group-hover:text-accent group-has-[:focus-visible]:text-accent";
   const fitBg = FIT[project.slug];
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-card border-2 border-transparent bg-surface-subtle hover:border-secondary hover:shadow-card-hover has-[:focus-visible]:border-secondary motion-safe:transition-[border-color,box-shadow]">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-card border-2 border-transparent bg-surface-subtle hover:border-accent hover:shadow-card-warm has-[:focus-visible]:border-accent motion-safe:transition-[border-color,box-shadow]">
       {/* One wrapper zooms on hover, so an image and the recording laid over it move together. */}
       <div className={`relative aspect-[366/200] overflow-hidden rounded-card ${fitBg ?? ""}`}>
         <div className="absolute inset-0 motion-safe:transition-transform motion-safe:duration-300 group-hover:scale-[1.06]">
@@ -76,6 +77,9 @@ export function ProjectCard({ project }: { project: Project }) {
               )}
             </div>
           )}
+          {project.sequence && (
+            <CardSequence scenes={project.sequence} sizes="(min-width: 1200px) 416px, (min-width: 834px) 100vw, 358px" />
+          )}
         </div>
       </div>
       <div className="flex flex-1 flex-col px-6 pt-5 pb-6">
@@ -92,7 +96,7 @@ export function ProjectCard({ project }: { project: Project }) {
             href={`/work/${project.slug}`}
             className={buttonClasses(
               "secondary",
-              "w-full after:absolute after:inset-0 group-hover:bg-secondary group-has-[:focus-visible]:bg-secondary",
+              "w-full after:absolute after:inset-0 group-hover:bg-primary group-has-[:focus-visible]:bg-primary",
               false,
             )}
           >
