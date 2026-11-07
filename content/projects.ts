@@ -115,7 +115,7 @@ export const projects: Project[] = [
     sequence: [
       { kind: "zoom", images: [{ src: "/case-studies/bloom/bloom-heal-demo-poster.jpg", width: 1280, height: 720 }] },
       { kind: "circle", images: [{ src: "/case-studies/bloom/v2/iwatch-visuals-2.png", width: 2368, height: 1170 }] },
-      { kind: "fan", images: [{ src: "/case-studies/bloom/phone-home.png", width: 860, height: 2728 }, { src: "/case-studies/bloom/phone-mood.png", width: 860, height: 1864 }, { src: "/case-studies/bloom/phone-metrics.png", width: 860, height: 1864 }], surface: "subtle" },
+      { kind: "fan", images: [{ src: "/case-studies/bloom/film-health-metrics.png", width: 860, height: 2002 }, { src: "/case-studies/bloom/film-appointment-confirmed.png", width: 860, height: 1864 }, { src: "/case-studies/bloom/film-sign-up.png", width: 860, height: 1864 }], surface: "subtle" },
     ],
   },
   {

@@ -8,7 +8,9 @@ import { VideoPlayer } from "@/components/VideoPlayer";
 import type { Project } from "@/content/projects";
 
 // Figma "Project card" (43:166), Default and Hover. The whole card is clickable through the
-// button's stretched link; keyboard focus gets the same rust treatment as hover (blue until 2026-11-06). Always image over
+// button's stretched link. Figma "Project card states" (153:250): hover is a Primary subtle border
+// (Lumbini, 2026-11-07), a warm shadow and a softer button; keyboard focus is a Title border with
+// the button's rust focus ring. Always image over
 // text. The image band is 366:200 (carmen-elena.space/work, Lumbini 2026-11-02). Bloom's thumbnail is
 // centred and cropped to it. WTV's and Anewvista's have a flat background, so the whole thumbnail is
 // scaled to the band's height with that colour filling the sides, and nothing is cropped (Lumbini,
@@ -19,10 +21,9 @@ const FIT: Record<string, string> = {
   anewvista: "bg-thumb-anewvista",
 };
 export function ProjectCard({ project }: { project: Project }) {
-  const hover = "group-hover:text-accent group-has-[:focus-visible]:text-accent";
   const fitBg = FIT[project.slug];
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-card border-2 border-transparent bg-surface-subtle hover:border-accent hover:shadow-card-warm has-[:focus-visible]:border-accent motion-safe:transition-[border-color,box-shadow]">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-card border-2 border-transparent bg-surface-subtle hover:border-primary-subtle hover:shadow-card-warm has-[:focus-visible]:border-title motion-safe:transition-[border-color,box-shadow]">
       {/* One wrapper zooms on hover, so an image and the recording laid over it move together. */}
       <div className={`relative aspect-[366/200] overflow-hidden rounded-card ${fitBg ?? ""}`}>
         <div className="absolute inset-0 motion-safe:transition-transform motion-safe:duration-300 group-hover:scale-[1.06]">
@@ -85,7 +86,7 @@ export function ProjectCard({ project }: { project: Project }) {
       <div className="flex flex-1 flex-col px-6 pt-5 pb-6">
         <div className="flex flex-col gap-2.5">
           <Eyebrow>{project.eyebrow}</Eyebrow>
-          <h4 className={`font-jakarta text-h3-mobile font-bold text-title motion-safe:transition-colors tablet:text-title-s ${hover}`}>
+          <h4 className={`font-jakarta text-h3-mobile font-bold text-title tablet:text-title-s`}>
             {project.title}
           </h4>
           <p className="font-jakarta text-body-s text-caption">{project.descriptor}</p>
@@ -96,7 +97,7 @@ export function ProjectCard({ project }: { project: Project }) {
             href={`/work/${project.slug}`}
             className={buttonClasses(
               "secondary",
-              "w-full after:absolute after:inset-0 group-hover:bg-primary group-has-[:focus-visible]:bg-primary",
+              "w-full after:absolute after:inset-0 group-hover:bg-surface-inverse-hover",
               false,
             )}
           >

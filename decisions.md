@@ -110,6 +110,16 @@ lines are replaced. New section options: `smallHeading` (24px heading, not the 4
 visible, heading for screen readers only) and `lede` (paragraphs in the heading group), plus `tight` on a text block (12px
 gaps, as Figma). The "agreed with Knowunity" success criteria are Lumbini's wording; I have no source for them.
 
+### 2026-11-07 — Interactive card hover follows Figma "Project card states" (153:250), in Primary subtle
+**Decided by:** Lumbini ("use Primary subtle #CF6E58 as the hover state of the interactive cards").
+Home cards, the featured card and Fun cards. Hover: 2px Primary subtle border (`--rust-300`,
+`--color-primary-subtle`; Figma draws Rust 500, Lumbini chose the lighter one), the Figma hover
+shadow (0 12 28 -6, Neutral 0 at 16%), title stays Title, button turns Surface inverse hover.
+Keyboard focus: 2px Title border, and the button keeps its 2px Rust 500 focus ring. Replaces the
+rust title and rust button of 2026-11-06.
+**Because:** a quieter hover that matches the component. The border is 3.1:1 on Beige 500, above
+the 3:1 for a non-text indicator; focus does not rely on it.
+
 ### 2026-11-06 — Blue removed from Home, Fun and About; case studies keep theirs
 **Decided by:** Lumbini ("only case studies get to keep their blue").
 Card hover on Home and Fun is now rust: Rust 500 border and ring, title and button (white on Rust

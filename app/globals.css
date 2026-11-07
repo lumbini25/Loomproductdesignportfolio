@@ -12,6 +12,7 @@
   --neutral-0: #110d09;
   --rust-500: #bb3010;
   --rust-600: #a11700;
+  --rust-300: #cf6e58; /* "Primary subtle" (Lumbini, 2026-11-07) */
   --beige-500: #f6f2ee;
   --beige-600: #dcd8d4;
   --beige-700: #a9a5a1; /* "Beige 700" */
@@ -148,7 +149,7 @@
 
   --shadow-card: 0 2px 6px rgb(26 38 77 / 0.12); /* TODO: no Figma token; soft card, Bloom 443:2690 */
   --shadow-card-hover: 0 16px 32px -8px rgb(26 38 77 / 0.18); /* TODO: no Figma token */
-  --shadow-card-warm: 0 16px 32px -8px rgb(17 13 9 / 0.18); /* TODO: no Figma token; Home, Fun and About, tinted Neutral 0 not navy */
+  --shadow-card-warm: 0 12px 28px -6px rgb(17 12 8 / 0.16); /* TODO: no Figma token; Project card Hover (153:269) */
   --shadow-mockup: 0 28px 48px rgb(26 8 77 / 0.6); /* TODO: no Figma token; phone drop shadow in the Knowunity thumbnail (112:104) */
 }
 
@@ -169,6 +170,7 @@
   --color-surface-inverse-hover: var(--beige-1000); /* Greyscale/surface/inverse-hover */
   --color-primary: var(--rust-500); /* Primary/background */
   --color-primary-hover: var(--rust-600); /* Primary/background-hover */
+  --color-primary-subtle: var(--rust-300); /* Primary subtle: the interactive card hover border */
   --color-line: var(--theme-line); /* TODO: no semantic token; tags and rules */
   --color-surface-sky: var(--theme-surface-sky); /* TODO: no semantic token; motion tile on Fun */
   --color-surface-bloom: var(--bloom-50); /* Project/Bloom/surface */
