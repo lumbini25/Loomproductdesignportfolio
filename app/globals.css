@@ -193,6 +193,9 @@
 
   --font-sans: var(--font-nunito-sans);
   --font-jakarta: var(--font-plus-jakarta-sans);
+  /* Button labels: Plus Jakarta SemiBold on every page (Lumbini, 2026-11-08). Points at
+     --font-heading, which .case-study does not re-point to DM Sans. */
+  --font-button: var(--font-heading);
   --font-dm: var(--font-dm-sans);
   --font-serif: var(--font-libre-baskerville);
 }

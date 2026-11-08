@@ -9,7 +9,7 @@ import type { Project } from "@/content/projects";
 
 // The one horizontal card in Home's Featured panel: image and text in equal halves from 834, image
 // over text below (proportions from carmen-elena.space/work, Lumbini 2026-11-02). Hover and
-// keyboard focus match the Project card states (153:250): Primary subtle border, warm shadow and softer button on hover, Title border on focus,
+// keyboard focus match the Project card states (153:250): Primary subtle border, warm shadow and Rust 600 button on hover, Title border on focus,
 // image zooms slightly.
 export function FeaturedProject({ project, preload }: { project: Project; preload?: boolean }) {
   return (
@@ -46,8 +46,8 @@ export function FeaturedProject({ project, preload }: { project: Project; preloa
           <Link
             href={`/work/${project.slug}`}
             className={buttonClasses(
-              "secondary",
-              "w-full after:absolute after:inset-0 group-hover:bg-surface-inverse-hover",
+              "primary",
+              "w-full after:absolute after:inset-0 group-hover:bg-primary-hover",
               false,
             )}
           >

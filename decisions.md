@@ -110,6 +110,52 @@ lines are replaced. New section options: `smallHeading` (24px heading, not the 4
 visible, heading for screen readers only) and `lede` (paragraphs in the heading group), plus `tight` on a text block (12px
 gaps, as Figma). The "agreed with Knowunity" success criteria are Lumbini's wording; I have no source for them.
 
+### 2026-11-08 — About hero follows bobbyiscreative.com
+**Decided by:** Lumbini ("for about me page hero section follow Bobby's style"). The whole portrait, tilted 2°
+with the warm card shadow, on the left; "About me" at H1 (56/48, H1 Mobile on phones) level with its top; the
+story; one row with "Check my resume" and round 48px LinkedIn and email buttons (Phosphor EnvelopeSimple added);
+then "I love…" at every width (was phone only), where Bobby has his embroidered patches. Phones stack it,
+portrait first and centred, as Bobby's. Lumbini's museum tickets stand in for the patches: one overlapping row at the
+bottom of the text block (Panthéon, Louvre pyramid, Musée Delacroix), each tilted, sized by width on phones (row at most 320px) and 160px tall
+from 834, as Bobby's patch row (Lumbini; they first sat on the portrait's corners). Cut flat from her photos (IMG_2950, 2953, 2954) into `public/images/about/tickets/`; the ticket backs
+(barcodes, ticket numbers) are left out. From 834 the portrait is sticky (32px from the top), so it stays beside
+the story while the longer text is read (Lumbini).
+Headings "Featured", "All projects" and Bloom's soft-card titles now step 16 → 18 (H3 Mobile, then Subtitle S),
+and the soft-card body 14 → 18, so phones keep the heading above the body.
+
+### 2026-11-08 — About: whole portrait, side by side from 834
+**Reversal of** 2026-11-04 "About stacks below 1200". **Decided by:** Lumbini ("fit the whole image… do the same for
+all small screens"; "from 834px width screens the image and text should position side by side and you should show
+the full image"). The portrait is never cropped. Phones: stacked, 320px tall, its width following. From 834: two
+columns, the portrait in the 1440 proportion (440 of 1312), its height following (389px at 834, 648px at 1440).
+The 720px text cap from earlier today is dropped, as the column is now narrower than that.
+
+### 2026-11-08 — Top nav marks the current page; buttons get a pressed state
+**Decided by:** Lumbini (Figma "top nav componenets" 512:3169 and "Button / Mobile" 373:1770; "bind them with nearest
+semantic tokens").
+- **Nav:** links are Greyscale/Text/Subtitle; the link for the page you are on is Primary/Text/Body (Rust 500), as in
+  variants 2–4. Home is Default (nothing marked); Work is marked on every case study (`aria-current="true"`), About and
+  Fun & experiments on their own pages (`aria-current="page"`). The same rust marks it in the phone menu. Resume is underlined
+  on every page except Fun & experiments, as variant 4 draws it (Lumbini: "it's not a slip").
+- **Pressed** (373:1770, Pressed variants): Primary keeps its Rust 500 fill and gains a 1px Primary/border/darker
+  border, drawn inset. Outline drops its hover fill and gains the same border. The dark secondary ("Read the case
+  study") has no Figma pressed state and keeps its hover fill. Focus stays CLAUDE.md's 2px Rust 500 ring with a 2px gap.
+- **One button set at every width** (Lumbini: "use same button styles across the breakpoints"): "Button / Mobile"
+  (373:1770). Secondary is white (`surface`), a 1.5px Primary border, Primary text (`accent`); hover fill Rust 25,
+  bound to `surface-subtle`; pressed: Title border, no fill. The dark Secondary of the desktop set (90:2039) and the
+  hand-drawn "Outline" type are no longer used, and the phone-only padding on "Check my resume" and "Copy email" is gone.
+- **Which button is Primary** (Lumbini: "make the buttons inside the case study cards primary"; the rest is my
+  call, one Primary per area for its main action): "Read the case study" on every Home card, "Check my resume" on
+  About, "Copy email" in the footer and "See the work" on the 404 page are Primary. The nav's Contact is Secondary,
+  because it is on every page; "More about me" on Home is Secondary. Card hover turns its button Rust 600.
+- **Tokens not added:** Primary/border/darker (`#550000`) is bound to `--color-title` (`#110d09`), and Rust 25
+  (`#f8eae7`, mobile Secondary hover) to `--color-surface-subtle`, the nearest semantic tokens.
+- **Button labels:** Plus Jakarta SemiBold on every button and page, through a new `--font-button` that points at
+  `--font-heading`, so case studies no longer turn it into DM Sans. Figma 373:1770 draws DM Sans; Lumbini chose
+  Plus Jakarta. The outline button was Nunito Bold, and the phone "Copy email" button DM Sans Regular; both follow.
+- **Contrast caveat:** the current nav item differs from the others by colour only. Rust 500 against Subtitle is
+  under 3:1, which WCAG 1.4.1 asks of a colour-only cue. TODO: Lumbini to decide whether to add a second cue.
+
 ### 2026-11-07 — Interactive card hover follows Figma "Project card states" (153:250), in Primary subtle
 **Decided by:** Lumbini ("use Primary subtle #CF6E58 as the hover state of the interactive cards").
 Home cards, the featured card and Fun cards. Hover: 2px Primary subtle border (`--rust-300`,

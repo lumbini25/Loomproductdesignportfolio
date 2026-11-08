@@ -508,7 +508,7 @@ export function BlockView({ block }: { block: Block }) {
                   ) : (
                     <>
                       {label && <Eyebrow>{label}</Eyebrow>}
-                      {title && <Title className={block.look === "soft" ? "text-subtitle-s font-semibold text-title" : "text-title-s font-bold text-title"}>{title}</Title>}
+                      {title && <Title className={block.look === "soft" ? "text-h3-mobile font-semibold text-title tablet:text-subtitle-s" : "text-title-s font-bold text-title"}>{title}</Title>}
                     </>
                   )}
                   {text &&
@@ -517,7 +517,7 @@ export function BlockView({ block }: { block: Block }) {
                         <Rich text={text} />
                       </blockquote>
                     ) : (
-                      <p className={block.look === "soft" ? "text-subtitle-s text-caption" : "text-body-m text-caption"}>
+                      <p className={block.look === "soft" ? "text-mobile-body-1 text-caption tablet:text-subtitle-s" : "text-body-m text-caption"}>
                         <Rich text={text} />
                       </p>
                     ))}

@@ -14,8 +14,17 @@ export const about = {
     width: 880,
     height: 1328,
   },
+  // Lumbini's own museum tickets, photographed on a table and cut out flat (IMG_2950, 2953, 2954;
+  // 2026-11-08). They stand in for Bobby Shaw's patches. Decorative: the
+  // story and "I love… Visiting museums" say it in words. The ticket backs are not used: they carry
+  // barcodes and ticket numbers. They close the text block in one row (Lumbini, 2026-11-08).
+  tickets: [
+    { src: "/images/about/tickets/pantheon.jpg", width: 800, height: 514 },
+    { src: "/images/about/tickets/pyramid.jpg", width: 512, height: 800 },
+    { src: "/images/about/tickets/delacroix.jpg", width: 521, height: 800 },
+  ],
   resumeCta: "Check my resume",
-  // Phone only (Figma 336:1768).
+  // Figma 336:1768 (phone); at every width since 2026-11-08, in the place of Bobby's patches.
   lovesHeading: "I love…",
   loves: [
     "Writing about my product design experience",

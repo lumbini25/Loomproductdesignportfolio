@@ -52,13 +52,13 @@ export default function Home() {
         <Container className="flex flex-col gap-6">
           <SectionHeading id="work-heading" title={home.work.heading} />
           <section aria-labelledby="featured-heading" className="flex flex-col gap-4 rounded-featured bg-surface-inverse p-4 tablet:p-6">
-            <h3 id="featured-heading" className="font-jakarta text-subtitle-s font-semibold text-on-inverse">
+            <h3 id="featured-heading" className="font-jakarta text-h3-mobile tablet:text-subtitle-s font-semibold text-on-inverse">
               {home.work.featured}
             </h3>
             <FeaturedProject project={featured} preload />
           </section>
           <section aria-labelledby="all-projects-heading" className="mt-6 flex flex-col gap-3">
-            <h3 id="all-projects-heading" className="font-jakarta text-subtitle-s font-semibold text-title">
+            <h3 id="all-projects-heading" className="font-jakarta text-h3-mobile tablet:text-subtitle-s font-semibold text-title">
               {home.work.all}
             </h3>
             <ul className="grid grid-cols-1 gap-6 desktop:grid-cols-3">
@@ -79,7 +79,7 @@ export default function Home() {
           </h2>
           <div className="flex flex-col items-start gap-5">
             <p className="max-w-[780px] text-body-m text-subtitle">{home.about.body}</p>
-            <ButtonLink href="/about" variant="outline">
+            <ButtonLink href="/about" variant="secondary">
               {home.about.cta}
             </ButtonLink>
           </div>

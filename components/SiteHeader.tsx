@@ -9,11 +9,14 @@ import { gutter, wrapper } from "@/components/Container";
 import { ListIcon, XIcon } from "@/components/icons";
 import { nav, site } from "@/content/site";
 
-// Figma "top nav" (103:2945). Full bar from 834 up; below 834 a 48.6px bar (408:2364) with a 71px
-// logo and a menu button that opens a full-screen panel. Both keep 44px targets, using negative
-// margins so they do not make the bar taller.
+// Figma "top nav componenets" (512:3169). Full bar from 834 up; below 834 a 48.6px bar (408:2364)
+// with a 71px logo and a menu button that opens a full-screen panel. Both keep 44px targets, using
+// negative margins so they do not make the bar taller. The link for the page you are on is Primary
+// text (variants 2–4): Work on a case study, About, Fun & experiments; none on Home (Default).
 export function SiteHeader() {
   const pathname = usePathname();
+  const current = (href: string): "page" | "true" | undefined =>
+    pathname === href ? "page" : href === "/#work" && pathname.startsWith("/work/") ? "true" : undefined;
   const dialog = useRef<HTMLDialogElement>(null);
   const close = () => dialog.current?.close();
 
@@ -26,13 +29,13 @@ export function SiteHeader() {
   }, []);
 
   const textLink =
-    "inline-flex min-h-11 items-center text-subtitle-s text-title hover:text-accent motion-safe:transition-colors";
+    "inline-flex min-h-11 items-center text-subtitle-s text-subtitle hover:text-accent aria-[current]:text-accent motion-safe:transition-colors";
 
   const links = (variant: "bar" | "panel") => {
     const cls =
       variant === "bar"
         ? textLink
-        : "flex min-h-14 items-center text-h3-sm font-bold text-title hover:text-accent";
+        : "flex min-h-14 items-center text-h3-sm font-bold text-title hover:text-accent aria-[current]:text-accent";
     const onClick = variant === "panel" ? close : undefined;
     return (
       <>
@@ -42,7 +45,7 @@ export function SiteHeader() {
               href={item.href}
               className={cls}
               onClick={onClick}
-              aria-current={pathname === item.href ? "page" : undefined}
+              aria-current={current(item.href)}
             >
               {item.label}
             </Link>
@@ -54,7 +57,8 @@ export function SiteHeader() {
               href={site.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={`${cls} underline`}
+              // Underlined everywhere except on Fun & experiments, as in variant 4 (Lumbini, 2026-11-08).
+              className={`${cls} ${pathname === "/fun" ? "" : "underline"}`}
               onClick={onClick}
             >
               Resume<span className="sr-only"> (opens in a new tab)</span>
@@ -64,7 +68,8 @@ export function SiteHeader() {
         <li>
           <a
             href="#contact"
-            className={buttonClasses("primary", variant === "panel" ? "mt-4 w-full" : "")}
+            // Secondary: it is on every page, so each page's own main action keeps the Primary.
+            className={buttonClasses("secondary", variant === "panel" ? "mt-4 w-full" : "")}
             onClick={onClick}
           >
             Contact

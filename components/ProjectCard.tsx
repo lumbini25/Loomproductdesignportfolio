@@ -9,7 +9,7 @@ import type { Project } from "@/content/projects";
 
 // Figma "Project card" (43:166), Default and Hover. The whole card is clickable through the
 // button's stretched link. Figma "Project card states" (153:250): hover is a Primary subtle border
-// (Lumbini, 2026-11-07), a warm shadow and a softer button; keyboard focus is a Title border with
+// (Lumbini, 2026-11-07), a warm shadow and the Primary button turns Rust 600; keyboard focus is a Title border with
 // the button's rust focus ring. Always image over
 // text. The image band is 366:200 (carmen-elena.space/work, Lumbini 2026-11-02). Bloom's thumbnail is
 // centred and cropped to it. WTV's and Anewvista's have a flat background, so the whole thumbnail is
@@ -83,8 +83,9 @@ export function ProjectCard({ project }: { project: Project }) {
           )}
         </div>
       </div>
-      <div className="flex flex-1 flex-col px-6 pt-5 pb-6">
-        <div className="flex flex-col gap-2.5">
+      {/* The same spacing as the featured card's text (FeaturedProject). */}
+      <div className="flex flex-1 flex-col p-6">
+        <div className="flex flex-col gap-3">
           <Eyebrow>{project.eyebrow}</Eyebrow>
           <h4 className={`font-jakarta text-h3-mobile font-bold text-title tablet:text-title-s`}>
             {project.title}
@@ -92,12 +93,12 @@ export function ProjectCard({ project }: { project: Project }) {
           <p className="font-jakarta text-body-s text-caption">{project.descriptor}</p>
           <Tags items={project.tags} label={`Skills: ${project.title}`} />
         </div>
-        <div className="mt-auto pt-5">
+        <div className="mt-auto pt-6">
           <Link
             href={`/work/${project.slug}`}
             className={buttonClasses(
-              "secondary",
-              "w-full after:absolute after:inset-0 group-hover:bg-surface-inverse-hover",
+              "primary",
+              "w-full after:absolute after:inset-0 group-hover:bg-primary-hover",
               false,
             )}
           >
