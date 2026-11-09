@@ -110,6 +110,13 @@ lines are replaced. New section options: `smallHeading` (24px heading, not the 4
 visible, heading for screen readers only) and `lede` (paragraphs in the heading group), plus `tight` on a text block (12px
 gaps, as Figma). The "agreed with Knowunity" success criteria are Lumbini's wording; I have no source for them.
 
+### 2026-11-08 — Card titles sit one step below their section heading
+**Decided by:** Lumbini ("use visual hierarchy in this section, the texts used in the card is too heavy and large").
+Bloom's "Design decisions" cards used Title 1 Bold (24px), the same size as the section heading above them. Card
+titles under a section heading are now Body Semibold S (14px) on phones and Subtitle S (18px) from 834, SemiBold,
+against the heading's 16 / 22 / 24px Bold. Bloom's problem cards (the "soft" look) follow the same rule; they were
+16px on phones.
+
 ### 2026-11-08 — About hero follows bobbyiscreative.com
 **Decided by:** Lumbini ("for about me page hero section follow Bobby's style"). The whole portrait, tilted 2°
 with the warm card shadow, on the left; "About me" at H1 (56/48, H1 Mobile on phones) level with its top; the

@@ -501,14 +501,16 @@ export function BlockView({ block }: { block: Block }) {
                   }
                 >
                   {(block.numberInline || block.look === "rows") && label && title ? (
+                    // One step below the section heading (Title 1 Bold), as the case study's other card
+                    // titles: Body Semibold S (14) on phones, Subtitle S (18) from 834 (Lumbini, 2026-11-08).
                     <div className="flex items-baseline gap-3">
                       <Eyebrow>{label}</Eyebrow>
-                      <Title className="text-title-s font-bold text-title">{title}</Title>
+                      <Title className="text-body-semibold-s font-semibold text-title tablet:text-subtitle-s">{title}</Title>
                     </div>
                   ) : (
                     <>
                       {label && <Eyebrow>{label}</Eyebrow>}
-                      {title && <Title className={block.look === "soft" ? "text-h3-mobile font-semibold text-title tablet:text-subtitle-s" : "text-title-s font-bold text-title"}>{title}</Title>}
+                      {title && <Title className={block.look === "soft" ? "text-body-semibold-s font-semibold text-title tablet:text-subtitle-s" : "text-title-s font-bold text-title"}>{title}</Title>}
                     </>
                   )}
                   {text &&
