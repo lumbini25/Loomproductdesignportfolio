@@ -203,6 +203,8 @@ export const anewvista: CaseStudy = {
         },
         {
           kind: "quote",
+          // A participant's words, set as Knowunity's participant quote (Lumbini, 2026-11-09).
+          look: "title",
           text: "Starting out is difficult for those who are just beginning and not using technology regularly.",
           cite: "Long-time member, survey response",
         },

@@ -117,6 +117,29 @@ titles under a section heading are now Body Semibold S (14px) on phones and Subt
 against the heading's 16 / 22 / 24px Bold. Bloom's problem cards (the "soft" look) follow the same rule; they were
 16px on phones.
 
+### 2026-11-09 — Anewvista's type follows Bloom and Knowunity
+**Decided by:** Lumbini ("use the same type hierarchy you have used in Bloom and Heal and Knowunity").
+Measured on the rendered pages at 1440 and 390. Three places broke the shared scale and now follow it:
+- Journey cards: the body (20px) was larger than its 18px title. It is now the same size as the title,
+  in caption colour, as Bloom's decision cards: Mobile Body 1 (14px) on phones, Subtitle S (18px) from 834.
+- Panels (persona, challenges, motivations; the survey panels): 24px Bold titles over 16px bullets.
+  They now use the card-title rule of 2026-11-08 and the body above. This also changes TDK's one panel.
+- The participant quote was set like body text; it now uses the "title" look of Knowunity's participant quote.
+Also: the journey numbers never wrap ("0" / "1"), 8px from their title; three panels share one row from 1200.
+
+### 2026-11-09 — WTV and TDK type follows the same scale
+**Decided by:** Lumbini ("run the same test for WTV and TDK case studies and match those with the other case studies").
+Measured at 1440 and 390 against Bloom, Knowunity and Anewvista:
+- WTV "My role": the "/01" numbers were 24px Bold, as large as the "My role" heading, over 16px items. The
+  numbers are now eyebrows ("01", 12px Rust, tabular figures) as on Anewvista's journey cards, and the items
+  body size (20px; 14px on phones). This departs from Figma 137:109's numbering.
+- WTV participant quote cards: 24px Bold titles over 20px quotes. Now the card-title rule (18 / 14 SemiBold)
+  with the quote at the same size.
+- WTV stakeholder quotes ("box" look): SemiBold DM Sans; now Bold Plus Jakarta, as every other quote.
+- TDK constraint tiles: 20px SemiBold, the weight of a title for a list of facts. Now 18px regular as
+  Bloom's tiles (14px on phones).
+Kept: WTV's "Overview" label heading (as Knowunity's "Context"), image captions, the at-a-glance block.
+
 ### 2026-11-08 — About hero follows bobbyiscreative.com
 **Decided by:** Lumbini ("for about me page hero section follow Bobby's style"). The whole portrait, tilted 2°
 with the warm card shadow, on the left; "About me" at H1 (56/48, H1 Mobile on phones) level with its top; the

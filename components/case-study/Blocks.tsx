@@ -442,7 +442,8 @@ export function BlockView({ block }: { block: Block }) {
         <figure>
           <ul className="grid grid-cols-2 gap-3 tablet:grid-cols-3">
             {block.items.map((item) => (
-              <li key={item} className="rounded-media border border-line bg-surface p-5 text-body-m font-semibold text-title">
+              // 18px regular from 834, as Bloom's tiles; 14px on phones (Lumbini, 2026-11-09).
+              <li key={item} className="rounded-media border border-line bg-surface p-5 text-mobile-body-1 text-title tablet:text-subtitle-s">
                 {item}
               </li>
             ))}
@@ -491,6 +492,9 @@ export function BlockView({ block }: { block: Block }) {
               const label = steps ? `${block.label} ${i + 1}` : numbered ? String(i + 1).padStart(2, "0") : labelOnly ? item.title : undefined;
               const title = steps || labelOnly ? undefined : item.title;
               const text = steps ? item.title : item.body;
+              // Card titles one step below the section heading, the body the same size, never larger
+              // (Lumbini, 2026-11-08 and 2026-11-09). The participant quotes on WTV follow it too.
+              const small = block.look === "soft" || block.look === "quotes" || block.look === "rows" || block.numberInline;
               return (
                 <li
                   key={item.title}
@@ -503,23 +507,25 @@ export function BlockView({ block }: { block: Block }) {
                   {(block.numberInline || block.look === "rows") && label && title ? (
                     // One step below the section heading (Title 1 Bold), as the case study's other card
                     // titles: Body Semibold S (14) on phones, Subtitle S (18) from 834 (Lumbini, 2026-11-08).
-                    <div className="flex items-baseline gap-3">
-                      <Eyebrow>{label}</Eyebrow>
+                    // The number never shrinks or breaks, so "01" stays on one line in narrow cards; 8px to
+                    // its title (Lumbini, 2026-11-09).
+                    <div className="flex items-baseline gap-2">
+                      <Eyebrow className="shrink-0 whitespace-nowrap tabular-nums">{label}</Eyebrow>
                       <Title className="text-body-semibold-s font-semibold text-title tablet:text-subtitle-s">{title}</Title>
                     </div>
                   ) : (
                     <>
                       {label && <Eyebrow>{label}</Eyebrow>}
-                      {title && <Title className={block.look === "soft" ? "text-body-semibold-s font-semibold text-title tablet:text-subtitle-s" : "text-title-s font-bold text-title"}>{title}</Title>}
+                      {title && <Title className={small ? "text-body-semibold-s font-semibold text-title tablet:text-subtitle-s" : "text-title-s font-bold text-title"}>{title}</Title>}
                     </>
                   )}
                   {text &&
                     (block.look === "quotes" ? (
-                      <blockquote className="text-body-m text-caption italic">
+                      <blockquote className="text-mobile-body-1 text-caption italic tablet:text-subtitle-s">
                         <Rich text={text} />
                       </blockquote>
                     ) : (
-                      <p className={block.look === "soft" ? "text-mobile-body-1 text-caption tablet:text-subtitle-s" : "text-body-m text-caption"}>
+                      <p className={small ? "text-mobile-body-1 text-caption tablet:text-subtitle-s" : "text-body-m text-caption"}>
                         <Rich text={text} />
                       </p>
                     ))}
@@ -548,7 +554,8 @@ export function BlockView({ block }: { block: Block }) {
       if (block.look === "box")
         return (
           <figure className="rounded-card bg-surface-subtle p-6">
-            <blockquote className="font-jakarta text-body-m font-semibold text-title">“{block.text}”</blockquote>
+            {/* Bold, as the "title" look: every participant or stakeholder quote in one style (Lumbini, 2026-11-09). */}
+            <blockquote className="font-jakarta text-body-m font-bold text-title">“{block.text}”</blockquote>
             {block.cite && <figcaption className="mt-3 font-jakarta text-body-s text-caption">{block.cite}</figcaption>}
           </figure>
         );
@@ -585,11 +592,15 @@ export function BlockView({ block }: { block: Block }) {
     case "panel":
       return (
         <figure>
-          <div className="stack-fit-2 grid grid-cols-1 gap-4 desktop:grid-cols-2">
+          {/* One row of as many panels as there are columns from 1200, as the other card rows; stacked below
+              (Lumbini, 2026-11-09). */}
+          <div className={`grid grid-cols-1 items-stretch gap-4 ${block.columns.length === 3 ? "stack-fit-3 desktop:grid-cols-3" : "stack-fit-2 desktop:grid-cols-2"}`}>
             {block.columns.map((col) => (
+              // Card title and body as Bloom's decision cards: one step below the section heading, the
+              // body the same size in caption colour (Lumbini, 2026-11-09).
               <div key={col.title} className="rounded-card bg-surface-subtle p-6">
-                <h3 className="font-jakarta text-title-xs font-bold">{col.title}</h3>
-                <ul className="mt-3 flex list-disc flex-col gap-1.5 pl-5 font-jakarta text-body-s text-caption">
+                <h3 className="text-body-semibold-s font-semibold text-title tablet:text-subtitle-s">{col.title}</h3>
+                <ul className="mt-3 flex list-disc flex-col gap-1.5 pl-5 text-mobile-body-1 text-caption tablet:text-subtitle-s">
                   {col.items.map((item) => (
                     <li key={item}>{item}</li>
                   ))}

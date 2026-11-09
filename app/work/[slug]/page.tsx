@@ -43,11 +43,15 @@ function RoleBox({ id, title, items }: { id?: string; title: string; items: stri
       <h2 id={id} className="text-title-s font-bold">
         {title}
       </h2>
-      <ol className="flex flex-col gap-1">
+      {/* Numbered as the journey cards: an eyebrow number beside body text, so the number no longer
+          competes with the heading (Lumbini, 2026-11-09). */}
+      <ol className="flex flex-col gap-2">
         {items.map((item, i) => (
-          <li key={item.slice(0, 32)} className="font-jakarta text-body-s text-title">
-            <span className="mr-2 font-sans text-title-s font-bold">/{String(i + 1).padStart(2, "0")}</span>
-            <Rich text={item} />
+          <li key={item.slice(0, 32)} className="flex items-baseline gap-2 text-body-m text-title">
+            <Eyebrow className="shrink-0 whitespace-nowrap tabular-nums">{String(i + 1).padStart(2, "0")}</Eyebrow>
+            <span className="min-w-0">
+              <Rich text={item} />
+            </span>
           </li>
         ))}
       </ol>
