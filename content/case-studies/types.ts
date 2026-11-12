@@ -48,6 +48,9 @@ export type Block =
   // One video beside a title and a short text; `side` puts the video left or right from 834 up.
   | { kind: "feature"; video: Video; title: string; text: string; side: "left" | "right" }
   // `bare`: full column width with no mat, whatever the video's shape (WTV, as on Framer).
+  // A live coded prototype, running in a phone frame. `width` × `height` is the phone screen it is
+  // drawn for; `linkLabel` opens it full size in a new tab.
+  | { kind: "prototype"; src: string; title: string; width: number; height: number; caption?: string; linkLabel: string }
   // `hero`: the study's lead film, shown 16:9 in HeroMedia (at most 70vh tall).
   | {
       kind: "video";

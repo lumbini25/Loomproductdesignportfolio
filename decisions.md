@@ -140,6 +140,17 @@ Measured at 1440 and 390 against Bloom, Knowunity and Anewvista:
   Bloom's tiles (14px on phones).
 Kept: WTV's "Overview" label heading (as Knowunity's "Context"), image captions, the at-a-glance block.
 
+### 2026-11-11 — Bloom and Heal: shipped, with its live prototype in a phone
+**Decided by:** Lumbini ("replace academic project with shipped and prototype"; "use a mobile phone wrapper
+around the vercel prototype"; "it's a phone screen, the wrapper should be appropriate to that").
+Status reads "Shipped." with a Prototype link, as Knowunity's. Under the Solution film, a new `prototype` block
+runs bloom-and-heal.vercel.app live in an iframe inside Knowunity's phone bezel, with a drawn status bar
+(9:41, dynamic island, Phosphor signal, wifi and battery) and home indicator in their own strips, so neither
+covers the app. Up to 330px wide in a 390 × 844 shape, never capped by window height: narrower, the
+prototype's own layout breaks. A link opens it full size in a new tab.
+Open: axe fails inside the iframe: the prototype's intro splash is one full-screen button with no name
+(bloom-project, IntroSplash.tsx). TODO: Lumbini to fix it in the prototype (an aria-label such as "Continue").
+
 ### 2026-11-08 — About hero follows bobbyiscreative.com
 **Decided by:** Lumbini ("for about me page hero section follow Bobby's style"). The whole portrait, tilted 2°
 with the warm card shadow, on the left; "About me" at H1 (56/48, H1 Mobile on phones) level with its top; the

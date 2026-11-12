@@ -63,7 +63,8 @@ export const bloom: CaseStudy = {
     { label: "Role", value: "Sole designer" },
     { label: "Timeline", value: "May 2026" },
     { label: "Platform", value: "iOS and Apple Watch" },
-    { label: "Status", value: "Academic Project" },
+    // Lumbini, 2026-11-11: shipped, with the coded prototype linked, as Knowunity's status.
+    { label: "Status", value: "Shipped.", link: { label: "Prototype", href: "https://bloom-and-heal.vercel.app/" } },
   ],
   sections: [
     // Order and copy from Figma 211:1154 (Lumbini, 2026-11-03) and 211:1182 (Lumbini, 2026-11-03): Problem, Solution, Overview with the
@@ -118,6 +119,17 @@ export const bloom: CaseStudy = {
             "Demo film, 40 seconds, with a soft soundtrack. An Apple Watch shows a low HRV notification and the user taps Continue to start a guided reset. The user then picks up their iPhone, opens Bloom & Heal from the lock screen, chooses a therapist, and books a session.",
           ),
           caption: "How the system works.",
+        },
+        {
+          // Lumbini, 2026-11-11: the coded prototype at bloom-and-heal.vercel.app, in a phone frame.
+          // Drawn for a 390 × 844 phone screen.
+          kind: "prototype",
+          src: "https://bloom-and-heal.vercel.app/",
+          title: "Bloom and Heal coded prototype, interactive",
+          width: 390,
+          height: 844,
+          caption: "The coded prototype. Click through it here.",
+          linkLabel: "Open the prototype full size",
         },
       ],
     },

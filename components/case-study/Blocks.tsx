@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { Eyebrow } from "@/components/Eyebrow";
-import { ArrowCounterClockwiseIcon, ArrowRightIcon, CheckCircleIcon } from "@/components/icons";
+import { ArrowCounterClockwiseIcon, ArrowRightIcon, BatteryFullIcon, CellSignalFullIcon, CheckCircleIcon, WifiHighIcon } from "@/components/icons";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { Carousel } from "@/components/case-study/Carousel";
 import { DrawOnView } from "@/components/case-study/DrawOnView";
@@ -244,6 +244,50 @@ export function BlockView({ block }: { block: Block }) {
 
     case "pinned":
       return <PinnedDevice device={block.device} steps={block.steps} />;
+
+    case "prototype":
+      // The live prototype on a phone screen, in the same bezel as Knowunity's recording (Lumbini, 2026-11-11).
+      // The prototype has no status bar or home indicator of its own, so the screen draws them in their own
+      // strips, in an iPhone's proportions (47 and 34 of 844), and the prototype runs between them, as an app
+      // does inside the safe area. Decorative: hidden from screen readers.
+      return (
+        <figure>
+          {/* Its own size, not the phone-image box: up to 330px wide in the screen's shape, never shrunk to fit
+              the window's height. Squeezed narrower, as the 60% or 80vh caps for screenshots did, the
+              prototype's own layout breaks (its button over its illustration). */}
+          <div
+            className="mx-auto overflow-hidden rounded-device border-[12px] border-surface-inverse bg-surface-inverse shadow-card-hover"
+            style={{ width: "min(100%, 330px)", aspectRatio: `${block.width} / ${block.height}` }}
+          >
+              <div className="flex h-full flex-col overflow-hidden rounded-device-screen bg-surface">
+                <div aria-hidden="true" className="relative flex h-[5.6%] shrink-0 items-center justify-between px-[8%] text-title">
+                  <span className="font-dm text-body-semibold-s font-semibold">9:41</span>
+                  <span className="absolute top-[18%] left-1/2 h-[70%] w-[32%] -translate-x-1/2 rounded-pill bg-surface-inverse" />
+                  <span className="flex items-center gap-1">
+                    <CellSignalFullIcon size={14} />
+                    <WifiHighIcon size={14} />
+                    <BatteryFullIcon size={18} />
+                  </span>
+                </div>
+                <iframe src={block.src} title={block.title} loading="lazy" className="block min-h-0 w-full flex-1" />
+                <div aria-hidden="true" className="flex h-[4%] shrink-0 items-center justify-center">
+                  <span className="h-1 w-[35%] rounded-pill bg-surface-inverse" />
+                </div>
+              </div>
+          </div>
+          <div className="mx-auto flex max-w-[720px] flex-col items-center gap-1 pt-3 text-center">
+            {block.caption && <p className="font-jakarta text-body-s text-caption">{block.caption}</p>}
+            <a
+              href={block.src}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 items-center font-dm text-body-semibold-s font-semibold text-accent underline tablet:text-body-s"
+            >
+              {block.linkLabel} (opens in a new tab)
+            </a>
+          </div>
+        </figure>
+      );
 
     case "video":
       return (
