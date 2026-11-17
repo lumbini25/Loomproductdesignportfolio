@@ -48,6 +48,7 @@
   --tdk-50: #eef3fa; /* "TDK/50" */
   --tdk-200: #ccdaef; /* "TDK/200" */
   --green-500: #00770e;
+  --audit-red: #ef4444; /* TODO: no Figma token; the pulsing markers on WTV's old intranet (Begaim's case study) */
 }
 
 @theme {
@@ -943,5 +944,32 @@
 @media (prefers-reduced-motion: reduce) {
   .card-film {
     display: none;
+  }
+}
+
+/* Pulsing markers on an annotated screenshot (WTV's old intranet, after Begaim's case study;
+   Lumbini, 2026-11-17): a red dot where each annotation line meets the screen, with a ring that
+   grows and fades every 2s. Reduced motion keeps the dot and drops the pulse. */
+.pulse-dot {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: var(--audit-red);
+  translate: -50% -50%;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--audit-red) 30%, transparent);
+  pointer-events: none;
+}
+@keyframes pulse-dot {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--audit-red) 55%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 14px color-mix(in srgb, var(--audit-red) 0%, transparent);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .pulse-dot {
+    animation: pulse-dot 2s ease-in-out infinite;
   }
 }

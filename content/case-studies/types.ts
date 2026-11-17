@@ -17,6 +17,9 @@ export type Img = {
   zoom?: boolean;
   // A diagram too dense to read at page size: it opens full size in the lightbox.
   expand?: boolean;
+  // Pulsing dots over an annotated screenshot, in % of its width and height (WTV's old intranet,
+  // after Begaim's case study; Lumbini, 2026-11-17). Decorative: the annotations carry the meaning.
+  markers?: { x: number; y: number }[];
 };
 
 export type Video = {
@@ -247,6 +250,10 @@ export type CaseStudy = {
   // beside a large cover, the role list in a box numbered /01, and 40px section headings.
   // Default is the index layout.
   layout?: "full";
+  // "spacious": more room between and inside blocks (Knowunity, Lumbini 2026-11-17: "a lot of the
+  // content is compact and feels overwhelming"). Sections 128px apart from 1200, blocks 56px, cards
+  // padded 32px. Default is the standard rhythm every other study uses.
+  density?: "spacious";
   // Full layout only. "stacked": title and summary across the full width, cover below
   // (Bloom Figma 176:383). Default is the title beside the cover (WTV).
   hero?: "stacked";

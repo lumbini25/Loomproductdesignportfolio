@@ -80,6 +80,14 @@ export const wtv: CaseStudy = {
               width: 2400,
               height: 1090,
               alt: "The old intranet, annotated: navigation overload in a long sidebar; a role-blind interface where all roles see the same screen; no search anywhere; and no actionable entry point, since the main area is a full-bleed brand splash with no tasks, files or tools.",
+              // Where each annotation line meets its dashed outline: role-blind, navigation overload,
+              // no search, no actionable entry point (Lumbini, 2026-11-17).
+              markers: [
+                { x: 20.3, y: 28.4 },
+                { x: 20.5, y: 59.7 },
+                { x: 73.9, y: 16.3 },
+                { x: 70.0, y: 61.5 },
+              ],
             },
           ],
         },

@@ -24,9 +24,11 @@ const dmSans = DM_Sans({
   subsets: ["latin"],
 });
 
+// Italic too: the Resume title (Lumbini, 2026-11-17).
 const libreBaskerville = Libre_Baskerville({
   variable: "--font-libre-baskerville",
   subsets: ["latin"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {

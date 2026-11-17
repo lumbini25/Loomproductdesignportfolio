@@ -8,6 +8,45 @@ from there.
 
 ---
 
+### 2026-11-17 — Resume is a page — **Reversal of** platform-constraints.md ("Resume is not a page")
+**Decided by:** Lumbini ("can you use this layout for my resume section? right now its a google doc link").
+- `/resume`, after a reference Lumbini shared: a large title, then rows divided by a dark rule, with a spaced
+  label on the left and the content on the right: Profile, Experience, Project, Education, Skills.
+- The top nav, the footer and About's "Check my resume" now open the page. The Google Doc stays one
+  click away from the page ("Google Doc version", opens in a new tab).
+- Copy: the Google Doc as pasted on 2026-11-17, with Lumbini's choices:
+  - TDK's "increasing task completion by 60%" dropped (no source).
+  - "PhD in Social Science", not "History".
+  - Anewvista's "100% increase in annual sponsorship" kept as written. TODO: its source.
+- Title in Libre Baskerville italic, as the reference. `resume.titleFace` switches it to the sans
+  heading for comparison (open choice: serif use).
+- No "Replay": the page has no animation, so the reference's control would do nothing.
+
+### 2026-11-17 — Knowunity gets more room; numbers top-aligned; reflection as cards; WTV pulsing markers
+**Decided by:** Lumbini ("a lot of the content is compact and feels overwhelming … utilize a bit more
+white space"; "the number in the 3rd card is not aligned"; "in the reflection section use the same
+layout you used for the case study slide deck. Do not use wall of texts"; "use the same animation in
+my portfolio wtv case study").
+- **Knowunity only** (`density: "spacious"`): sections 80px apart below 1200 and 128px from 1200
+  (was 64 / 96); blocks inside a section 40 / 48 / 56px (was 32); card grids 24px apart with 32px
+  padding (was 16 and 24); the AI-native panel padded 56px with wider gaps. Other studies keep the
+  standard rhythm. **Because:** Knowunity stacks the most blocks per section.
+- **Number cards, every study:** the number is pinned to the top of the card, so numbers line up when
+  labels wrap to different lengths (Knowunity's "11" sat lower than "22" and "32").
+- **Knowunity reflection:** three cards, a title and one line each, as on the slide deck. Each line
+  comes from the paragraphs it replaces; the dropped detail stays in git history.
+- **WTV old intranet:** four pulsing red dots where each annotation line meets its outline, after
+  Begaim's case study. `--audit-red` (#ef4444) has no Figma token (TODO). Decorative and `aria-hidden`;
+  reduced motion keeps the dots still. Known trade-off, as with the logo cloud: the pulse loops
+  with no pause control (WCAG 2.2.2).
+- **Knowunity AI-native panel, three rows** (Lumbini: "make how I set up the system section first and
+  make it its own row, then I decide … then the design system documentation, remove product film"):
+  1. "The system I set up", its points in three columns.
+  2. "What stayed mine": the intro, the three tiles and their caption.
+  3. The design system link and the two Storybook cards.
+
+  A hairline separates the rows. The "Product film" point is removed.
+
 ### 2026-11-02 — Bloom usability test had 10 participants; chapter link; persona quote source
 **Decided by:** Lumbini.
 - **Reversal of** the Oct 28 and Oct 30 counts: the usability test had 10 participants, and 9 of 12

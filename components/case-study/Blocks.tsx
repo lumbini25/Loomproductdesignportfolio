@@ -165,11 +165,14 @@ const wideCols: Record<number, string> = {
   3: "fit-3 grid-cols-3 items-start",
 };
 
-export function BlockView({ block }: { block: Block }) {
+// `spacious` (Knowunity, types.ts `density`): wider gaps between cards and more padding inside them.
+export function BlockView({ block, spacious = false }: { block: Block; spacious?: boolean }) {
+  const cardGrid = spacious ? "gap-6" : "gap-4";
+  const cardPad = spacious ? "gap-3 p-8" : "gap-2.5 p-6";
   switch (block.kind) {
     case "text":
       return (
-        <div className={`flex flex-col ${block.tight ? "gap-3" : "gap-4"}`}>
+        <div className={`flex flex-col ${spacious ? (block.tight ? "gap-4" : "gap-5") : block.tight ? "gap-3" : "gap-4"}`}>
           {block.label && <Eyebrow>{block.label}</Eyebrow>}
           {block.heading && <h3 className="text-title-s font-bold text-title">{block.heading}</h3>}
           {block.paragraphs.map((p) => (
@@ -400,7 +403,12 @@ export function BlockView({ block }: { block: Block }) {
                         const picture = (
                           <div style={{ maxWidth: `calc(80svh * ${img.width / img.height})` }}>
                             {block.bare || img.fit === "contain" ? (
-                              <Picture image={img} sizes={wideSizes[columns]} className={frame(img)} />
+                              <div className="relative">
+                                <Picture image={img} sizes={wideSizes[columns]} className={frame(img)} />
+                                {img.markers?.map((m) => (
+                                  <span key={`${m.x}-${m.y}`} aria-hidden="true" className="pulse-dot" style={{ left: `${m.x}%`, top: `${m.y}%` }} />
+                                ))}
+                              </div>
                             ) : (
                               <div className="rounded-card border border-line bg-surface p-4 tablet:p-8">
                                 <Picture image={img} sizes={wideSizes[columns]} />
@@ -526,10 +534,10 @@ export function BlockView({ block }: { block: Block }) {
       // Below 1200 every card row is one card per line (Lumbini, 2026-11-03).
       const cols = block.look === "rows" ? "grid-cols-1" : n === 5 ? "stack-fit-5 grid-cols-1 desktop:grid-cols-5" : n === 3 ? "stack-fit-3 grid-cols-1 desktop:grid-cols-3" : "stack-fit-2 grid-cols-1 desktop:grid-cols-2";
       return (
-        <div className="flex flex-col gap-4">
+        <div className={`flex flex-col ${cardGrid}`}>
           {block.label && block.look !== "boxes" && <Eyebrow>{block.label}</Eyebrow>}
           {block.heading && <h3 className="font-jakarta text-title-xs font-bold">{block.heading}</h3>}
-          <List className={`grid gap-4 ${cols}`}>
+          <List className={`grid ${cardGrid} ${cols}`}>
             {block.items.map((item, i) => {
               const steps = block.look === "boxes" && block.label;
               const labelOnly = block.look === "boxes" && !numbered && !block.label;
@@ -545,7 +553,7 @@ export function BlockView({ block }: { block: Block }) {
                   className={
                     block.look === "soft"
                       ? "flex flex-col gap-3 rounded-card-sm bg-surface-subtle px-3 py-6 shadow-card"
-                      : "flex flex-col gap-2.5 rounded-media border border-line bg-surface p-6"
+                      : `flex flex-col rounded-media border border-line bg-surface ${cardPad}`
                   }
                 >
                   {(block.numberInline || block.look === "rows") && label && title ? (
@@ -705,12 +713,14 @@ export function BlockView({ block }: { block: Block }) {
       return (
         <figure>
           <div className={block.side ? "grid grid-cols-1 items-center gap-6 desktop:grid-cols-[minmax(0,752fr)_minmax(0,380fr)] desktop:gap-12" : undefined}>
-          <dl className="stack-fit-3 grid grid-cols-1 gap-4 desktop:grid-cols-3">
+          <dl className={`stack-fit-3 grid grid-cols-1 ${cardGrid} desktop:grid-cols-3`}>
             {/* One number style on every case study (2026-10-29): a filled card. */}
             {block.items.map((s) => (
               // Figma 223:2793 finding card: Plus Jakarta Bold 40/48 number over a DM Sans SemiBold
               // 16/24 label, filled, 24px corners, 24 by 28 padding, left-aligned.
-              <div key={s.label} className="flex flex-col-reverse gap-2.5 rounded-card bg-surface-subtle px-6 py-7">
+              // justify-end: in a reversed column that pins the number to the top, so numbers line up
+              // across cards whose labels wrap to different lengths (Lumbini, 2026-11-17).
+              <div key={s.label} className={`flex flex-col-reverse justify-end gap-2.5 rounded-card bg-surface-subtle ${spacious ? "px-8 py-9" : "px-6 py-7"}`}>
                 <dt className="font-dm text-body-s font-semibold text-subtitle">{s.label}</dt>
                 <dd className="font-jakarta text-h3-sm font-bold text-title tablet:text-h3">{s.value}</dd>
               </div>
@@ -738,11 +748,11 @@ export function BlockView({ block }: { block: Block }) {
 
     case "findings":
       return (
-        <div className="flex flex-col gap-4">
+        <div className={`flex flex-col ${cardGrid}`}>
           {block.heading && <h3 className="font-jakarta text-title-xs font-bold">{block.heading}</h3>}
-          <ol className="stack-fit-4 grid grid-cols-1 gap-4 desktop:grid-cols-4">
+          <ol className={`stack-fit-4 grid grid-cols-1 ${cardGrid} desktop:grid-cols-4`}>
             {block.items.map((item, i) => (
-              <li key={item} className="flex min-w-0 flex-col gap-2.5 rounded-media border border-line bg-surface p-6">
+              <li key={item} className={`flex min-w-0 flex-col rounded-media border border-line bg-surface ${cardPad}`}>
                 <Eyebrow>{String(i + 1).padStart(2, "0")}</Eyebrow>
                 <p className="text-body-m text-caption">{item}</p>
               </li>
@@ -754,14 +764,14 @@ export function BlockView({ block }: { block: Block }) {
     case "options": {
       const columns = block.columns ?? 2;
       const Title = block.heading ? "h4" : "h3";
-      const rowClass = columns === 3 ? "stack-fit-3 grid grid-cols-1 gap-4 desktop:grid-cols-3" : columns === 2 ? "stack-fit-2 grid grid-cols-1 gap-4 desktop:grid-cols-2" : "grid grid-cols-1 gap-4";
+      const rowClass = columns === 3 ? `stack-fit-3 grid grid-cols-1 ${cardGrid} desktop:grid-cols-3` : columns === 2 ? `stack-fit-2 grid grid-cols-1 ${cardGrid} desktop:grid-cols-2` : `grid grid-cols-1 ${cardGrid}`;
       return (
-        <div className="flex flex-col gap-4">
+        <div className={`flex flex-col ${cardGrid}`}>
           {block.heading && <h3 className="font-jakarta text-title-xs font-bold">{block.heading}</h3>}
           <figure>
             <ul className={rowClass}>
               {block.items.map((item) => (
-                <li key={item.label ?? item.title ?? item.body} className="flex min-w-0 flex-col gap-2.5 rounded-card border border-line bg-surface p-6">
+                <li key={item.label ?? item.title ?? item.body} className={`flex min-w-0 flex-col rounded-card border border-line bg-surface ${cardPad}`}>
                   {item.label && <Eyebrow>{item.label}</Eyebrow>}
                   {item.title && <Title className="text-title-s font-bold text-title">{item.title}</Title>}
                   {item.body && <p className={`text-body-m ${block.strong ? "text-title" : block.muted ? "text-body" : "text-caption"}`}>{item.body}</p>}
@@ -1077,84 +1087,88 @@ export function BlockView({ block }: { block: Block }) {
       );
     }
 
-    case "showcase":
+    case "showcase": {
       // Light text on the inverse surface; muted lines use the inverse text at 70%, which stays
       // above 4.5:1 on Neutral 0. The chip stays light: Rust on this surface would fail contrast.
+      // Three rows (Lumbini, 2026-11-17): the system first, then what stayed mine, then the design
+      // system documentation. A hairline separates the rows.
+      const row = spacious ? "border-t border-on-inverse/15 pt-12" : "border-t border-on-inverse/15 pt-8";
       return (
-        <div className="flex flex-col gap-8 rounded-featured bg-surface-inverse p-5 text-on-inverse tablet:p-10">
-          <div className="grid grid-cols-1 gap-8 desktop:grid-cols-[minmax(0,1fr)_minmax(0,400px)] desktop:gap-12">
-            <div className="flex flex-col items-start gap-5">
-              <p className="rounded-pill bg-on-inverse/10 px-3 py-1.5 font-(family-name:--font-heading) text-caption-m font-medium uppercase">
-                {block.label}
-              </p>
-              {block.intro.map((p) => (
-                <p key={p.slice(0, 40)} className="text-body-m text-on-inverse/80">
-                  <Rich text={p} />
-                </p>
-              ))}
-              {block.steps && (
-                <figure className="flex w-full flex-col gap-3">
-                  <ol className="stack-fit-3 grid grid-cols-1 gap-3 desktop:grid-cols-3">
-                    {block.steps.map((st) => (
-                      <li key={st.title} className="rounded-media border border-on-inverse/15 p-4">
-                        <p className="text-title-s font-bold">{st.title}</p>
-                        <p className="mt-1 text-body-m text-on-inverse/70">{st.body}</p>
-                      </li>
-                    ))}
-                  </ol>
-                  {block.stepsCaption && (
-                    <figcaption className="text-on-inverse/70">{block.stepsCaption}</figcaption>
-                  )}
-                </figure>
-              )}
-              {block.link && (
-                <a
-                  href={block.link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex min-h-11 w-full items-center justify-between gap-4 rounded-card bg-on-inverse p-5 text-title-s font-bold text-title hover:bg-on-inverse/90"
-                >
-                  <span>
-                    {block.link.label}
-                    <span className="sr-only"> (opens in a new tab)</span>
-                  </span>
-                  <ArrowRightIcon size={22} className="shrink-0" />
-                </a>
-              )}
-            </div>
-            <div className="rounded-card border border-on-inverse/15 bg-on-inverse/5 p-6">
-              <h3 className="text-title-s font-bold">{block.kit.title}</h3>
-              <ul className="mt-2 flex flex-col divide-y divide-on-inverse/15">
-                {block.kit.items.map((it) => (
-                  <li key={it.title} className="flex gap-3 py-3">
-                    <CheckCircleIcon size={22} className="mt-0.5 shrink-0 text-on-inverse/80" />
-                    <div>
-                      <p className="text-title-s font-bold">{it.title}</p>
-                      {it.body && <p className="text-body-m text-on-inverse/70">{it.body}</p>}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <ul className="stack-fit-2 grid grid-cols-1 gap-6 desktop:grid-cols-2">
-            {block.cards.map((c) => (
-              <li key={c.title} className="flex flex-col gap-4 rounded-card border border-on-inverse/15 bg-on-inverse/5 p-4 tablet:p-5">
-                {c.image && (
-                  <div className="rounded-media bg-on-inverse/10 p-4">
-                    <Picture image={c.image} sizes="(min-width: 1200px) 500px, (min-width: 834px) 45vw, 90vw" className="rounded-media" />
+        <div className={`flex flex-col rounded-featured bg-surface-inverse p-5 text-on-inverse ${spacious ? "gap-12 tablet:p-14" : "gap-8 tablet:p-10"}`}>
+          <div className="flex flex-col gap-6">
+            <h3 className="text-title-s font-bold">{block.kit.title}</h3>
+            <ul className={`grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 ${spacious ? "gap-x-10 gap-y-8" : "gap-x-8 gap-y-6"}`}>
+              {block.kit.items.map((it) => (
+                <li key={it.title} className="flex gap-3">
+                  <CheckCircleIcon size={22} className="mt-0.5 shrink-0 text-on-inverse/80" />
+                  <div className="flex flex-col gap-1">
+                    <p className="text-title-s font-bold">{it.title}</p>
+                    {it.body && <p className="text-body-m text-on-inverse/70">{it.body}</p>}
                   </div>
-                )}
-                <div className="flex flex-col gap-2">
-                  {c.label && <p className="font-(family-name:--font-heading) text-caption-m font-medium uppercase text-on-inverse/70">{c.label}</p>}
-                  <h3 className="text-title-s font-bold">{c.title}</h3>
-                  {c.body && <p className="text-body-m text-on-inverse/70">{c.body}</p>}
-                </div>
-              </li>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className={`flex flex-col items-start ${spacious ? "gap-7" : "gap-5"} ${row}`}>
+            <p className="rounded-pill bg-on-inverse/10 px-3 py-1.5 font-(family-name:--font-heading) text-caption-m font-medium uppercase">
+              {block.label}
+            </p>
+            {block.intro.map((p) => (
+              <p key={p.slice(0, 40)} className="max-w-[820px] text-body-m text-on-inverse/80">
+                <Rich text={p} />
+              </p>
             ))}
-          </ul>
+            {block.steps && (
+              <figure className={`flex w-full flex-col ${spacious ? "gap-4" : "gap-3"}`}>
+                <ol className={`stack-fit-3 grid grid-cols-1 desktop:grid-cols-3 ${spacious ? "gap-4" : "gap-3"}`}>
+                  {block.steps.map((st) => (
+                    <li key={st.title} className={`rounded-media border border-on-inverse/15 ${spacious ? "p-6" : "p-4"}`}>
+                      <p className="text-title-s font-bold">{st.title}</p>
+                      <p className="mt-1 text-body-m text-on-inverse/70">{st.body}</p>
+                    </li>
+                  ))}
+                </ol>
+                {block.stepsCaption && (
+                  <figcaption className="text-on-inverse/70">{block.stepsCaption}</figcaption>
+                )}
+              </figure>
+            )}
+          </div>
+          <div className={`flex flex-col ${spacious ? "gap-8" : "gap-6"} ${row}`}>
+            {block.link && (
+              <a
+                href={block.link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex min-h-11 w-full items-center justify-between gap-4 rounded-card bg-on-inverse p-5 text-title-s font-bold text-title hover:bg-on-inverse/90"
+              >
+                <span>
+                  {block.link.label}
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </span>
+                <ArrowRightIcon size={22} className="shrink-0" />
+              </a>
+            )}
+            <ul className={`stack-fit-2 grid grid-cols-1 desktop:grid-cols-2 ${spacious ? "gap-8" : "gap-6"}`}>
+              {block.cards.map((c) => (
+                <li key={c.title} className={`flex flex-col gap-4 rounded-card border border-on-inverse/15 bg-on-inverse/5 p-4 ${spacious ? "tablet:p-7" : "tablet:p-5"}`}>
+                  {c.image && (
+                    <div className="rounded-media bg-on-inverse/10 p-4">
+                      <Picture image={c.image} sizes="(min-width: 1200px) 500px, (min-width: 834px) 45vw, 90vw" className="rounded-media" />
+                    </div>
+                  )}
+                  <div className="flex flex-col gap-2">
+                    {c.label && <p className="font-(family-name:--font-heading) text-caption-m font-medium uppercase text-on-inverse/70">{c.label}</p>}
+                    <h3 className="text-title-s font-bold">{c.title}</h3>
+                    {c.body && <p className="text-body-m text-on-inverse/70">{c.body}</p>}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       );
+    }
 
     case "placeholder":
       return <Note label={caseStudy.placeholder}>{block.text}</Note>;

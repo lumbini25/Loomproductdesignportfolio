@@ -51,20 +51,18 @@ export function SiteHeader() {
             </Link>
           </li>
         ))}
-        {site.resumeUrl && (
-          <li>
-            <a
-              href={site.resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              // Underlined everywhere except on Fun & experiments, as in variant 4 (Lumbini, 2026-11-08).
-              className={`${cls} ${pathname === "/fun" ? "" : "underline"}`}
-              onClick={onClick}
-            >
-              Resume<span className="sr-only"> (opens in a new tab)</span>
-            </a>
-          </li>
-        )}
+        <li>
+          {/* The Resume page (Lumbini, 2026-11-17; it was the Google Doc). Underlined everywhere
+              except on Fun & experiments, as in variant 4 (Lumbini, 2026-11-08). */}
+          <Link
+            href="/resume"
+            className={`${cls} ${pathname === "/fun" ? "" : "underline"}`}
+            onClick={onClick}
+            aria-current={current("/resume")}
+          >
+            Resume
+          </Link>
+        </li>
         <li>
           <a
             href="#contact"

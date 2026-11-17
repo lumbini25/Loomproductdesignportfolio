@@ -15,6 +15,7 @@ const phone = (file: string, alt: string, caption?: string, width = 1170, height
 
 export const knowunity: CaseStudy = {
   slug: "knowunity",
+  density: "spacious",
   theme: "knowunity",
   title:
     "Replaced vague progress feedback with a progressive hint ladder and actionable next steps after every Speak Out Loud round.",
@@ -228,10 +229,7 @@ export const knowunity: CaseStudy = {
               { title: "Component library", body: "32 components in Storybook. Every screen uses them." },
               { title: "Critic agents", body: "Four critic agents (craft, UX, design system, ambition) and a spec reviewer." },
               { title: "Rubric and hard gates", body: "Six dimensions and four hard gates, such as 48 px tap targets and 4.5:1 contrast." },
-              {
-                title: "Product film",
-                body: "Claude Code rendered the film from the real components. It can't show anything the prototype doesn't do.",
-              },
+              // "Product film" removed from this list (Lumbini, 2026-11-17).
             ],
           },
           cards: [
@@ -566,34 +564,26 @@ export const knowunity: CaseStudy = {
       chapter: { number: "12", title: "Reflection" },
       heading: "Reflection",
       eyebrowOnly: true,
+      // Three cards, one line each, as on the case-study slide deck (Lumbini, 2026-11-17: "do not use
+      // wall of texts"). Each line is taken from the longer reflection it replaces; the dropped detail
+      // (the beta exit sheet's answer options, the walkthrough as two students, reading the percentage
+      // as a grade) stays in git history.
       blocks: [
         {
-          kind: "text",
-          tight: true,
-          heading: "The two targets pulled against each other, so I chose which one each screen served",
-          paragraphs: [
-            "A choice that helps students start can hurt them finish, and the reverse.",
-            "Type Instead served activation. I kept it on the idle and hint screens, so a student who cannot speak aloud has a way to start.",
-            "The beta’s exit sheet lists “I can’t speak out loud right now” and “I feel awkward talking to the app” as reasons to stop. Those are answer options, not counts, so I treat them as a risk, not a measurement.",
-            "The four-round cap served completion. With generous judging, a student who struggles reaches the answer without feeling punished.",
-          ],
-        },
-        {
-          kind: "text",
-          tight: true,
-          heading: "Students check their own recording first, and the transcript stays read-only",
-          paragraphs: [
-            "Before they submit, students replay their answer and re-record if it sounds wrong. After they submit, Knowie shows what it heard while it evaluates.",
-            "I made the transcript read-only. The cost is that fixing one wrong word means re-recording the whole answer.",
-          ],
-        },
-        {
-          kind: "text",
-          tight: true,
-          heading: "What I would test first: whether students speak at all",
-          paragraphs: [
-            "I walked the flow as two students: a 16-year-old comfortable speaking aloud, and one self-conscious in a shared space. A walkthrough tests my assumptions, not students.",
-            "A pilot would measure the start rate against the 25% target, with the share who switch to Type Instead beside it. It would also check whether students read the percentage as a grade. The ring shows how much of the model answer they covered.",
+          kind: "cards",
+          items: [
+            {
+              title: "The two targets pulled against each other, so I chose which one each screen served",
+              body: "Type Instead served activation. The four-round cap served completion.",
+            },
+            {
+              title: "Students check their own recording first, and the transcript stays read-only",
+              body: "The cost: fixing one wrong word means re-recording the whole answer.",
+            },
+            {
+              title: "What I would test first: whether students speak at all",
+              body: "A pilot would measure the start rate against the 25% target, with the share who switch to Type Instead beside it.",
+            },
           ],
         },
       ],

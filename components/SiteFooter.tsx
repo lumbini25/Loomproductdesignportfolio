@@ -46,13 +46,11 @@ export function SiteFooter() {
                   </Link>
                 </li>
               ))}
-              {site.resumeUrl && (
-                <li>
-                  <a href={site.resumeUrl} target="_blank" rel="noopener noreferrer" className={textLink}>
-                    Resume<span className="sr-only"> (opens in a new tab)</span>
-                  </a>
-                </li>
-              )}
+              <li>
+                <Link href="/resume" className={textLink}>
+                  Resume
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>

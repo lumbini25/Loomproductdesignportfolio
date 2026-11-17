@@ -58,13 +58,10 @@ export default function AboutPage() {
             </p>
           ))}
           <ul className="flex flex-wrap items-center gap-3 pt-2">
-            {site.resumeUrl && (
-              <li>
-                <ButtonLink href={site.resumeUrl} external>
-                  {about.resumeCta}
-                </ButtonLink>
-              </li>
-            )}
+            <li>
+              {/* The Resume page (Lumbini, 2026-11-17; it was the Google Doc). */}
+              <ButtonLink href="/resume">{about.resumeCta}</ButtonLink>
+            </li>
             <li>
               <a href={site.linkedinUrl} target="_blank" rel="noopener noreferrer" className={iconLink}>
                 <LinkedinLogoIcon size={20} />

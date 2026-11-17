@@ -8,7 +8,8 @@ export const site = {
   email: "loomdesign25@gmail.com",
   linkedinUrl: "https://www.linkedin.com/in/lumbini-sharma",
   xUrl: "https://x.com/SharmaLumbini",
-  // Google Doc, opened in a new tab. Set to null to hide every Resume link.
+  // The resume Google Doc. Since 2026-11-17 the nav opens the Resume page (/resume), which links here;
+  // set to null to hide that link.
   resumeUrl:
     "https://docs.google.com/document/d/1LoPmLB7tX72RWaYkSCMGEXsbQYX6kdF4GF_4mKb6JaY/edit?usp=sharing" as
       | string

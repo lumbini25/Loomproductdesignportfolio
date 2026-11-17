@@ -97,6 +97,9 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
         : stages.filter((st) => firstOfStage.has(st)).map((st) => ({ id: firstOfStage.get(st)!, label: st }));
   // WTV follows its Figma frame 112:13: full width, no index (types.ts, `layout`).
   const full = study.layout === "full";
+  // More room between and inside blocks, Knowunity only (types.ts, `density`).
+  const spacious = study.density === "spacious";
+  const sectionGap = spacious ? "gap-10 tablet:gap-12 desktop:gap-14" : "gap-8";
 
   // Sections inside the "full process" panel, when the study has one (types.ts, `process`).
   const ids = study.sections.map((x) => x.id);
@@ -163,11 +166,11 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
       // (Lumbini, 2026-11-03), only where hover exists and motion is allowed.
       const isVisual = (b: Section["blocks"][number]) => b.kind === "wide" || b.kind === "video";
       return (
-        <section key={s.id} aria-labelledby={s.id} className={`flex flex-col gap-8 ${study.motion === "carmen" ? "reveal" : ""}`}>
+        <section key={s.id} aria-labelledby={s.id} className={`flex flex-col ${sectionGap} ${study.motion === "carmen" ? "reveal" : ""}`}>
           <div className="flex flex-col gap-3.5">
             {header}
             {s.blocks.filter((b) => !isVisual(b)).map((block, i) => (
-              <BlockView key={i} block={block} />
+              <BlockView key={i} block={block} spacious={spacious} />
             ))}
           </div>
           {s.blocks.filter(isVisual).map((block, i) => (
@@ -177,10 +180,10 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
             >
               {block.kind === "wide" && block.images.length === 1 ? (
                 <ExpandableVisual image={block.images[0]}>
-                  <BlockView block={block} />
+                  <BlockView block={block} spacious={spacious} />
                 </ExpandableVisual>
               ) : (
-                <BlockView block={block} />
+                <BlockView block={block} spacious={spacious} />
               )}
             </div>
           ))}
@@ -188,7 +191,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
       );
     }
     return (
-      <section key={s.id} aria-labelledby={s.id} className={`flex flex-col gap-8 ${study.motion === "carmen" ? "reveal" : ""}`}>
+      <section key={s.id} aria-labelledby={s.id} className={`flex flex-col ${sectionGap} ${study.motion === "carmen" ? "reveal" : ""}`}>
         <div
           className={
             s.media
@@ -212,7 +215,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
           </div>
         )}
         {s.blocks.map((block, i) => (
-          <BlockView key={i} block={block} />
+          <BlockView key={i} block={block} spacious={spacious} />
         ))}
       </section>
     );
@@ -395,7 +398,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
                 </div>
               )}
               {study.heroBlocks?.map((block, i) => (
-                <BlockView key={i} block={block} />
+                <BlockView key={i} block={block} spacious={spacious} />
               ))}
             </div>
             {study.contributions && (
@@ -463,7 +466,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
         {/* 960 is the content column at 1440; below 1200 it caps the single column there too. A
             study with a coloured opening (Figma 283:572) runs to the 120px rail instead, about
             1100 at 1440, and caps its own text lines (968 headings, 820 body). */}
-        <div className={`flex min-w-0 flex-1 flex-col gap-section-sm desktop:gap-section ${full || study.opening ? "" : "max-w-[960px]"}`}>
+        <div className={`flex min-w-0 flex-1 flex-col ${spacious ? "gap-20 desktop:gap-32" : "gap-section-sm desktop:gap-section"} ${full || study.opening ? "" : "max-w-[960px]"}`}>
           {before.map(renderSection)}
           {study.process && inProcess.length > 0 && (
             <ProcessAccordion id="full-process" label={study.process.label} title={study.process.title}>
